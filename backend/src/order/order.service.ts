@@ -6,7 +6,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { Customer } from 'src/customer/entities/customer.entity';
 import { CreateCustomerDto } from 'src/customer/dto/create-customer.dto';
 import { updateOrderDto } from './dto/update-order.dto';
-import { Product, ProductSchema } from 'src/product/entities/product.entity';
+import { Product, ProductSchema } from 'src/product/entity/product.entity';
 
 
 @Injectable()
