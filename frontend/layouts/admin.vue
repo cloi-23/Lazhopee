@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts" setup>
-import "../assets/css/style.css"
 
 </script>
 

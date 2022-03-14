@@ -3,7 +3,6 @@ import { Type } from 'class-transformer'
 import { Articles } from './articles-dto'
 export class CreateOrderDto {
 
-  @IsOptional()
   @IsString()
   customerId: string
 
@@ -11,4 +10,7 @@ export class CreateOrderDto {
   @Type(() => Articles)
   articles: Articles[];
 
+  @IsOptional()
+  @IsString()
+  status: string
 }

@@ -66,7 +66,7 @@ export class ManagerService {
     async update(id: string, updateManagerDto: UpdateManagerDto) {
       await this.managerModel
       .findOneAndUpdate({ _id: id }, { $set: updateManagerDto }, { new: true })
-      .exec();
+      .exec();    
     }
   
     async remove(id: string) {

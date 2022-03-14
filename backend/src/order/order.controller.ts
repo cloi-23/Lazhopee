@@ -8,7 +8,7 @@ import {
   Post, 
   Query} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { updateOrderDto } from './dto/update-order.dto';
 import { OrderService } from './order.service';
 
 @Controller('order')
@@ -21,8 +21,8 @@ export class OrderController {
   }
 
   @Get('customer/:userId')
-  findAllOrderByCust(@Param('userId') id: string) {
-    return this.orderService.findAllOrderByCust(id);
+  pendingOrderByCust(@Param('userId') id: string) {
+    return this.orderService.pendingOrderByCust(id);
   }
 
   @Get(':id')
@@ -35,14 +35,9 @@ export class OrderController {
     return this.orderService.create(createOrderDto);
   }
 
-  @Patch('status/')
-  update(@Body() updateOrderDto: UpdateOrderDto) {  
-  return this.orderService.update(updateOrderDto);
-  }
-
-  @Delete('customer/:userId')
-  RemoveAllOrderByCust(@Param('userId') id: string) {
-    return this.orderService.RemoveAllOrderByCust(id);  
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateOrderDto: updateOrderDto) {   
+  return this.orderService.update(id, updateOrderDto);
   }
 
   @Delete(':id')

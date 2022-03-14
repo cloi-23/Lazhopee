@@ -9,13 +9,12 @@
     <th>Customer Name</th>
     <th>Customer Address</th>
   </tr>
-  <tr v-for="(list,index) in orders" :key="index" >
+  <tr v-for="(list,index) in orders" :key="index">
     <td>{{ list.order.date }}</td>
-    <td >{{ list.customer.name }}</td>
-    <td>{{ list.customer.address }}</td>    
+    <td v-if="list.order.status === 'Pending'"><nuxt-link :to = "{ name: 'orders-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
+    <td v-else>{{ list.customer.name }}</td>
+    <td>{{ list.customer.address }}</td>
   </tr>
-  <th>Articles</th>
-  <td v-for="article in orders">{{article.order.articles[0].productId}}</td>
   </table>
   </div>
 </div>

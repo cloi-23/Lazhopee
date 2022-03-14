@@ -10,6 +10,8 @@ import { ManagerModule } from './manager/manager.module';
 import { OrderModule } from './order/order.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { UploadModule } from './upload/upload.module';
+
+
 @Module({
   imports: [MongooseModule.forRoot('mongodb://localhost:27018/Lazhopee'),
   CustomerModule,

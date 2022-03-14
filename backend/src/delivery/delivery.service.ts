@@ -2,14 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Delivery } from './entities/delivery.entity';
 import { Model } from 'mongoose'
-import { Order } from 'src/order/entities/order.entity';
-import { Driver } from 'src/driver/entities/drivers.entity';
 
 @Injectable()
 export class DeliveryService {
-  constructor(@InjectModel(Delivery.name) private readonly deliveryModel: Model <Delivery> ,
-  @InjectModel(Order.name) private readonly orderModel: Model <Order> ,
-  @InjectModel(Driver.name) private readonly driverModel: Model <Driver>) {}
+  constructor(@InjectModel(Delivery.name) private readonly deliveryModel: Model <Delivery>) {}
 
   async findAll(/* pagination: PaginationDto */) {
     return this.deliveryModel.find()
