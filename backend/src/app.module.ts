@@ -9,13 +9,16 @@ import { DriverModule } from './driver/driver.module';
 import { ManagerModule } from './manager/manager.module';
 import { OrderModule } from './order/order.module';
 import { DeliveryModule } from './delivery/delivery.module';
+import { ProductModule } from './product/product.module';
+
 @Module({
   imports: [MongooseModule.forRoot('mongodb://localhost/Lazhopee'),
   CustomerModule,
   DriverModule,
   ManagerModule,
   OrderModule,
-  DeliveryModule],
+  DeliveryModule,
+  ProductModule],
   controllers: [AppController, StoreController],
   providers: [AppService],
 })
