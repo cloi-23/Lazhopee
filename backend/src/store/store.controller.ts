@@ -1,4 +1,32 @@
-import { Controller } from '@nestjs/common';
+import { UpdateStoreDto } from './dto/update-store.dto';
+import { CreateStoreDto } from './dto/create-store.dto';
+import { StoreService } from './store.service';
+import { Body, Controller, Get, Param, Post, Delete, Patch } from '@nestjs/common';
 
 @Controller('store')
-export class StoreController {}
+export class StoreController {
+    constructor(private readonly storeService:StoreService){}
+
+    @Get()
+    findAll(){
+        return this.storeService.findAll()
+    }
+    @Get(':id')
+    findOne(@Param() id:string){
+        return this.storeService.findOne(id)
+    }
+    @Post('add')
+    create(@Body() createStoreDto:CreateStoreDto, @Body('name') name: string){
+        return this.storeService.create(name,createStoreDto)
+    }
+    
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
+        return this.storeService.update(id, updateStoreDto);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+        return this.storeService.remove(id);
+    }
+}
