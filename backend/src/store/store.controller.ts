@@ -12,7 +12,9 @@ export class StoreController {
         return this.storeService.findAll()
     }
     @Get(':id')
-    findOne(@Param() id:string){
+    findOne(@Param('id') id:string){
+        console.log(id);
+        
         return this.storeService.findOne(id)
     }
     @Post('add')

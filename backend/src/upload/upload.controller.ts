@@ -9,7 +9,7 @@ export class UploadController {
     constructor(
         private readonly uploadService:UploadService
     ){}
-    @Get(':image')
+    @Get(':name')
     display(@Res() res,@Param() image){
         return this.uploadService.show(res,image)
     }

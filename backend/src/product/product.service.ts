@@ -1,7 +1,8 @@
+import { Store } from './../store/entity/store.entity';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Product } from './entity/product.entity';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose'
 
@@ -9,19 +10,38 @@ import { Model } from 'mongoose'
 export class ProductService {
     constructor(
         @InjectModel(Product.name)
-        private readonly productModel: Model<Product>
+        private readonly productModel: Model<Product>,
+        @InjectModel(Store.name)
+        private readonly storeModel: Model<Store>
     ){}
 
-    findAll(){
-        return this.productModel.find()
+  async  findAll(){
+      const productList = await this.productModel.find()/* .limit(limit).skip(page * limit) */
+      const storeProduct = []
+      for (const product of productList) {
+        const storeId = product.storeId
+        const store = await this.storeModel.findOne({_id: storeId})
+        const data = {
+          _id: product._id,
+          sellingPrice: product.sellingPrice,
+          image: product.image,
+          storeId: product.storeId,
+          name: product.name,
+          store: store.name,
+          category: product.category
+        }
+        storeProduct.push(data)    
+      }
+      return storeProduct
     }
 
    async findOne(id: string){
       try {
-        const product = this.productModel.findOne({id : id}).exec() 
+        const product = await this.productModel.findOne({_id : id}).exec() 
         if(!product){
             throw new NotFoundException(`Product #${id} not found`)
         }
+
         return product
       } catch (error) {
         throw new NotFoundException(`Product #${id} not found`)
@@ -29,18 +49,16 @@ export class ProductService {
        
    }
 
-   async create(name:string , createProductDto:CreateProductDto){
-       try {
-           const product =  await this.productModel.findOne({name : name}).exec()
-           if(!product){
-            throw new NotFoundException(`Product ${name} is already exist`)
-        }
-        return  product.save()
-           
-       } catch (error) {
-        throw new NotFoundException(`Product ${name} is already exist`)
-       }
-   }
+   async create(name: string, createProductDto: CreateProductDto) {
+    // await this.productModel.insertMany(DATA);
+    const product = new this.productModel(createProductDto);
+    const isExisting = await this.productModel.findOne({ name: name }).exec()
+
+    if (isExisting) {
+      throw new HttpException('product already exist!', HttpStatus.CONFLICT)
+    }
+    return product.save();
+  }
 
    async update(id:string, updateProductDto:UpdateProductDto){
        try {

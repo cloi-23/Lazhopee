@@ -7,10 +7,18 @@ export class CreateProductDto  {
     @IsString()
     storeId:string
 
+    @IsString()
+    category:string
+
     @IsOptional()
     @IsString()
     image:string
 
+    @IsOptional()
+    @IsString()
+    description:string
+
+    @IsOptional()
     @IsNumber()
     @IsPositive()
     sellingPrice:number

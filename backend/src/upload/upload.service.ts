@@ -7,6 +7,6 @@ export class UploadService {
         return file.filename
     }
     show(response,image){
-        return response.sendFile(join(process.cwd(), `/public/uploads/${image.id}`))
+        return response.sendFile(join(process.cwd(), `/public/uploads/${image.name}`))
     }
 }

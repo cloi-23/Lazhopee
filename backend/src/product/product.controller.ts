@@ -12,7 +12,7 @@ export class ProductController {
         return this.productService.findAll()
     }
     @Get(':id')
-    findOne(@Param() id: string){
+    findOne(@Param('id') id: string){
         return this.productService.findOne(id)
     }
     @Post('add')

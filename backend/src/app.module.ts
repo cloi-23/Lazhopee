@@ -1,3 +1,4 @@
+import { ProductModule } from './product/product.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -17,7 +18,8 @@ import { UploadModule } from './upload/upload.module';
   OrderModule,
   DeliveryModule,
   StoreModule,
-  UploadModule],
+  UploadModule,
+  ProductModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -10,6 +10,7 @@ import { StoreService } from './store.service';
     schema:StoreSchema
   }])],
   controllers:[StoreController],
-  providers: [StoreService]
+  providers: [StoreService],
+  exports: [StoreService]
 })
 export class StoreModule {}

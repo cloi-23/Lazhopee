@@ -11,7 +11,7 @@ export class Store  extends Document {
   contact: string;
 
   @Prop()
-  Addres: string;
+  address: string;
 
   @Prop()
   image: string

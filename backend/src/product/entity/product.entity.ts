@@ -10,6 +10,12 @@ export class Product  extends Document{
     storeId:string
 
     @Prop()
+    category:string
+
+    @Prop()
+    description:string
+
+    @Prop()
     image:string
 
     @Prop()

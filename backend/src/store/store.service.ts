@@ -16,7 +16,7 @@ export class StoreService {
     }
     async findOne(id: string) {
         try{
-            const store = await this.storeModel.findOne({ _id: id }).exec();
+            const store = await this.storeModel.findOne({ _id: id}).exec();
             if (!store) {
               throw new NotFoundException(`Store #${id} not found`);
             }
