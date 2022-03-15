@@ -10,6 +10,8 @@ import { ManagerModule } from './manager/manager.module';
 import { OrderModule } from './order/order.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { UploadModule } from './upload/upload.module';
+import { PurchaseController } from './purchase/purchase.controller';
+import { PurchaseModule } from './purchase/purchase.module';
 
 
 @Module({
@@ -21,7 +23,8 @@ import { UploadModule } from './upload/upload.module';
   DeliveryModule,
   StoreModule,
   UploadModule,
-  ProductModule],
+  ProductModule,
+  PurchaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
