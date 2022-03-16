@@ -21,15 +21,14 @@ export class CustomerService {
   
     async findOne(id: string) {
       try{
-          const customer = await this.customerModel.findOne({ _id: id })
+          const customer = await this.customerModel.findOne({ _id: id }).exec()
             if (!customer) {
               throw new NotFoundException(`Customer #${id} not found`);
             }
             return customer 
       }
        catch(err){
-           console.log(err);
-           
+        throw new NotFoundException(`Customer #${id} not found`); 
       }
     }
     
@@ -47,7 +46,6 @@ export class CustomerService {
 
       }
       const customer = new this.customerModel(data);
- 
       return customer.save();
     }
   
@@ -55,19 +53,26 @@ export class CustomerService {
       try {
         const user = await this.customerModel.findOne({ username: login.username }).exec();
         const isMatch = await bcrypt.compare(login.password, user.password)
-        if (isMatch) {
-         // const { password, ...result } = user;      
-          return 'login successful';
+        if (isMatch) {   
+          return user['_id'];
         }
-        throw new HttpException('',HttpStatus.UNAUTHORIZED)
+        throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)
       } catch (err){
-         throw new HttpException('username or password not exist!', HttpStatus.UNAUTHORIZED)
+        throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)       
       }
     }
   
     async update(id: string, updateCustomerDto: UpdateCustomerDto) {
-      await this.customerModel
-      .findOneAndUpdate({ _id: id }, { $set: updateCustomerDto }, { new: true })
+      try {
+        const customer = await this.customerModel
+        .findOneAndUpdate({ _id: id }, { $set: updateCustomerDto }, { new: true })
+        if(!customer) {
+        throw new HttpException('id does not exist!', HttpStatus.NOT_FOUND)
+        }
+        return 'success'
+      } catch (e) {
+        throw new HttpException('id does not exist!', HttpStatus.NOT_FOUND)
+      }
     }
   
     async remove(id: string) {

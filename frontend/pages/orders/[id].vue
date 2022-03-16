@@ -35,7 +35,7 @@ const routeBack = () => {
   router.push('/orders')
 }
 
-  const { data: details } = await axios.get(`http://localhost:3000/order/${route.params.id}`)
+  const { data: details } = await axios.get(`http://localhost:3000/order/product/${route.params.id}`)
 
   const { data: drivers } = await axios.get(`http://localhost:3000/driver/`)
 

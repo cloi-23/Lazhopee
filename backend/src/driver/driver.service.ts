@@ -28,8 +28,7 @@ export class DriverService {
         return driver;
       } catch (error) {
         throw new NotFoundException(`Driver #${id} not found`);
-      }
-     
+      }    
     }
   
   async create(createDriverDto: CreateDriverDto) {
@@ -46,27 +45,31 @@ export class DriverService {
 
       }
       const customer = new this.driverModel(data);
- 
       return customer.save();
     }
   
     async update(id: string, updateDriverDto: UpdateDriverDto) {
-      await this.driverModel
-      .findOneAndUpdate({ _id: id }, { $set: updateDriverDto }, { new: true })
-      .exec();
+      try {
+        const driver = await this.driverModel.findOneAndUpdate({ _id: id }, { $set: updateDriverDto }, { new: true })
+        if(!driver) {
+        throw new HttpException('id does not exist!s', HttpStatus.NOT_FOUND)
+        }
+        return 'success'
+      } catch (e) {
+        throw new HttpException('id does not exist!', HttpStatus.NOT_FOUND)
+      }
     }
+
     async validateUser(login:LoginDriveDto): Promise<any> {
       try {
         const user = await this.driverModel.findOne({ username: login.username }).exec();
         const isMatch = await bcrypt.compare(login.password, user.password)
-        if (isMatch) {
-         // const { password, ...result } = user;      
+        if (isMatch) {   
           return user['_id'];
         }
         throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)
       } catch (err){
-         console.log(err);
-         
+        throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)       
       }
     }
   

@@ -23,15 +23,20 @@ export class DeliveryService {
       throw new NotFoundException(`Delivery #${id} not found`);
     }
   }
-  
     create(createDelivery: Object[]) {
-    this.deliveryModel.insertMany(createDelivery) 
+    const delivery = new this.deliveryModel(createDelivery) 
+    return delivery.save()
   }
 
   async update(id: string, updateDelivery) {
-    await this.deliveryModel
-    .findOneAndUpdate({ _id: id }, { $set: updateDelivery }, { new: true })
-    .exec();
+    try {
+      await this.deliveryModel
+      .findOneAndUpdate({ _id: id }, { $set: updateDelivery }, { new: true })
+      .exec();
+    } catch (e) {
+      throw new NotFoundException(`Delivery #${id} not found`);
+    }
+
   }
 
   async remove(id: string) {

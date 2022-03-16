@@ -55,7 +55,7 @@ export class ManagerService {
         const user = await this.managerModel.findOne({ username: login.username }).exec();
         const isMatch = await bcrypt.compare(login.password, user.password)
         if  (isMatch) {
-          return 'login successful';
+          return user['_id']
         }
         throw new HttpException('',HttpStatus.UNAUTHORIZED)
       } catch {
@@ -64,9 +64,16 @@ export class ManagerService {
     }
   
     async update(id: string, updateManagerDto: UpdateManagerDto) {
-      await this.managerModel
-      .findOneAndUpdate({ _id: id }, { $set: updateManagerDto }, { new: true })
-      .exec();    
+      try {
+        const manager = await this.managerModel
+        .findOneAndUpdate({ _id: id }, { $set: updateManagerDto }, { new: true })
+        if(!manager) {
+        throw new HttpException('id does not exist!', HttpStatus.NOT_FOUND)
+        }
+        return 'success'
+      } catch (e) {
+        throw new HttpException('id does not exist!', HttpStatus.NOT_FOUND)
+      }   
     }
   
     async remove(id: string) {

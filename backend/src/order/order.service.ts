@@ -47,6 +47,18 @@ export class OrderService {
         if (!order) {
           throw new NotFoundException(`Order #${id} not found`);
         }
+        return order
+      } catch (error) {
+        throw new NotFoundException(`Order #${id} not found`);
+
+      }   
+    }
+    async findOrder(id: string) {
+      try {
+        const order = await this.findOne(id)
+        if (!order) {
+          throw new NotFoundException(`Order #${id} not found`);
+        }
         const product = []
         for (let key in order.articles) {
           const productId = order.articles[key].productId
@@ -57,13 +69,12 @@ export class OrderService {
           const newObj = Object.assign(order.articles[key],data); 
           product.push(newObj)
         }
-        return product
+        return order
       } catch (error) {
-        console.log(error); 
+        throw new NotFoundException(`Order #${id} not found`);
+
       }
-     
     }
-  
     async create(createOrderDto: CreateOrderDto) {
       const order = await this.orderModel.create(createOrderDto)
       return order.save();
