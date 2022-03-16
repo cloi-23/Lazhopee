@@ -4,7 +4,7 @@
 
      <ul>
        <li>Store : {{purchaseList.store}}</li>
-       <li>Date : {{purchaseList.dateOfPurchase}}</li>
+       <li>Date : <date-formatter :timestamp="purchaseList.dateOfPurchase"/></li>
      </ul>
       <list-purchase :purchaseList="purchaseList"/>
   </div>
