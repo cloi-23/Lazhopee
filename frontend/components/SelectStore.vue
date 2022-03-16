@@ -57,7 +57,6 @@ const messageData = (val) =>{
       product.value=null
       searchValue.value = null
     purchaseList.value.push(val)
-//    emit('puchases', purchaseList.value)
     emit('puchases', {articles:purchaseList.value,storeId:storeSelect.value ,dateOfPurchase:dateOfPurchase.value})
 }
 

@@ -21,21 +21,22 @@ export class CustomerService {
   
     async findOne(id: string) {
       try{
-          const customer = await this.customerModel.findOne({ _id: id }).exec();
+          const customer = await this.customerModel.findOne({ _id: id })
             if (!customer) {
               throw new NotFoundException(`Customer #${id} not found`);
             }
             return customer 
       }
        catch(err){
-           throw new NotFoundException(`Customer #${id} not found`);
+           console.log(err);
+           
       }
     }
     
     async create(createCustomerDto: CreateCustomerDto) {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(createCustomerDto.password, salt)
-      const user = await this.customerModel.findOne({ username: createCustomerDto.username }).exec();
+      const user = await this.customerModel.findOne({ username: createCustomerDto.username })
 
       if (user) {
         throw new HttpException('username already exist!', HttpStatus.CONFLICT)
@@ -67,7 +68,6 @@ export class CustomerService {
     async update(id: string, updateCustomerDto: UpdateCustomerDto) {
       await this.customerModel
       .findOneAndUpdate({ _id: id }, { $set: updateCustomerDto }, { new: true })
-      .exec();
     }
   
     async remove(id: string) {

@@ -1,5 +1,5 @@
-import { CreateProductDto } from './../../src/product/dto/create-product.dto';
-import { ProductModule } from './../../src/product/product.module';
+import { CreateProductDto } from '../../src/product/dto/create-product.dto';
+import { ProductModule } from '../../src/product/product.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe,HttpServer,HttpStatus } from '@nestjs/common';
@@ -24,7 +24,7 @@ describe('AppController (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [ProductModule,
-        MongooseModule.forRoot('mongodb://localhost:27019/TestDeliveryApp'),
+        MongooseModule.forRoot('mongodb://localhost:27019/TestLazhopee'),
         ],
     }).compile();
     app = moduleFixture.createNestApplication();

@@ -3,10 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose'
 import { Order } from './entities/order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { Customer } from 'src/customer/entities/customer.entity';
-import { CreateCustomerDto } from 'src/customer/dto/create-customer.dto';
+import { Customer } from '../customer/entities/customer.entity';
 import { updateOrderDto } from './dto/update-order.dto';
-import { Product, ProductSchema } from 'src/product/entity/product.entity';
+import { Product } from '../product/entity/product.entity';
 
 
 @Injectable()

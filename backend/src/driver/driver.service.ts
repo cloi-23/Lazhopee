@@ -35,7 +35,7 @@ export class DriverService {
   async create(createDriverDto: CreateDriverDto) {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(createDriverDto.password, salt)
-      const user = await this.driverModel.findOne({ username: createDriverDto.username }).exec();
+      const user = await this.driverModel.findOne({ username: createDriverDto.username })
 
       if (user) {
         throw new HttpException('username already exist!', HttpStatus.CONFLICT)
@@ -61,11 +61,12 @@ export class DriverService {
         const isMatch = await bcrypt.compare(login.password, user.password)
         if (isMatch) {
          // const { password, ...result } = user;      
-          return 'login successful';
+          return user['_id'];
         }
-        throw new HttpException('',HttpStatus.UNAUTHORIZED)
+        throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)
       } catch (err){
-         throw new HttpException('username or password not exist!', HttpStatus.UNAUTHORIZED)
+         console.log(err);
+         
       }
     }
   
