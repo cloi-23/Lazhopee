@@ -11,6 +11,12 @@ export class Purchase extends Document{
     @Prop()
     articles: Articles[]
 
+    @Prop()
+    storeId: string
+
+    @Prop()
+    totalAmount: string
+
 
 }
 

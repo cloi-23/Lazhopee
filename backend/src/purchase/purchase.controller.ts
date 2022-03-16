@@ -14,6 +14,10 @@ export class PurchaseController {
     findOne(@Param('id') id:string){
         return this.purchaseService.findOne(id)
     }
+    @Get('list/:id')
+    findPuchase(@Param('id') id:string){
+        return this.purchaseService.findPuchase(id)
+    }
     @Post('add')
     create(@Body() createPurchaseDto:CreatePurchaseDto){
         return this.purchaseService.create(createPurchaseDto)
