@@ -1,8 +1,6 @@
 <template>
   <div>
-       <Head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </Head>
+   
     <h1>Add Product</h1>
 
     <form @submit.prevent="add">
@@ -19,7 +17,7 @@
         <input type="text" class="form-control" v-model="category" placeholder="Enter Name" required>
         </div>
         <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" v-model="description" style="height: 100px"></textarea>
+        <textarea class="form-control" placeholder="Leave a comment here" v-model="description" style="height: 100px" required></textarea>
         <label for="floatingTextarea2">Description</label>
         </div>
        <div class="input-group mb-3">
@@ -33,7 +31,7 @@
         </div>
          <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Selling Price: </label>
-        <input type="text" class="form-control"   v-model="sellingPrice" placeholder="Enter Amount" required>
+        <input type="number" class="form-control"   v-model="sellingPrice" placeholder="Enter Amount" required>
         </div>
       
         <div class="col-12">

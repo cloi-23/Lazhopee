@@ -19,4 +19,7 @@ export class CreateDriverDto {
   
   @IsString()
   device: string
+
+  @IsString()
+  photo: string
 }
