@@ -52,12 +52,6 @@ import { CreateOrderDto } from '../../src/order/dto/create-order.dto';
             .expect(HttpStatus.OK)
           })
 
-          it('findAll [GET /] object it should 200 ok', () => {
-            return request(app.getHttpServer())
-            .get('/order')
-            .expect(HttpStatus.OK)
-          })
-
     
         describe( 'failed', () => {
     

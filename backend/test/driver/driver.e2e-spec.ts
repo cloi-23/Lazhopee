@@ -12,7 +12,8 @@ describe('Driver (e2e)', () => {
     contact:'312321',
     username: 'dwadwadwass',
     password: 'dawdwad',
-    device: 'adawwa'
+    device: 'adawwa',
+    photo: 'dwadawda'
   }
   let app: INestApplication;
   let params = { id: null}
@@ -38,7 +39,7 @@ describe('Driver (e2e)', () => {
   describe('success', () => {
       it('Create Post [POST /] if no duplicate status 201 created', () => {
           return request(app.getHttpServer())
-          .post('/driver')
+          .post('/driver/add')
           .send(driver as CreateDriverDto)
           .expect(HttpStatus.CREATED).then(({ body }) => 
           params = { id: body['_id']})
