@@ -8,7 +8,8 @@ import { CreateOrderDto } from '../../src/order/dto/create-order.dto';
     describe('Order (e2e)', () => {
       const order  = {
         customerId: 'dawdwadwa',
-        articles:[{productId:'dawwaddwa',price:23,quantity:2,remark:'asdawdwa'}],
+        articles:[{productId:'dawwaddwa',sellingPrice:23,quantity:2,remark:'asdawdwa'}],
+        status:'wdsadaw'
       }
       let params = { id: null }
       let app: INestApplication;
@@ -53,7 +54,7 @@ import { CreateOrderDto } from '../../src/order/dto/create-order.dto';
 
           it('findAll [GET /] object it should 200 ok', () => {
             return request(app.getHttpServer())
-            .get(`/order`)
+            .get('/order')
             .expect(HttpStatus.OK)
           })
 
