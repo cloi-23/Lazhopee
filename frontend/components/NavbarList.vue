@@ -67,9 +67,9 @@
                     </li>
                        <li> 
                          <i class="fa-solid fa-truck-ramp-box fa-lg" style="color:#fff; margin-left: 30px"></i>
-                        <nuxt-link :to="{name:'shipment-deliver'}">
+                        <nuxt-link :to="{name:'shipment-delivered'}">
                 
-                        <span class="label"  style="margin-left: -20px"> Deliver</span> 
+                        <span class="label"  style="margin-left: -20px"> Delivered</span> 
                         </nuxt-link>
                     </li>
                  </span>

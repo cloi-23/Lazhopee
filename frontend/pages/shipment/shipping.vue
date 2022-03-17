@@ -1,6 +1,6 @@
 <template>
 <div>
- <h1>Pending</h1>
+ <h1>Shipping </h1>
   <div>
   <table>
   <tr>
@@ -9,14 +9,16 @@
     <th>Customer Address</th>
     <th>Status</th>
     <th>Driver</th>
+    <th>Action</th>
   </tr>
-  
-  <tr v-for="(list,index) in orders" :key="index" v-show="list.order.status == 'Pending'">
+    
+  <tr v-for="(list,index) in orders" :key="index"  v-show="list.order.status == 'Shipping'">
   <div v-show="false">{{index}}</div>
     <td>{{ list.order.date }}</td>
     <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
     <td>{{ list.customer.address }}</td>
     <td>{{ list.order.status }}</td>
+       <td v-if="list.order.status !== 'Pending'">{{ driverOn(list.order['_id']) }}</td>
     <td> 
   <button @click="sendData(index)" v-if="list.order.status === 'Pending'">send</button>
   <button @click="updateData(index)" v-else>update</button>
@@ -24,6 +26,7 @@
     <option v-for="(driver, index) in drivers" :value="driver.name" :key="index">{{driver.name}}</option>
   </select>
   </td>
+ 
   </tr>
   </table>
   </div>
@@ -81,13 +84,21 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     location.reload()
 }
 
+  const { data: delivery } = await axios.get('http://localhost:3000/delivery')
+  
+  const driverOn = (orderId) => {
+    const driverId = delivery.filter(x => x.orderId == orderId)[0].driverId
+    const driverName = drivers.value.filter(x => x['_id'] === driverId)[0].name
+    return driverName
+  }
+
   const updateData = async(index) => {
     const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
     const driverId = driver[0]['_id']
-    const { data: delivery } = await axios.get('http://localhost:3000/delivery')
      axios.patch(`http://localhost:3000/delivery/${delivery[index]['_id']}`,{
       driverId: driverId
     })
+    location.reload()
   }
 
 </script>

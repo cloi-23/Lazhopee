@@ -1,6 +1,6 @@
 <template>
 <div>
- <h1>Deliver</h1>
+ <h1>Delivered</h1>
   <div>
   <table>
   <tr>
