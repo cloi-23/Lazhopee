@@ -21,6 +21,9 @@ export class Driver  extends Document {
   
   @Prop()
   device: string
+  
+  @Prop()
+  photo: string
 }
 
 export const DriverrSchema = SchemaFactory.createForClass(Driver)

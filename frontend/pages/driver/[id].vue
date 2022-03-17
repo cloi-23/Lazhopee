@@ -1,19 +1,19 @@
 <template>
- <div>
+<div>
       	<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div class="preview col-md-6">
 						
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img :src="product.image" /></div>
+						  <div class="tab-pane active" id="pic-1"><img :src="driver.photo" /></div>
 						
 						</div>
 		
 						
 					</div>
 					<div class="details col-md-6">
-						<h3 class="product-title">{{product.name}}</h3>
+						<h3 class="product-title">{{driver.name}}</h3>
 						<div class="rating">
 							<!-- <div class="stars">
 								<span class="fa fa-star checked"></span>
@@ -24,24 +24,13 @@
 							</div>
 							<span class="review-no">41 reviews</span> -->
 						</div>
-						<p class="product-description">{{product.description}}</p>
-            		<h4 class="price">category: <span>{{product.category}}</span></h4>
-						<h4 class="price">Selling price: <span>{{product.sellingPrice}}</span></h4>
-						<!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> -->
-						<!-- <h5 class="sizes">sizes:
-							<span class="size" data-toggle="tooltip" title="small">s</span>
-							<span class="size" data-toggle="tooltip" title="medium">m</span>
-							<span class="size" data-toggle="tooltip" title="large">l</span>
-							<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-						</h5> -->
-						<!-- <h5 class="colors">colors:
-							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-							<span class="color green"></span>
-							<span class="color blue"></span>
-						</h5> -->
+							<h4 class="price">Address: <span>{{driver.address}}</span></h4>
+            		<h4 class="price">Contact: <span>{{driver.contact}}</span></h4>
+						<h4 class="price">Device: <span>{{driver.device}}</span></h4>
+					
 						<div class="action">
-							<nuxt-link :to="{name:'product'}" class="add-to-cart btn btn-default" type="button">Back</nuxt-link>
-							<!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button> -->
+							<nuxt-link :to="{name:'driver'}" class="add-to-cart btn btn-default" type="button">Back</nuxt-link>
+						
 						</div>
 					</div>
 				</div>
@@ -54,7 +43,7 @@
 import axios from 'axios'
 const route = useRoute()
 
-const { data:product } =  await axios.get(`http://localhost:3000/product/${route.params.id}`)
+const { data:driver } =  await axios.get(`http://localhost:3000/driver/${route.params.id}`)
 </script>
 
 <style scoped>

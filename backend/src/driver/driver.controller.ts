@@ -26,7 +26,7 @@ export class DriverController {
     return this.driverService.findOne(id)
   }
 
-  @Post()
+  @Post("add")
   create(@Body() createDriverDto: CreateDriverDto) {
     return this.driverService.create(createDriverDto);
   }
