@@ -5,7 +5,7 @@ export class Articles {
   productId: string;
 
   @IsNumber()
-  price: number;
+  sellingPrice: number;
 
   @IsNumber()
   quantity: number;

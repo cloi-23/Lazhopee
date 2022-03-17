@@ -29,14 +29,9 @@ export class DeliveryService {
   }
 
   async update(id: string, updateDelivery) {
-    try {
       await this.deliveryModel
       .findOneAndUpdate({ _id: id }, { $set: updateDelivery }, { new: true })
       .exec();
-    } catch (e) {
-      throw new NotFoundException(`Delivery #${id} not found`);
-    }
-
   }
 
   async remove(id: string) {
