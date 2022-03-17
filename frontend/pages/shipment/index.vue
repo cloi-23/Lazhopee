@@ -8,6 +8,7 @@
     <th>Customer Name</th>
     <th>Customer Address</th>
     <th>Status</th>
+    <th>Action</th>
     <th>Driver</th>
   </tr>
     
@@ -24,6 +25,7 @@
     <option v-for="(driver, index) in drivers" :value="driver.name" :key="index">{{driver.name}}</option>
   </select>
   </td>
+    <td v-if="list.order.status !== 'Pending'">{{ driverOn(list.order['_id']) }}</td>
   </tr>
   </table>
   </div>
@@ -81,13 +83,21 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     location.reload()
 }
 
+  const { data: delivery } = await axios.get('http://localhost:3000/delivery')
+  
+  const driverOn = (orderId) => {
+    const driverId = delivery.filter(x => x.orderId == orderId)[0].driverId
+    const driverName = drivers.value.filter(x => x['_id'] === driverId)[0].name
+    return driverName
+  }
+
   const updateData = async(index) => {
     const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
     const driverId = driver[0]['_id']
-    const { data: delivery } = await axios.get('http://localhost:3000/delivery')
      axios.patch(`http://localhost:3000/delivery/${delivery[index]['_id']}`,{
       driverId: driverId
     })
+    location.reload()
   }
 
 </script>

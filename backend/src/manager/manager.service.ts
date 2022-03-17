@@ -55,7 +55,7 @@ export class ManagerService {
         const user = await this.managerModel.findOne({ username: login.username }).exec();
         const isMatch = await bcrypt.compare(login.password, user.password)
         if  (isMatch) {
-          return user['_id']
+          return {id: user['_id'],status:HttpStatus.CREATED}
         }
         throw new HttpException('',HttpStatus.UNAUTHORIZED)
       } catch {
