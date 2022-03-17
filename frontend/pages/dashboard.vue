@@ -1,8 +1,7 @@
 <template>
 <div>
   Dashboard
-  <button @click="$router.push({ name: 'orders' })">Orders</button>
-  <button @click="$router.push({ name: 'delivery' })">Delivery</button>
+  <button @click="$router.push({ name: 'shipment' })">Orders</button>
  <div>Chart</div>
 <h2>Sales Table</h2>
 
