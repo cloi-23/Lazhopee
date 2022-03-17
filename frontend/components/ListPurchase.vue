@@ -25,8 +25,11 @@
                      
 
               </tr>
-              <tr>
-                  <td>Total Amount {{purchaseList.totalAmount || totalAmount(purchaseList.articles)}}</td>
+              <tr >
+                  <td colspan="6" style="text-align:right">Total Amount:</td>
+                 <td> <span style="color:#ffbf00; font-weight:bold "> {{purchaseList.totalAmount || totalAmount(purchaseList.articles)}}</span></td>
+              
+                  
               </tr>
           </tbody>
           </table>

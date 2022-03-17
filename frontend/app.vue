@@ -5,12 +5,14 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> 
         <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> 
+      
       </head>
     <NuxtPage class="main"/>
 </NuxtLayout>
 </template>
 
 <script setup>
+import "https://kit.fontawesome.com/df309824c2.js" 
 import '~/assets/css/sidebar.css'
 
 </script>

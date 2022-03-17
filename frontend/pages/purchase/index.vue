@@ -19,8 +19,7 @@
                 <td>{{index+1}}</td>
                 <td>{{purchase.store}}</td>
                  <td><date-formatter :timestamp="purchase.dateOfPurchase"/></td>
-               
-                    <td><nuxt-link :to="{name: 'purchase-id',params:{id : purchase._id}}">View</nuxt-link></td>
+                    <td><i class="fa-solid fa-eye"></i> <nuxt-link :to="{name: 'purchase-id',params:{id : purchase._id}}">View</nuxt-link></td>
             </tr>
           </tbody>
       </table>

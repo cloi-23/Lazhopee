@@ -1,7 +1,6 @@
 <template>
 <div>
-  <button @click="$router.go(-1)">Back</button>
- <h2>Shipment </h2>
+ <h1>Shipment </h1>
   <div>
   <table>
   <tr>

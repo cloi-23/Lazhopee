@@ -8,7 +8,7 @@
       </head>
 
           <navbar-list/>
-          <NuxtPage class="main"/>
+          <NuxtPage />
 
   </div>
 </template>
