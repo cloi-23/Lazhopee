@@ -1,12 +1,15 @@
 <template>
   <div>
       <h1>Add Purchase</h1>
-      <div>  
+        <div class="addLink"> 
+        <nuxt-link :to="{name : 'purchase'}" >  Back</nuxt-link>
+    </div>
+      <div class="sub-title">
         <select-store @puchases="list"/>
       </div>
       <div v-if="purchaseList">
          <list-purchase :purchaseList="purchaseList"/>
-         <button @click="save(purchaseList)">Save</button>
+         <button @click="save(purchaseList)" class="btn btn-primary">Save</button>
       </div>
   
    

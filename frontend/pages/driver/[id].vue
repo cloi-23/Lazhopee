@@ -14,16 +14,7 @@
 					</div>
 					<div class="details col-md-6">
 						<h3 class="product-title">{{driver.name}}</h3>
-						<div class="rating">
-							<!-- <div class="stars">
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-							</div>
-							<span class="review-no">41 reviews</span> -->
-						</div>
+					
 							<h4 class="price">Address: <span>{{driver.address}}</span></h4>
             		<h4 class="price">Contact: <span>{{driver.contact}}</span></h4>
 						<h4 class="price">Device: <span>{{driver.device}}</span></h4>

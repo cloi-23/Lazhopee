@@ -20,15 +20,15 @@
                     <td>{{purchase.name}}</td>
                      <td>{{purchase.category}}</td>
                         <td>{{purchase.quantity[purchase.index] || purchase.quantity}}</td>
-                        <td>{{purchase.unitCost[purchase.index] || purchase.unitCost }}</td>
-                        <td>{{total(purchase.quantity[purchase.index] ,purchase.unitCost[purchase.index]) || purchase.quantity * purchase.unitCost}} </td>
-                     
-
+                        <td><currency-formatter :amount="purchase.unitCost[purchase.index] || purchase.unitCost"/></td>
+                        <td><currency-formatter :amount="total(purchase.quantity[purchase.index] ,purchase.unitCost[purchase.index]) || purchase.quantity * purchase.unitCost"/></td>
               </tr>
               <tr >
                   <td colspan="6" style="text-align:right">Total Amount:</td>
-                 <td> <span style="color:#ffbf00; font-weight:bold "> {{purchaseList.totalAmount || totalAmount(purchaseList.articles)}}</span></td>
+    
+                 <td> <span style="color:#ffbf00; font-weight:bold "><currency-formatter :amount="purchaseList.totalAmount || totalAmount(purchaseList.articles)" withSymbol/></span></td>
               
+            
                   
               </tr>
           </tbody>

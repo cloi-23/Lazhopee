@@ -26,7 +26,7 @@
                     
                       <td><input type="number" v-model="quantity[index]"/> </td>
                         <td><input type="number" v-model="unitCost[index]"/> </td>
-                        <td>{{quantity[index] * unitCost[index]}} </td>
+                        <td>{{quantity[index] * unitCost[index]||0}} </td>
 
                
                     <td><button @click="add(prod,index)">Select</button></td>

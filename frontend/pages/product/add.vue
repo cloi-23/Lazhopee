@@ -2,7 +2,9 @@
   <div>
    
     <h1>Add Product</h1>
-
+    <div class="addLink"> 
+        <nuxt-link :to="{name : 'product'}" >  Back</nuxt-link>
+    </div>
     <form @submit.prevent="add">
         <div class="mb-3">
         <label for="formFile" class="form-label">Image:</label>
@@ -16,9 +18,11 @@
         <label for="exampleFormControlInput1" class="form-label">Category:</label>
         <input type="text" class="form-control" v-model="category" placeholder="Enter Name" required>
         </div>
-        <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" v-model="description" style="height: 100px" required></textarea>
-        <label for="floatingTextarea2">Description</label>
+     <div class="mb-3">
+             <label for="floatingTextarea2">Description</label>
+             <textarea  v-model="description"  cols="100" rows="10" required></textarea>
+      
+     
         </div>
        <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupSelect01">Store</label>
