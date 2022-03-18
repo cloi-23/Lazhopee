@@ -1,7 +1,10 @@
 <template>
   <div>
       <h1>Driver</h1>
-<nuxt-link :to="{name:'driver-add'}">Add</nuxt-link>
+         <div  class="addLink">
+             <nuxt-link :to="{name:'driver-add'}" >Add</nuxt-link>
+         </div>
+
       <table>
           <thead>
               <tr>
@@ -20,7 +23,7 @@
                   <td>{{driver.name}}</td>
                   <td>{{driver.contact}}</td>
                   <td>{{driver.address}}</td>
-                   <td><nuxt-link :to="{name: 'driver-id',params:{id : driver._id}}">View</nuxt-link></td>
+                   <td><i class="fa-solid fa-eye"></i><nuxt-link :to="{name: 'driver-id',params:{id : driver._id}}">View</nuxt-link></td>
               </tr>
           </tbody>
       </table>

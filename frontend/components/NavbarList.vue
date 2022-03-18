@@ -42,7 +42,7 @@
           </li>
       
                 <li @click="IsToggle = !IsToggle">
-                    <i class="fa-solid fa-table-list fa-lg" style="color:#fff; margin-left: 40px"></i>
+                    <i class="fa-solid fa-truck fa-lg" style="color:#fff; margin-left: 40px"></i>
 
              
              <p>

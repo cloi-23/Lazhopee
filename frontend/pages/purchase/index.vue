@@ -2,8 +2,10 @@
   <div>
    
       <h1>Purchase</h1>
+      <div  class="addLink">
+              <nuxt-link :to="{name:'purchase-add'}">Add</nuxt-link>
+      </div>
 
-      <nuxt-link :to="{name:'purchase-add'}">Add</nuxt-link>
         <table>
           <thead>
               <tr>

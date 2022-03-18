@@ -1,0 +1,19 @@
+<Page xmlns:Card="@nstudio/nativescript-cardview" navigatingTo="myPageWasLoaded">
+    <Page.actionBar>
+        <ActionBar title="Item View">
+            <!-- <NavigationButton text="Go back" android.systemIcon="ic_menu_back" tap="backButton"></NavigationButton> -->
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="profile">
+        <Card:CardView class="logo" margin="10" elevation="20" radius="50">
+            <grid-layout rows="200, auto, auto" columns="auto, auto, *">
+                <Image src="~/image/img.jpg" stretch="aspectFill" colSpan="3" row="0"/>
+                <Label color="black" text='sellingPrice' row="2" col="0" />
+            </grid-layout>
+        </Card:CardView>
+    <TextField id="quantity" class="inputField" hint="Quantity" text="{{ quantity }}" class="input" />
+        <button text="Add to cart" tap="addToCart" />
+        <button text="Buy Now" tap="buy" />
+    </StackLayout>
+
+</Page>

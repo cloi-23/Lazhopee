@@ -1,9 +1,11 @@
 <template>
   <div>
-      <Head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </Head>
+   
       <h1>Add Driver</h1>
+
+       <div class="addLink"> 
+        <nuxt-link :to="{name : 'driver'}" >  Back</nuxt-link>
+    </div>
          <form @submit.prevent="add">
         <div class="mb-3">
         <label for="formFile" class="form-label">Photo:</label>
@@ -15,7 +17,7 @@
         </div>
          <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Address:</label>
-        <input type="text" class="form-control" v-model="address" placeholder="Enter Address" required>
+         <textarea  v-model="address" d="" cols="100" rows="10" required></textarea>
         </div>
       
          <div class="mb-3">

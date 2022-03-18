@@ -11,11 +11,11 @@
     <th>Unit Price</th>
     <th>Sub Total</th>
   </tr>
-  <tr v-for="order in details.articles">
+  <tr v-for="(order,index) in details.articles" :key="index">
     <td>{{ order.quantity }}</td>
     <td>{{ order.name }}</td>
-    <td>{{ order.sellingPrice }}</td>
-    <td>{{ order.quantity*order.sellingPrice }}</td>
+    <td><currency-formatter :amount="order.sellingPrice"/>  </td>
+    <td><currency-formatter :amount="order.quantity*order.sellingPrice"/></td>
   </tr>
   </table>
   </div>

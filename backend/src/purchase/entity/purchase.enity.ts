@@ -15,7 +15,7 @@ export class Purchase extends Document{
     storeId: string
 
     @Prop()
-    totalAmount: string
+    totalAmount: number
 
 
 }

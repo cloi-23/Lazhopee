@@ -1,0 +1,45 @@
+@import "@nativescript/theme/css/core.css";
+@import "@nativescript/theme/css/default.css";
+
+.box {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.form {
+  flex: 1;
+  vertical-align: middle;
+  margin: 0 30;
+}
+
+.btn-primary {
+  color: azure;
+  height: 50;
+  margin: 30 5 15 5;
+  background-color: rgb(26, 70, 213);
+  border-radius: 5;
+  font-size: 20;
+  font-weight: 600;
+}
+
+.input-field {
+  margin-bottom: 25;
+}
+
+.logo {
+  height: 100;
+  margin-bottom: 30;
+}
+
+.header {
+  text-align: center;
+  color: rgb(46, 46, 46);
+  margin-bottom: 30;
+  font-weight: bold;
+}
+
+.errMsg {
+  text-align: center;
+  color: rgb(230, 76, 76);
+  margin-bottom: 30;
+}

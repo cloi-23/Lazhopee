@@ -16,8 +16,8 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-
+<script setup>
+definePageMeta({layout:'default'})
 </script>
 
 <style scoped>

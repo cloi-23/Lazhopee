@@ -2,7 +2,10 @@
   <div>
       
       <h1>Product</h1>
-      <nuxt-link :to="{name : 'product-add'}"> Add</nuxt-link>
+            <div  class="addLink">
+               <nuxt-link :to="{name : 'product-add'}" > Add</nuxt-link>
+            </div>
+     
       <table>
           <thead>
               <tr>
@@ -22,8 +25,8 @@
                  <td>{{product.name}}</td>
                  <td>{{product.category}}</td>
                   <td>{{product.store}}</td>
-                   <td>{{product.sellingPrice}}</td>
-                    <td><nuxt-link :to="{name: 'product-id',params:{id : product._id}}">View</nuxt-link></td>
+                   <td> <currency-formatter :amount="product.sellingPrice"/></td>
+                    <td><i class="fa-solid fa-eye"></i><nuxt-link :to="{name: 'product-id',params:{id : product._id}}">View</nuxt-link></td>
             </tr>
           </tbody>
       </table>

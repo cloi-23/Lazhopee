@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>Add Store</h1>
-
+<div class="addLink"> 
+    <nuxt-link :to="{name : 'store'}" >  Back</nuxt-link>
+</div>
     <form @submit.prevent="add">
         <div class="mb-3">
         <label for="formFile" class="form-label">Logo:</label>
@@ -13,7 +15,7 @@
         </div>
         <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Address: </label>
-        <input type="text" class="form-control"   v-model="address" placeholder="Enter Address" required>
+        <textarea  v-model="address" d="" cols="100" rows="10" required></textarea>
         </div>
          <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Contact: </label>

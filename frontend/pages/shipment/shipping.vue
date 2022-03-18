@@ -81,13 +81,17 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     await axios.patch(`http://localhost:3000/order/${orderId}`, {
     status: 'Shipping'
   }) 
-    location.reload()
+   await load()
 }
-
-  const { data: delivery } = await axios.get('http://localhost:3000/delivery')
+  const delivery = ref('')
+  const delivers = async() => {
+    const res = await axios.get('http://localhost:3000/delivery')
+    delivery.value = res.data
+  }
+  await delivers()
   
   const driverOn = (orderId) => {
-    const driverId = delivery.filter(x => x.orderId == orderId)[0].driverId
+    const driverId = delivery.value.filter(x => x.orderId == orderId)[0].driverId
     const driverName = drivers.value.filter(x => x['_id'] === driverId)[0].name
     return driverName
   }
@@ -95,10 +99,11 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
   const updateData = async(index) => {
     const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
     const driverId = driver[0]['_id']
-     axios.patch(`http://localhost:3000/delivery/${delivery[index]['_id']}`,{
+     const res = axios.patch(`http://localhost:3000/delivery/${delivery.value[index]['_id']}`,{
       driverId: driverId
     })
-    router.push({name:'shipment-shipping'})
+     await load()
+     await delivers()
   }
 
 </script>

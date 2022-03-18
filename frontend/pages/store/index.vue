@@ -1,7 +1,10 @@
 <template>
   <div>
       <h1>Store</h1>
-      <nuxt-link :to="{name : 'store-add'}"> Add</nuxt-link>
+      <div  class="addLink">
+         <nuxt-link :to="{name : 'store-add'}" > Add</nuxt-link>
+      </div>
+     
       <table>
           <thead>
               <tr>
