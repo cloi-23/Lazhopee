@@ -42,11 +42,7 @@ export class CustomerController {
 
   @Post('/login')
   async validateUser(@Body() login) {
-    console.log(login);
     return this.customerService.validateUser(login)
   }
-
-  
-  
 
 }

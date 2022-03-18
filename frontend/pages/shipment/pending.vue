@@ -10,8 +10,7 @@
     <th>Status</th>
     <th>Driver</th>
   </tr>
-  
-  <tr v-for="(list,index) in orders" :key="index" v-show="list.order.status == 'Pending'">
+ <tr v-for="(list,index) in orders" :key="index" v-show="list.order.status == 'Pending'"> 
   <div v-show="false">{{index}}</div>
     <td>{{ list.order.date }}</td>
     <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
@@ -78,7 +77,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     await axios.patch(`http://localhost:3000/order/${orderId}`, {
     status: 'Shipping'
   }) 
-    location.reload()
+    router.push({name:'shipment-pending'})
 }
 
   const updateData = async(index) => {

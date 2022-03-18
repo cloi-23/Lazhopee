@@ -98,7 +98,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
      axios.patch(`http://localhost:3000/delivery/${delivery[index]['_id']}`,{
       driverId: driverId
     })
-    location.reload()
+    router.push({name:'shipment-shipping'})
   }
 
 </script>

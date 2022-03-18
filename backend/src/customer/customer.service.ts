@@ -54,7 +54,7 @@ export class CustomerService {
         const user = await this.customerModel.findOne({ username: login.username }).exec();
         const isMatch = await bcrypt.compare(login.password, user.password)
         if (isMatch) {   
-          return {id: user['_id'],status:HttpStatus.CREATED}
+          return {id: user['_id'],status:'ok'}
         }
         throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)
       } catch (err){

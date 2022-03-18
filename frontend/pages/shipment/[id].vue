@@ -14,8 +14,8 @@
   <tr v-for="order in details.articles">
     <td>{{ order.quantity }}</td>
     <td>{{ order.name }}</td>
-    <td>{{ order.price }}</td>
-    <td>{{ order.quantity*order.price }}</td>
+    <td>{{ order.sellingPrice }}</td>
+    <td>{{ order.quantity*order.sellingPrice }}</td>
   </tr>
   </table>
   </div>
