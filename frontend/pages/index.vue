@@ -1,9 +1,10 @@
 <template>
 <div>
-  {{ response }}
+
 
       <div class="center">
       <h1>Login</h1>
+       <span style="text-align:center">{{ response }}</span> 
      <form @submit.prevent="login">
         <div class="txt_field">
           <input  type="text" v-model="username" required>
@@ -106,13 +107,13 @@ form .txt_field{
   left: 0;
   width: 0%;
   height: 2px;
-  background: #ffbf00;
+  background: #fff;
   transition: .5s;
 }
 .txt_field input:focus ~ label,
 .txt_field input:valid ~ label{
-  top: -5px;
-  color: #ffbf00;
+  top: -7px;
+  color: #fff;
 }
 .txt_field input:focus ~ span::before,
 .txt_field input:valid ~ span::before{

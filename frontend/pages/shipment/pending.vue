@@ -78,7 +78,8 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     await axios.patch(`http://localhost:3000/order/${orderId}`, {
     status: 'Shipping'
   }) 
-    location.reload()
+   await load()
+   
 }
 
   const updateData = async(index) => {

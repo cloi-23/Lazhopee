@@ -81,7 +81,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     await axios.patch(`http://localhost:3000/order/${orderId}`, {
     status: 'Shipping'
   }) 
-    location.reload()
+   await load()
 }
 
   const { data: delivery } = await axios.get('http://localhost:3000/delivery')
@@ -98,7 +98,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
      axios.patch(`http://localhost:3000/delivery/${delivery[index]['_id']}`,{
       driverId: driverId
     })
-    location.reload()
+    await load()
   }
 
 </script>
