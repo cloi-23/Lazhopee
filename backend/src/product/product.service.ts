@@ -28,7 +28,8 @@ export class ProductService {
           storeId: product.storeId,
           name: product.name,
           store: store.name,
-          category: product.category
+          category: product.category,
+          description:product.description
         }
         storeProduct.push(data)    
       }
