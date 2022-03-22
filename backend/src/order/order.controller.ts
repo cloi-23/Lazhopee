@@ -30,10 +30,11 @@ export class OrderController {
     return this.orderService.findOne(id)
   }
   
-  @Get('/product/:id')
+  @Get('/details/:id')
   findOrder(@Param('id') id: string) {
     return this.orderService.findOrder(id)
   }
+
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {

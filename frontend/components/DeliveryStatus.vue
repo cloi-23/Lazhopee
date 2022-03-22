@@ -12,15 +12,15 @@
     <th>Action</th>
   </tr>
     
-  <tr v-for="(list,index) in orders" :key="index"  v-show="list.order.status == status">
+  <tr v-if="orders" v-for="(order,index) in orders" :key="index"  v-show="order.status == status">
   <div v-show="false">{{index}}</div>
-    <td>{{ list.order.date }}</td>
-    <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
-    <td>{{ list.customer.address }}</td>
-    <td>{{ list.order.status }}</td>
-       <td v-if="list.order.status !== 'Pending'">{{ driverOn(list.order['_id']) }}</td>
+    <td><date-formatter :timestamp="order.date"/></td>
+    <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: order['_id']} }">{{ order.customerName }}</nuxt-link></td>
+    <td>{{ order.customerAddress }}</td>
+    <td>{{ order.status }}</td>
+       <td v-if="order.status !== 'Pending'">{{ order.driverName }}</td>
     <td> 
-  <button @click="sendData(index)" v-if="list.order.status === 'Pending'">send</button>
+  <button @click="sendData(index)" v-if="order.status === 'Pending'">send</button>
   <button @click="updateData(index)" v-else>update</button>
   <select v-model="selectedDriver" >
     <option v-for="(driver, index) in drivers" :value="driver.name" :key="index">{{driver.name}}</option>
@@ -53,7 +53,7 @@ await load(limitPage.value,page.value)
 const orders = ref(null)
 const load = async(limit=limitPage.value,offset=page.value) =>{
   try {
-      const res =  await axios.get(`http://localhost:3000/order`)
+      const res =  await axios.get(`http://172.19.168.244:3000/delivery/order/show`)
       orders.value = res.data
   } catch (error) {
       console.log(error);
@@ -74,7 +74,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
 
   const selectedDriver = ref('')
   const sendData = async(index) => {
-  const orderId = orders.value[index].order['_id']
+  const orderId = orders.value[index]['_id']
   const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
     await axios.post('http://localhost:3000/delivery', {
       orderId: orderId,
@@ -85,19 +85,15 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
   }) 
    await load()
 }
-  const delivery = ref('')
-  const delivers = async() => {
-    const res = await axios.get('http://localhost:3000/delivery')
-    delivery.value = res.data
-  }
-  await delivers()
+  // const delivery = ref('')
+  // const delivers = async() => {
+  //   const res = await axios.get('http://localhost:3000/delivery')
+  //   delivery.value = res.data
+  // }
+  // await delivers()
   
-  const driverOn = (orderId) => {
-    const driverId = delivery.value.filter(x => x.orderId == orderId)[0].driverId
-    const driverName = drivers.value.filter(x => x['_id'] === driverId)[0].name
-    return driverName
-  }
-
+  
+  
   const updateData = async(index) => {
     const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
     const driverId = driver[0]['_id']
@@ -105,7 +101,6 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
       driverId: driverId
     })
      await load()
-     await delivers()
   }
 
 </script>

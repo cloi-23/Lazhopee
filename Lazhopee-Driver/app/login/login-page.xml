@@ -1,0 +1,16 @@
+<Page navigatingTo="onNavigatingTo" xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
+    <FlexboxLayout class="box">
+        <StackLayout class="form">
+            <Image src="~/images/Lazhopee-Driver.png" class="logo"/>
+            <Label text="Lazhopee Driver" class="header"/>
+
+            <StackLayout class="input-field">
+                <TextField hint="Username" class="input" text="{{username }}"/>
+            </StackLayout>
+            <StackLayout class="input-field">
+                <TextField hint="Password" secure="true" class="input"  text="{{password}}"/>
+            </StackLayout>
+            <Button text="Login" class="btn btn-primary" tap="{{login}}"/>
+        </StackLayout>
+    </FlexboxLayout>
+</Page>

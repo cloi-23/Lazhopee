@@ -6,8 +6,6 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { Customer } from '../customer/entities/customer.entity';
 import { updateOrderDto } from './dto/update-order.dto';
 import { Product } from '../product/entity/product.entity';
-import { object } from 'webidl-conversions';
-
 
 @Injectable()
 export class OrderService {
@@ -75,6 +73,7 @@ export class OrderService {
 
       }   
     }
+
     async findOrder(id: string) {
       try {
         const order = await this.findOne(id)
@@ -87,12 +86,23 @@ export class OrderService {
           const products = await this.productModel.findOne({ _id: productId }).exec();
           const data = {
             name: products.name,
-            image: products.image
+            image:products.image
           }
           const newObj = Object.assign(order.articles[key],data); 
           product.push(newObj)
         }
-        return order
+        const customerId = order.customerId
+        const customer = await this.customerModel.findOne({_id: customerId})
+
+        return {
+          _id:order._id,
+          date:order.date,
+          articles:order.articles,
+          name:customer.name,
+          address:customer.address,
+          contact:customer.contact,
+          status:order.status
+        }
       } catch (error) {
         throw new NotFoundException(`Order #${id} not found`);
 
