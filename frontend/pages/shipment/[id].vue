@@ -25,7 +25,7 @@
 import axios from 'axios'
 const route = useRoute()
 
-  const { data: details } = await axios.get(`http://localhost:3000/order/product/${route.params.id}`)
+  const { data: details } = await axios.get(`http://localhost:3000/order/details/${route.params.id}`)
 
   
 </script>

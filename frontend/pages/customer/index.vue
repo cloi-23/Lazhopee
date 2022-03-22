@@ -13,7 +13,7 @@
           </thead>
           <tbody v-if="customerList">
             <tr v-for="(customer,index)  in customerList" :key="index">
-                <td>{{index+1}}</td>
+                <td>{{index+1}} </td>
                  <td>{{customer.name}}</td>
                  <td>{{customer.address}}</td>
                   <td>{{customer.contact}}</td>

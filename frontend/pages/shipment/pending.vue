@@ -12,7 +12,7 @@
   </tr>
  <tr v-for="(list,index) in orders" :key="index" v-show="list.order.status == 'Pending'"> 
   <div v-show="false">{{index}}</div>
-    <td>{{ list.order.date }}</td>
+    <td><date-formatter :timestamp="list.order.date"/></td>
     <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
     <td>{{ list.customer.address }}</td>
     <td>{{ list.order.status }}</td>

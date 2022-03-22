@@ -1,6 +1,6 @@
 <template>
 <div>
- <h1>Delivered</h1>
+ <h1>Delivered </h1>
   <div>
   <table>
   <tr>
@@ -9,21 +9,22 @@
     <th>Customer Address</th>
     <th>Status</th>
     <th>Driver</th>
-  </tr>
   
-  <tr v-for="(list,index) in orders" :key="index" v-show="list.order.status == 'Deliver'">
+  </tr>
+    
+  <tr v-for="(list,index) in orders" :key="index"  v-show="list.order.status == 'Success' || list.order.status == 'Failed'">
   <div v-show="false">{{index}}</div>
-    <td>{{ list.order.date }}</td>
+    <td><date-formatter :timestamp="list.order.date"/></td>
     <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
     <td>{{ list.customer.address }}</td>
     <td>{{ list.order.status }}</td>
+       <td v-if="list.order.status !== 'Pending'">{{ driverOn(list.order['_id']) }}</td>
     <td> 
   <button @click="sendData(index)" v-if="list.order.status === 'Pending'">send</button>
-  <button @click="updateData(index)" v-else>update</button>
-  <select v-model="selectedDriver" >
-    <option v-for="(driver, index) in drivers" :value="driver.name" :key="index">{{driver.name}}</option>
-  </select>
+
+
   </td>
+ 
   </tr>
   </table>
   </div>
@@ -78,16 +79,29 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     await axios.patch(`http://localhost:3000/order/${orderId}`, {
     status: 'Shipping'
   }) 
-    router.push({ name:'shipment/pending' })
+   await load()
 }
+  const delivery = ref('')
+  const delivers = async() => {
+    const res = await axios.get('http://localhost:3000/delivery')
+    delivery.value = res.data
+  }
+  await delivers()
+  
+  const driverOn = (orderId) => {
+    const driverId = delivery.value.filter(x => x.orderId == orderId)[0].driverId
+    const driverName = drivers.value.filter(x => x['_id'] === driverId)[0].name
+    return driverName
+  }
 
   const updateData = async(index) => {
     const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
     const driverId = driver[0]['_id']
-    const { data: delivery } = await axios.get('http://localhost:3000/delivery')
-     axios.patch(`http://localhost:3000/delivery/${delivery[index]['_id']}`,{
+     const res = axios.patch(`http://localhost:3000/delivery/${delivery.value[index]['_id']}`,{
       driverId: driverId
     })
+     await load()
+     await delivers()
   }
 
 </script>

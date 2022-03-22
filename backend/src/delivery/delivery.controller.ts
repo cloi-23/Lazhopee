@@ -23,6 +23,10 @@ export class DeliveryController {
     findOne(@Param('id') id: string) {
       return this.deliveryService.findOne(id)
     }
+    @Get('driver/:id')
+    findAllDriverDelivery(@Param('id') id: string) {
+      return this.deliveryService.findAllDriverDelivery(id)
+    }
 
   
     @Post()

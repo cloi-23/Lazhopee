@@ -55,4 +55,25 @@ export class DeliveryService {
     const product = await this.findOne(id)
     return product.remove();
   }
+
+  async findAllDriverDelivery(driverId) {
+    const deliveryList = await this.deliveryModel.find({driverId: driverId})/* .limit(limit).skip(page * limit) */
+    const deliveries = []
+    for (const deliver of deliveryList) {
+      const driverId = deliver.driverId
+      const driver = await this.driverModel.findOne({_id: driverId})
+      const driverName = driver.name
+      const data = {
+        _id: deliver._id,
+        driverId: deliver.driverId,
+        orderId: deliver.orderId,
+        driverName
+      }
+      
+      deliveries.push(data)    
+    }
+    return deliveries
+  }
+
+  
 }
