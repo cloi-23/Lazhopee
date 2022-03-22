@@ -4,23 +4,19 @@ import { CartViewModel } from "./cart-view-model"
 
 export function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
-  console.log('cart page');
 }
-console.log(ApplicationSettings.getString('articles'));
 
-const customerId = ApplicationSettings.getString('customerId')/* .split('"').join('') */
-let articles = JSON.parse(ApplicationSettings.getString('articles','[]'))
-
-const cart = JSON.stringify({ 
-  customerId,
-  articles
-})
 export function back() {
   Frame.goBack()
 }
 
+const customerId = ApplicationSettings.getString('customerId')
+function list () {
+  const articles = JSON.parse(ApplicationSettings.getString('articles','[]'))
+  return articles
+}
 export async function buy() {
-  console.log(cart);
+  let articles = list()
   
   try {
     if (hasKey('articles')) {
@@ -28,10 +24,10 @@ export async function buy() {
         url:'http://172.19.168.244:3000/order/',
         method: 'POST',
         headers: { "Content-Type": "application/json" },
-        content:cart
+        content:JSON.stringify({ customerId,articles })
     })
-    ApplicationSettings.setString('articles','[]')
-    console.log(res.content)
+    console.log('Successfully Purchase!')
+    ApplicationSettings.remove('articles')
     } else {
       console.log('empty cart');   
     }

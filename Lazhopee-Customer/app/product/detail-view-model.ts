@@ -17,7 +17,7 @@ export class DetailViewModel extends Observable{
     private _image:string
     private _description:string
     private _products:object
-    private _articles:object[]
+    private _articles:any
     private _cart: object
     private customerId = ApplicationSettings.getString('customerId').split('"').join('')
     private _page:Page
@@ -34,9 +34,7 @@ constructor(data:Data){
     this._cart = { customerId: this.customerId, articles: this._articles }
 }
 
- get name():string{     
-      console.log(typeof this._articles);
-      
+ get name():string{        
     return this._name
 }
 
@@ -49,7 +47,6 @@ set quantity(value: number) {
       this.notifyPropertyChange("quantity", value);
   }
 }
-
 
 get totalPrice():number {
   return this._quantity * this._price  
@@ -70,36 +67,26 @@ get description():string{
 get price():number{
     return this._price
 }  
-
-  addToCart() {
-  let articles = this._articles
-    articles.push({
-      productId:  this._id,
-      sellingPrice: this._price,
-      quantity: this.quantity })
-      ApplicationSettings.setString('articles',JSON.stringify(articles))
-      
-      console.log(articles);
+  
+  addToCart() { 
+    let articles = this._articles
+      const found = articles.some(x => x.productId === this._id);
+      if(!found) { 
+        articles.push({
+          productId:  this._id,
+          sellingPrice: this._price,
+          quantity: this.quantity })
+      } else { 
+        let product = articles.filter(x => x.productId == this._id)    
+        product[0].quantity+=this._quantity
+      }
+    ApplicationSettings.setString('articles',JSON.stringify(articles))
   }
-
-  // const found = articles.some(x => x.productId === this._id);
-  // if(!found) { 
-      
-  //   articles.push({
-  //     productId: this._id,
-  //     sellingPrice: this._price,
-  //     quantity: 5
-  //   })
-  // } else { 
-  //     console.log(articles);
-      
-  // }
-// }
 
 backButton() {
   Frame.goBack()
 }
-async buy () {
+async buy() {
   try {
         const res = await Http.request({
         url:'http://172.19.168.244:3000/order/',

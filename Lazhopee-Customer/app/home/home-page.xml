@@ -1,4 +1,5 @@
-<Page navigatingTo="onNavigatingTo" xmlns="http://schemas.nativescript.org/tns.xsd">
+<Page navigatingTo="onNavigatingTo" xmlns="http://schemas.nativescript.org/tns.xsd"
+ xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh">
     
     <ActionBar title="Lazhopee">
         <ActionBar.actionItems>
@@ -7,6 +8,7 @@
         </ActionBar.actionItems>
     </ActionBar>
 
+    <PullRefresh:PullToRefresh refresh="refreshList">
     <GridLayout>
        <ListView id="productList" items="{{product}}" itemTap="productDetails">
          <ListView.itemTemplate>
@@ -18,4 +20,5 @@
         </ListView.itemTemplate>
     </ListView>
     </GridLayout>
+     </PullRefresh:PullToRefresh>
 </Page>

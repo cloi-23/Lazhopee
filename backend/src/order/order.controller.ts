@@ -21,8 +21,8 @@ export class OrderController {
   }
 
   @Get('customer/:userId')
-  pendingOrderByCust(@Param('userId') id: string) {
-    return this.orderService.pendingOrderByCust(id);
+  customerOrder(@Param('userId') id: string) {
+    return this.orderService.customerOrder(id);
   }
 
   @Get(':id')
@@ -37,7 +37,6 @@ export class OrderController {
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
-    console.log(createOrderDto);
     return this.orderService.create(createOrderDto);
   }
 
