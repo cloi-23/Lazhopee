@@ -1,9 +1,9 @@
 <template>
 <div>
-  <button @click="$router.go(-1)">Back</button>
-  <div>
-  <h2>Order details by customer</h2>
-
+  
+  <div >
+  <h1> Customer Name:  {{details.name}}</h1>
+<button @click="$router.go(-1)" class="addLink">Back</button>
   <table>
   <tr>
     <th>Image</th>
