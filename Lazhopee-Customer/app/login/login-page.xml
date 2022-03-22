@@ -11,6 +11,7 @@
                 <TextField hint="Password" secure="true" class="input"  text="{{password}}"/>
             </StackLayout>
             <Button text="Login" class="btn btn-primary" tap="{{login}}"/>
+                <Label text="Click to Register" class="input" tap="register" />
         </StackLayout>
     </FlexboxLayout>
 </Page>

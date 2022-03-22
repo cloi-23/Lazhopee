@@ -1,5 +1,6 @@
 <template>
 <div>
+<<<<<<< HEAD
  <h1>Pending</h1>
   <div>
   <table>
@@ -26,67 +27,12 @@
   </tr>
   </table>
   </div>
+=======
+  <DeliveryStatus :status='status'/>
+
+>>>>>>> 2a3d51d4b6f6fff92b1187cb7dbe10ae8cf48396
 </div>
 </template>
 <script setup>
-import axios from 'axios'
-const router = useRouter()
-
-const limitPage = ref(10)
-const route  = useRoute()
-const page = ref(Number(route.query.page))
-const prev =async ()=>{
-page.value--
-await load(limitPage.value,page.value)
-}
-const next = async ()=>{
-page.value++
-await load(limitPage.value,page.value)
-}
-
-const orders = ref(null)
-const load = async(limit=limitPage.value,offset=page.value) =>{
-  try {
-      const res =  await axios.get(`http://localhost:3000/order`)
-      orders.value = res.data
-  } catch (error) {
-      console.log(error);
-  }
-}
-  await load()
-
-  const drivers = ref(null)
-  const getDrivers = async() => {
-    try {
-      const res = await axios.get(`http://localhost:3000/driver/`)
-      drivers.value = res.data
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  getDrivers()
-
-  const selectedDriver = ref('')
-  const sendData = async(index) => {
-  const orderId = orders.value[index].order['_id']
-  const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
-    await axios.post('http://localhost:3000/delivery', {
-      orderId: orderId,
-      driverId: driver[0]['_id']
-    })
-    await axios.patch(`http://localhost:3000/order/${orderId}`, {
-    status: 'Shipping'
-  }) 
-   await load()
-}
-
-  const updateData = async(index) => {
-    const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
-    const driverId = driver[0]['_id']
-    const { data: delivery } = await axios.get('http://localhost:3000/delivery')
-     axios.patch(`http://localhost:3000/delivery/${delivery[index]['_id']}`,{
-      driverId: driverId
-    })
-  }
-
+  const status = 'Pending'
 </script>

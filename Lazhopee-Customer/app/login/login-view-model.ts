@@ -2,8 +2,8 @@ import { Observable,Dialogs,Frame ,ApplicationSettings} from "@nativescript/core
 import { Http } from "@nativescript/core";
 
 export class LoginViewModel extends Observable{
-    private _username:string="bucky"
-    private _password:string="123"
+    private _username:string="user1"
+    private _password:string="user1"
     constructor(){
         super();
         this.username;
@@ -35,19 +35,21 @@ export class LoginViewModel extends Observable{
         const password =this.password
    try {
    const res= await Http.request({
-        url:"http://172.22.91.133:3000/customer/login",
+        url:"http://172.19.168.244:3000/customer/login",
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         content:JSON.stringify({username:username,password:password})
     })
-    console.log("From login:",res.content);
-    ApplicationSettings.setString("userdata",JSON.stringify(res.content))
-    console.log(res.statusCode );
+    // const resProduct = await Http.request({
+    //     url:"http://172.19.161.96:3000/product/",
+    //     method:'GET',
+    // })
+    // ApplicationSettings.setString("productList",JSON.stringify(resProduct.content))
+    ApplicationSettings.setString("customerId",JSON.stringify(res.content.toJSON().id))
     
     if(res.content.toJSON().status == "ok"){
-
     Frame.topmost().navigate({moduleName:'./home/home-page',clearHistory:true,context:{
         data:res.content.toJSON()
     }})
@@ -62,8 +64,12 @@ export class LoginViewModel extends Observable{
     this.username=""
     this.password=""
    } catch (error) {
-   
-    console.log(error); 
+    Dialogs.alert({
+        title:"Lazhopee App",
+        message:'Wrong Input',
+        cancelable:true,
+        okButtonText:"ok"
+    })
    }
     }
  

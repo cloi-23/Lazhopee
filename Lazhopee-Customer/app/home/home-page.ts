@@ -14,14 +14,15 @@ export function onNavigatingTo(args: NavigatedData) {
 const homeViewModel =new HomeViewModel()
   page.bindingContext = homeViewModel
   homeViewModel.getProduct()
-
-  console.log(homeViewModel);
-  
+  console.log(ApplicationSettings.getString('articles'));
 }
 export function clear(){
   ApplicationSettings.clear()
 }
 
+export function goToCart() {
+  Frame.topmost().navigate('./cart/cart-page')
+}
 export function productDetails(args){
 //   console.log(args.view.bindingContext);
 // console.log("details",);
