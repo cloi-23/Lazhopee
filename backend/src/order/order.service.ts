@@ -64,7 +64,8 @@ export class OrderService {
           const productId = order.articles[key].productId
           const products = await this.productModel.findOne({ _id: productId }).exec();
           const data = {
-            name: products.name
+            name: products.name,
+            image: products.image
           }
           const newObj = Object.assign(order.articles[key],data); 
           product.push(newObj)

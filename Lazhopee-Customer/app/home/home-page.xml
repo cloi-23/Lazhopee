@@ -2,8 +2,8 @@
     
     <ActionBar title="Lazhopee">
         <ActionBar.actionItems>
-             <ActionItem text="Clear Cache" tap="clear"/>
-          
+             <!-- <ActionItem text="Clear Cache" tap="clear"/> -->
+             <ActionItem text="My Cart " tap="goToCart"/>
         </ActionBar.actionItems>
     </ActionBar>
 

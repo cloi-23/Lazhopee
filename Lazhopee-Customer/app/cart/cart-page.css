@@ -1,0 +1,24 @@
+#count{
+    width: 100;
+    height: 50;
+    text-align: center;
+    margin: 0;
+    font-size: 18;
+    margin-left: -80;
+    margin-top: 10;
+}
+#countBTN{
+    width: 50;
+    height: 40;  
+    margin-left: 10;
+   
+}
+#plusBTN{
+    width: 50;
+    height: 40;   
+    margin-left: -140;
+}
+#label{
+   font-size: 18; 
+   margin-top: 10;
+}

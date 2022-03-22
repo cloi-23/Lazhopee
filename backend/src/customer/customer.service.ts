@@ -35,23 +35,26 @@ export class CustomerService {
     async create(createCustomerDto: CreateCustomerDto) {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(createCustomerDto.password, salt)
-      const user = await this.customerModel.findOne({ username: createCustomerDto.username })
-
-      if (user) {
+      const user = await this.customerModel.findOne({ username: createCustomerDto.username.toLocaleLowerCase() })
+      const name = await this.customerModel.findOne({ name: createCustomerDto.name })
+      if (user || name) {
         throw new HttpException('username already exist!', HttpStatus.CONFLICT)
       }
+      let lowerCase = createCustomerDto.username.toLocaleLowerCase()
+      let username = lowerCase.replace(/\s/g, '');
       const data = {
         ...createCustomerDto,
+        username: username,
         password: hashPassword
-
+        
       }
       const customer = new this.customerModel(data);
-      return customer.save();
+      return customer.save()
     }
   
     async validateUser(login:LoginCustomerDto): Promise<any> {
       try {
-        const user = await this.customerModel.findOne({ username: login.username }).exec();
+        const user = await this.customerModel.findOne({ username: login.username.toLocaleLowerCase() }).exec();
         const isMatch = await bcrypt.compare(login.password, user.password)
         if (isMatch) {   
           return {id: user['_id'],status:'ok'}

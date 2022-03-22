@@ -6,12 +6,14 @@
 
   <table>
   <tr>
+    <th>Image</th>
     <th>Unit </th>
     <th>Description </th>
     <th>Unit Price</th>
     <th>Sub Total</th>
   </tr>
   <tr v-for="(order,index) in details.articles" :key="index">
+    <td><img :src='order.image' :alt="order.name" width="100" height="100"></td>
     <td>{{ order.quantity }}</td>
     <td>{{ order.name }}</td>
     <td><currency-formatter :amount="order.sellingPrice"/>  </td>

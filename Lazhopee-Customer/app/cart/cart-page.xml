@@ -1,0 +1,8 @@
+<Page navigatingTo="onNavigatingTo">
+    <ActionBar title="My Cart">
+        <ActionBar.actionItems>
+             <ActionItem text="Back" tap="back"/>    
+        </ActionBar.actionItems>
+    </ActionBar>
+        <Button text="Buy" class="btn btn-primary" tap="buy"/>  
+</Page>
