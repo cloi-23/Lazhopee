@@ -10,7 +10,31 @@ export function back() {
   Frame.goBack()
 }
 
-const customerId = ApplicationSettings.getString('customerId')
+const customerId = JSON.parse(ApplicationSettings.getString('customerId'))
+async function orderList() {
+  try {
+    const res = await Http.request({
+      url:`http://172.22.18.26:3000/order/customer/${customerId}`,
+      method: 'GET'
+    })
+    console.log(res.content);
+  } catch (error) {
+    console.log(error);   
+  }
+  console.log('dawdwawa');
+}
+orderList()
+
+ export async function refreshList(args) {
+  const pullRefresh = args.object;
+      setTimeout(() => {
+        pullRefresh.refreshing = false;
+      }, 1000)
+  ApplicationSettings.remove('articles')
+  orderList()
+  console.log('refresh');
+}
+
 function list () {
   const articles = JSON.parse(ApplicationSettings.getString('articles','[]'))
   return articles
@@ -21,7 +45,7 @@ export async function buy() {
   try {
     if (hasKey('articles')) {
         const res = await Http.request({
-        url:'http://172.19.168.244:3000/order/',
+        url:'http://172.22.18.26:3000/order/',
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         content:JSON.stringify({ customerId,articles })
@@ -34,4 +58,5 @@ export async function buy() {
     } catch (error) {
       console.log(error);
   }
+ 
 }

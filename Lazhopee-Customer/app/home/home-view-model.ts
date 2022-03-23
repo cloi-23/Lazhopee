@@ -15,7 +15,7 @@ export class HomeViewModel extends Observable {
       
      try {
       const res= await Http.request({
-        url:"http://172.19.168.244:3000/product",
+        url:"http://172.22.18.26:3000/product",
         method:'GET',
     })
    const productList =  res.content.toJSON().map(prod =>{
@@ -23,7 +23,7 @@ export class HomeViewModel extends Observable {
       const imageHost =  prod.image.split('').slice(7,16).join('')
       if(imageHost == 'localhost'){
         const imgLocation=prod.image.split('').slice(16).join('')
-        const image = `http://172.19.168.244${imgLocation}`;
+        const image = `http://172.22.18.26${imgLocation}`;
         return{
           ...prod,
           image
@@ -42,11 +42,4 @@ export class HomeViewModel extends Observable {
      }
     }
     
-
-    // add(longUrl,shortUrl):void{
-    //   this.product.push({longUrl,shortUrl})
-    //   ApplicationSettings.setString("urlCollection",JSON.stringify(this.urlCollection))
-    
-    // }
-  
 }

@@ -1,8 +1,28 @@
-<Page navigatingTo="onNavigatingTo">
+<Page navigatingTo="onNavigatingTo"
+xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh">
     <ActionBar title="My Cart">
         <ActionBar.actionItems>
              <ActionItem text="Back" tap="back"/>    
         </ActionBar.actionItems>
     </ActionBar>
-        <Button text="Buy" class="btn btn-primary" tap="buy"/>  
+    <PullRefresh:PullToRefresh refresh="refreshList">
+     <GridLayout>
+       <ListView id="productList" items="{{product}}" itemTap="productDetails">
+         <ListView.itemTemplate>
+         <StackLayout>
+            <Image src="{{image}}"/>
+            <Label text="{{name || 'Unkown ShortUrl'}}" class="shortUrl"/>
+            <GridLayout columns="*,*,*,*" rows="*, *,*,*">
+                <label text="Quantity :" row="0" col="0" id="label"/>
+                <Label id="quantity" text="{{quantity}}"  row="0" col="2" id="count"/>
+                <Button text="-"  tap="{{less || null}}"  id="countBTN" row="0" col="1"/>
+                <Button text="+"  tap="{{add || null}}"  id="plusBTN"  row="0" col="3" />
+              </GridLayout>
+            <Label text="{{sellingPrice || 'Unkown ShortUrl'}}" class="shortUrl"/>
+           </StackLayout>
+        </ListView.itemTemplate>
+      </ListView>
+     </GridLayout>
+    </PullRefresh:PullToRefresh>
+    <Button text="Buy" class="btn btn-primary" tap="buy"/>  
 </Page>

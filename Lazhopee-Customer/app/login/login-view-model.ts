@@ -35,7 +35,7 @@ export class LoginViewModel extends Observable{
         const password =this.password
    try {
    const res= await Http.request({
-        url:"http://172.19.168.244:3000/customer/login",
+        url:"http://172.22.18.26:3000/customer/login",
         method:'POST',
         headers:{
             'Content-Type':'application/json'
