@@ -75,6 +75,9 @@ const  load = async(limit=limitPage.value,offset=page.value) =>{
      const res = axios.patch(`http://localhost:3000/delivery/${id}`,{
       driverId: selectedDriver.value
     })
-    load()
+    setTimeout(() => {
+      load()
+    }, 500);
+    
   }
 </script>
