@@ -46,7 +46,7 @@ await load(limitPage.value,page.value)
 const orders = ref(null)
 const load = async(limit=limitPage.value,offset=page.value) =>{
   try {
-      const res =  await axios.get(`http://172.19.168.244:3000/order`)
+      const res =  await axios.get(`http://localhost:3000/order`)
       orders.value = res.data
   } catch (error) {
       console.log(error);
@@ -76,9 +76,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
     await axios.patch(`http://localhost:3000/order/${orderId}`, {
     status: 'Shipping'
   }) 
-   await load()
+  await load()
+  await getDrivers()
 }
-
-  
-
 </script>
