@@ -11,7 +11,8 @@
     <th v-if="$route.path === '/shipment/shipping'">Driver</th>
     <th>Action</th>
   </tr>
-  <tr v-if="orders" v-for="(order,index) in orders" :key="index"  v-show="order.status == 'Shipping'">
+  <tbody  v-if="orders">
+  <tr  v-for="(order,index) in orders" :key="index"  v-show="order.status == 'Shipping'">
   <div v-show="false">{{index}}</div>
     <td><date-formatter :timestamp="order.date"/></td>
     <td><nuxt-link :to = "{ name: 'shipment-id',params: { id: order.orderId } }">{{ order.customerName }}</nuxt-link></td>
@@ -27,6 +28,7 @@
   </td>
  
   </tr>
+  </tbody>
   </table>
   </div>
 </div>
