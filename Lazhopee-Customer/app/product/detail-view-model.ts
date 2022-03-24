@@ -75,7 +75,9 @@ get price():number{
         articles.push({
           productId:  this._id,
           sellingPrice: this._price,
-          quantity: this.quantity })
+          quantity: this.quantity,
+          name: this._name,
+          image: this._image })
       } else { 
         let product = articles.filter(x => x.productId == this._id)    
         product[0].quantity+=this._quantity
@@ -89,7 +91,7 @@ backButton() {
 async buy() {
   try {
         const res = await Http.request({
-        url:'http://172.22.18.26:3000/order/',
+        url:'http://172.19.168.244:3000/order/',
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         content: JSON.stringify({

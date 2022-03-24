@@ -36,30 +36,32 @@ export class OrderService {
     
     async customerOrder(id: string) {
       const customerOrder = await this.orderModel.find({ customerId: id }).exec()
-      // return (customer.filter( x => x.status == 'Pending'))
-      const arr = []
-      for (let product of customerOrder ) {
-        arr.push(product.articles)
+      let arr = []
+      for (let product in customerOrder ) {
+        let data = {
+           articles: customerOrder[product].articles,
+           status:customerOrder[product].status 
+        }
+        arr.push(data)
       }
+      let orderList = []
 
-      const arr1 = arr.flat()
-      let prodId = arr1.map(x => {
-      return  x.productId
-    })
-
-      const allOrders = []
-      for(let id in prodId){
-      const product = await this.productModel.find({ _id: prodId[id] }).exec()
-
-      const orderInfo = {
-        name: product[0].name,
-        image: product[0].image,
+      for (let x in arr){
+        if (arr[x].articles.length != 1) {
+          for (let y in arr[x].articles) {
+            const product = await this.productModel.find({ _id: arr[x].articles[y].productId })
+            let merge = Object.assign(arr[x].articles[y],{ name:product[0].name,image:product[0].image,status:arr[x].status}) 
+            orderList.push(merge)
+          }
+        } else {
+           const product = await this.productModel.find({ _id: arr[x].articles[0].productId })
+            let merge = Object.assign(arr[x].articles[0],{name:product[0].name,image:product[0].image,status:arr[x].status});
+            orderList.push(merge);               
+        }    
       }
-      let newArr = Object.assign(arr1[id],orderInfo)
-      allOrders.push(newArr)    
+       return orderList  
     }
-      return allOrders
-    }
+    
   
     async findOne(id: string) {
       try {

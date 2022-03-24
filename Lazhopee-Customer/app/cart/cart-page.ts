@@ -2,8 +2,10 @@ import { ApplicationSettings, Frame, Http, NavigatedData, Page } from "@nativesc
 import { hasKey } from "@nativescript/core/application-settings"
 import { CartViewModel } from "./cart-view-model"
 
-export function onNavigatingTo(args: NavigatedData) {
+export async function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
+  page.bindingContext = new CartViewModel()
+
 }
 
 export function back() {
@@ -11,33 +13,29 @@ export function back() {
 }
 
 const customerId = JSON.parse(ApplicationSettings.getString('customerId'))
-async function orderList() {
-  try {
-    const res = await Http.request({
-      url:`http://172.22.18.26:3000/order/customer/${customerId}`,
-      method: 'GET'
-    })
-    console.log(res.content);
-  } catch (error) {
-    console.log(error);   
-  }
-  console.log('dawdwawa');
-}
-orderList()
 
  export async function refreshList(args) {
   const pullRefresh = args.object;
       setTimeout(() => {
         pullRefresh.refreshing = false;
       }, 1000)
-  ApplicationSettings.remove('articles')
-  orderList()
-  console.log('refresh');
+ 
 }
 
 function list () {
   const articles = JSON.parse(ApplicationSettings.getString('articles','[]'))
-  return articles
+  let newArticles = []
+  for(let x of articles){
+    const data = {
+      productId: x.productId,
+      sellingPrice: x.sellingPrice,
+      quantity: x.quantity
+    }
+    newArticles.push(data)
+  }  
+  
+  return newArticles
+  // return articles
 }
 export async function buy() {
   let articles = list()
@@ -45,13 +43,14 @@ export async function buy() {
   try {
     if (hasKey('articles')) {
         const res = await Http.request({
-        url:'http://172.22.18.26:3000/order/',
+        url:'http://172.27.103.111:3000/order/',
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         content:JSON.stringify({ customerId,articles })
     })
     console.log('Successfully Purchase!')
     ApplicationSettings.remove('articles')
+    Frame.topmost().navigate('./home/home-page')
     } else {
       console.log('empty cart');   
     }
