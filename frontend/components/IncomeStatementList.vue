@@ -10,7 +10,7 @@
           </thead>
           <tbody>
          <tr>
-         <th> Total Sales</th>
+         <th> Total Revenue</th>
           <td rowspan="2"> 
           
             <currency-formatter :amount="incomeStatement.totalOrder" withSymbol/>
@@ -18,13 +18,13 @@
          <currency-formatter :amount="incomeStatement.totalPurchase" withSymbol/></td>
           </tr>
              <tr>
-         <th>  Total Purchase</th>
+         <th>  Cost of Revenue</th>
       
           </tr>
           </tbody>
            <tr>
                   <th  style="text-align:left">Total Revenue:</th>
-                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue(incomeStatement.totalOrder,incomeStatement.totalPurchase)" withSymbol/></th>
+                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue" withSymbol/></th>
                   <th  style="text-align:center" v-else>0</th>
                   </tr>
          <!--Revenue-->
@@ -37,11 +37,16 @@
                   </tr>
           </thead>
           <tbody>
+              <tbody>
+                  <tr v-for="(expense,index) in incomeStatement.expenseList" :key="index">
+                      <td>{{expense.name}}</td>
+                      
+                  </tr>
+              </tbody>
          <tr>
          <th> Total Expense</th>
           <td rowspan="2"> 
-          
-            <currency-formatter :amount="0" />
+            <currency-formatter :amount="incomeStatement.totalExpense" />
            </td>
           </tr>
          <!--Expense-->
@@ -56,16 +61,12 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
     incomeStatement:Array
 })
-const rev = ref(0)
-const expense = ref(0)
-const revenue = (order,purchase)=>{
-    rev.value=order - purchase
-return order - purchase
-}
-const netIncome = computed(()=>rev.value - expense.value)
+
+const revenue = computed(()=>props.incomeStatement.totalOrder  - props.incomeStatement.totalPurchase)
+const netIncome = computed(()=>revenue.value - props.incomeStatement.totalExpense)
 </script>
 
 <style scoped>
