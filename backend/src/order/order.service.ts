@@ -150,7 +150,10 @@ export class OrderService {
       date:x.date
     }
    })
-
+   let totalOrder = 0
+   if(order.length !==0){
+    totalOrder= order.map(x=>x.total).reduce((x,y)=>x+y)
+   }
       //purchase 
    const purchase =purchaseList.map(x=>{
     return {
@@ -158,10 +161,15 @@ export class OrderService {
       date:x.dateOfPurchase
     }
    })
-
+   let totalPurchase = 0
+   if(purchase.length !==0){
+    totalPurchase = purchase.map(x=>x.total).reduce((x,y)=>x+y)
+   }
       return   {
         purchase:purchase,
         order:order,
+        totalPurchase,
+        totalOrder
       }
     }
 }

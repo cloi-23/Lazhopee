@@ -1,7 +1,5 @@
 <template>
 <div>
-    <br>
-   from component ... {{incomeStatement}}
         <table v-if="incomeStatement">
          <!--Revenue-->
           <thead>
@@ -15,9 +13,9 @@
          <th> Total Sales</th>
           <td rowspan="2"> 
           
-            <currency-formatter :amount="total(incomeStatement.order)" withSymbol/>
+            <currency-formatter :amount="incomeStatement.totalOrder" withSymbol/>
             <span style="margin-left:-150px">-</span>
-         <currency-formatter :amount="total(incomeStatement.purchase)" withSymbol/></td>
+         <currency-formatter :amount="incomeStatement.totalPurchase" withSymbol/></td>
           </tr>
              <tr>
          <th>  Total Purchase</th>
@@ -26,7 +24,7 @@
           </tbody>
            <tr>
                   <th  style="text-align:left">Total Revenue:</th>
-                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue(incomeStatement)" withSymbol/></th>
+                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue(incomeStatement.totalOrder,incomeStatement.totalPurchase)" withSymbol/></th>
                   <th  style="text-align:center" v-else>0</th>
                   </tr>
          <!--Revenue-->
@@ -49,12 +47,10 @@
          <!--Expense-->
           </tbody>
            <tr>
-                  <th  style="text-align:left">Net Revenue:</th>
-                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue(incomeStatement)" withSymbol/></th>
+                  <th  style="text-align:left">Net Income:</th>
+                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="netIncome" withSymbol/></th>
                   <th  style="text-align:center" v-else>0</th>
                   </tr>
-        
-
       </table>
       </div>
 </template>
@@ -63,15 +59,13 @@
 defineProps({
     incomeStatement:Array
 })
-const total = (list)=>{
-  return list.map(x=>x.total).reduce((x,y)=>x+y)
-}
-const revenue = (list)=>{
-    const order = list.order.map(x=>x.total).reduce((x,y)=>x+y)
-    const purchase = list.purchase.map(x=>x.total).reduce((x,y)=>x+y)
+const rev = ref(0)
+const expense = ref(0)
+const revenue = (order,purchase)=>{
+    rev.value=order - purchase
 return order - purchase
 }
-
+const netIncome = computed(()=>rev.value - expense.value)
 </script>
 
 <style scoped>

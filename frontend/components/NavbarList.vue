@@ -40,6 +40,12 @@
                   <span class="label"  style="margin-left: -20px">Driver</span> 
                    </nuxt-link>
           </li>
+            <li>
+                    <nuxt-link :to="{name:'expense'}">
+                        <i class='bx bxs-dollar-circle bx-sm'></i>
+                        <span class="label"  >Expense</span> 
+                   </nuxt-link>
+                 </li>
                  <li>
                     <nuxt-link :to="{name:'incomeStatement'}">
                         <i class='bx bxs-bar-chart-alt-2 bx-sm'></i>

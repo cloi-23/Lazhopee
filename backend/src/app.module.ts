@@ -10,8 +10,11 @@ import { ManagerModule } from './manager/manager.module';
 import { OrderModule } from './order/order.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { UploadModule } from './upload/upload.module';
-import { PurchaseController } from './purchase/purchase.controller';
 import { PurchaseModule } from './purchase/purchase.module';
+import { ExpenseModule } from './expense/expense.module';
+import { IncomeStatementController } from './income-statement/income-statement.controller';
+import { IncomeStatementService } from './income-statement/income-statement.service';
+import { IncomeStatementModule } from './income-statement/income-statement.module';
 
 
 @Module({
@@ -24,7 +27,9 @@ import { PurchaseModule } from './purchase/purchase.module';
   StoreModule,
   UploadModule,
   ProductModule,
-  PurchaseModule],
+  PurchaseModule,
+  ExpenseModule,
+  IncomeStatementModule],
   controllers: [AppController],
   providers: [AppService],
 })

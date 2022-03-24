@@ -13,15 +13,16 @@
         
       </form>
       </div>
-   
-{{incomeStatement}}
-    
       <span  v-if="incomeStatement">
+  <pre>Order{{incomeStatement.order}}</pre> 
+     <pre>Purchase{{incomeStatement.purchase}}</pre> 
+     </span>
+      <!-- <span  v-if="incomeStatement">
         <income-statement-list :incomeStatement="incomeStatement"/>
       </span>
             <span  v-else>
 
-      </span>
+      </span> -->
  
   </div>
 </template>
@@ -30,10 +31,10 @@
 import axios from 'axios'
 
 const startDate = ref('2022-02-02')
-const endDate = ref('2022-03-30')
+const endDate = ref('2022-03-01')
 const incomeStatement = ref(null)
 const send = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/order/incomeStament/${startDate.value}/${endDate.value}`)
+const { data } =  await axios.get(`http://localhost:3000/incomeStatement/${startDate.value}/${endDate.value}`)
 incomeStatement.value = data
 // startDate.value=null
 // endDate.value=null
