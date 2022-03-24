@@ -10,6 +10,7 @@
     <th>Status</th>
     <th>Action</th>
   </tr>
+   <tbody  v-if="orders">
   <tr v-for="(list,index) in orders" :key="index"  v-show="list.order.status == 'Pending'">
   <div v-show="false">{{index}}</div>
     <td><date-formatter :timestamp="list.order.date"/></td>
@@ -24,6 +25,7 @@
   </td>
  
   </tr>
+  </tbody>
   </table>
   </div>
 </div>
