@@ -72,7 +72,7 @@ const router = useRouter()
          storeId:store.value,
          category:category.value,
          sellingPrice:sellingPrice.value,
-         image: `http://172.22.91.133:3000/upload/${image.value}`,
+         image: `http://localhost:3000/upload/${image.value}`,
          description:description.value
          
      }
