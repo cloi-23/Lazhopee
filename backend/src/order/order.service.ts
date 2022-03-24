@@ -126,50 +126,5 @@ export class OrderService {
       return order.remove();
     }
 
-   async findIncomeStament(startDate:string,endDate:string){
-      
-      
-      const orderList =  await this.orderModel.find({
-        date: {
-          $gte:startDate,
-          $lt:endDate
-      },
-      status:'Success'
-      })
-      const purchaseList =  await this.purchaseModel.find({
-        dateOfPurchase: {
-          $gte:startDate,
-          $lt:endDate
-      },
-      })
 
-          //order
-   const order =orderList.map(x=>{
-    return {
-      total:x.articles.map(articles=> articles.quantity * articles.sellingPrice).reduce((x,y)=>x+y),
-      date:x.date
-    }
-   })
-   let totalOrder = 0
-   if(order.length !==0){
-    totalOrder= order.map(x=>x.total).reduce((x,y)=>x+y)
-   }
-      //purchase 
-   const purchase =purchaseList.map(x=>{
-    return {
-      total:x.articles.map(articles=> articles.quantity * articles.unitCost).reduce((x,y)=>x+y),
-      date:x.dateOfPurchase
-    }
-   })
-   let totalPurchase = 0
-   if(purchase.length !==0){
-    totalPurchase = purchase.map(x=>x.total).reduce((x,y)=>x+y)
-   }
-      return   {
-        purchase:purchase,
-        order:order,
-        totalPurchase,
-        totalOrder
-      }
-    }
 }

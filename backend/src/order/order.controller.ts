@@ -29,10 +29,6 @@ export class OrderController {
   findOne(@Param('id') id: string) {
     return this.orderService.findOne(id)
   }
-  @Get('incomeStament/:startDate/:endDate')
-  findIncomeStament(@Param('startDate') startDate: string,@Param('endDate') endDate: string) {
-    return this.orderService.findIncomeStament(startDate,endDate)
-  }
   @Get('/details/:id')
   findOrder(@Param('id') id: string) {
     return this.orderService.findOrder(id)

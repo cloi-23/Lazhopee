@@ -35,6 +35,7 @@ const { data } =  await axios.get(`http://localhost:3000/incomeStatement/${start
 incomeStatement.value = data
 
 }
+await send()
 
 </script>
 
