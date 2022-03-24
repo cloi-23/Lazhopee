@@ -1,3 +1,4 @@
+import { Purchase } from './../purchase/entity/purchase.enity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose'
@@ -11,10 +12,9 @@ import { Product } from '../product/entity/product.entity';
 export class OrderService {
   constructor(
     @InjectModel(Order.name) private readonly orderModel: Model<Order> ,
-    
     @InjectModel(Customer.name) private readonly customerModel: Model<Customer> ,
-
     @InjectModel(Product.name) private readonly productModel: Model<Product> ,
+    @InjectModel(Purchase.name) private readonly purchaseModel: Model<Purchase> ,
     
     ) {}
 
@@ -122,5 +122,44 @@ export class OrderService {
       async remove(id: string) {
       const order = await this.orderModel.findOne({ _id: id }).exec();
       return order.remove();
+    }
+
+   async findIncomeStament(startDate:string,endDate:string){
+      
+      
+      const orderList =  await this.orderModel.find({
+        date: {
+          $gte:startDate,
+          $lt:endDate
+      },
+      status:'Success'
+      })
+      const purchaseList =  await this.purchaseModel.find({
+        dateOfPurchase: {
+          $gte:startDate,
+          $lt:endDate
+      },
+      })
+
+          //order
+   const order =orderList.map(x=>{
+    return {
+      total:x.articles.map(articles=> articles.quantity * articles.sellingPrice).reduce((x,y)=>x+y),
+      date:x.date
+    }
+   })
+
+      //purchase 
+   const purchase =purchaseList.map(x=>{
+    return {
+      total:x.articles.map(articles=> articles.quantity * articles.unitCost).reduce((x,y)=>x+y),
+      date:x.dateOfPurchase
+    }
+   })
+
+      return   {
+        purchase:purchase,
+        order:order,
+      }
     }
 }

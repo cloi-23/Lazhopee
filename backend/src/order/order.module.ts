@@ -1,3 +1,4 @@
+import { Purchase, PurchaseSchema } from './../purchase/entity/purchase.enity';
 import { Product, ProductSchema } from './../product/entity/product.entity';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -22,13 +23,13 @@ import { OrderService } from './order.service';
       name: Customer.name,
       schema: CustomerSchema
     }
-  ])/* ,
+  ]) ,
   MongooseModule.forFeature([
     {
-      name: Delivery.name,
-      schema: DeliverySchema
+      name: Purchase.name,
+      schema: PurchaseSchema
     }
-  ]) */],
+  ]) ],
   controllers: [OrderController],
   providers: [OrderService],
 })

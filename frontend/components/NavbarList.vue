@@ -40,6 +40,13 @@
                   <span class="label"  style="margin-left: -20px">Driver</span> 
                    </nuxt-link>
           </li>
+                 <li>
+                    <nuxt-link :to="{name:'incomeStatement'}">
+                        <i class='bx bxs-bar-chart-alt-2 bx-sm'></i>
+                        <span class="label"  >Income Statement</span> 
+                   </nuxt-link>
+                 </li>
+      
       
                 <li @click="IsToggle = !IsToggle">
                     <i class="fa-solid fa-truck fa-lg" style="color:#fff; margin-left: 40px"></i>

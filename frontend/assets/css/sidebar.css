@@ -152,3 +152,14 @@ padding: 15px;
      list-style-type: none;
      font-size: 20px;
  }
+ .incomeForm{
+     /* border:2px solid rebeccapurple; */
+     padding: 10px;
+     margin:10px;
+ 
+    
+ }
+ .incomeForm form{
+  margin-left: 105vh;
+  padding: 10px;
+ }

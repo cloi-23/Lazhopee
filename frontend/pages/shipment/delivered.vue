@@ -52,7 +52,9 @@ const  load = async(limit=limitPage.value,offset=page.value) =>{
       console.log(error);
   }
 }
- await load()
+await load()
+
+
 
  
 
