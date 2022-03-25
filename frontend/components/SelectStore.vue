@@ -20,15 +20,24 @@
 
 <script setup>
 import axios from 'axios'
-const { data:storeList } =  await axios.get(`http://localhost:3000/store`)
-const { data:productList } =  await axios.get(`http://localhost:3000/product`)
+import { tokenJWT } from '../store/token'
+import { storeToRefs } from 'pinia';
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+  let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
+const { data:storeList } =  await axios.get(`http://localhost:3000/store`,config)
+const { data:productList } =  await axios.get(`http://localhost:3000/product`,config)
 const searchValue = ref(null)
 const product = ref(null)
 const dateOfPurchase = ref(null)
 const emit = defineEmits(['puchases'])
 const storeSelect = ref(null)
 const search = async()=>{
-const { data:productList } =  await axios.get(`http://localhost:3000/product`)
+const { data:productList } =  await axios.get(`http://localhost:3000/product`,config)
 
 
  const filterwdByStore = productList.filter((src) => src.storeId === storeSelect.value)
@@ -49,7 +58,7 @@ product.value = filterwdByStore.filter((src) => {
 
 }
 const storeSort =async()=>{
-    const { data:productList } =  await axios.get(`http://localhost:3000/product`)
+    const { data:productList } =  await axios.get(`http://localhost:3000/product`,config)
 product.value = productList.filter((src) => src.storeId === storeSelect.value)
 }
 const purchaseList = ref([])

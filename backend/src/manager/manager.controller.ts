@@ -13,8 +13,6 @@ import { CreateManagerDto } from './dto/create-manager.dto';
 import { UpdateManagerDto } from './dto/update-manager.dto';
 import { ManagerService } from './manager.service';
 import { LocalAuthGuard } from '../auth/auth/guard/local-auth.guard'
-import { JwtAuthGuard } from '../auth/auth/guard/jwt-auth.guard'
-import { AuthGuard } from '@nestjs/passport';
 
 
 @Controller('manager')

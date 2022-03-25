@@ -36,7 +36,6 @@ export class DeliveryController {
     findAllDriverDelivery(@Param('id') id: string) {
       return this.deliveryService.findAllDriverDelivery(id)
     }
-
   
     @Post()
     create(@Body() createDelivery: Object[]) {    

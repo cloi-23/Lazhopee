@@ -8,7 +8,7 @@ export class AuthController {
 
   constructor(private authService: AuthService){}
   
-  @UseGuards(AuthGuard('local'))
+  // @UseGuards(AuthGuard('local'))
   @Post('auth')
   async login(@Request() req, /* @Response() res */) {
     let token = this.authService.loginWithCredentials(req);

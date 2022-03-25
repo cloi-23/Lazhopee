@@ -13,11 +13,11 @@ import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
-@UseGuards(JwtAuthGuard)
 @Controller('customer')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
-
+  
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(/* @Query() pagination: PaginationDto */) {
     return this.customerService.findAll(/* pagination */)

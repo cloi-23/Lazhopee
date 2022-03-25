@@ -97,7 +97,7 @@ const { token } = storeToRefs(myToken)
          
      }
  }
-const { data:storeList } =  await axios.get(`http://localhost:3000/store`)
+const { data:storeList } =  await axios.get(`http://localhost:3000/store`,config)
 
 
 </script>

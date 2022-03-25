@@ -39,8 +39,6 @@
 
 <script setup>
 import axios from 'axios';
-import { tokenJWT } from '../../store/token'
-import { storeToRefs } from 'pinia'
 const name =  ref(null)
 const address = ref(null)
 const contact = ref(null)
@@ -48,22 +46,16 @@ const device = ref(null)
 const fileData = ref(null)
 const photo = ref(null)
 const router = useRouter()
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
  const photoUpload = ()=>{
   photo.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
  }
-    let config = {
-  headers: { 
-    Authorization: `Bearer ${token.value}` 
-    }
-  }
+
 const add = async () => {
    const formData = new FormData();
          formData.append('file', photo.value);
     
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`,config,formData)
+         const uploadResponse = await axios.post(`http://localhost:3000/upload`,formData)
          photo.value =uploadResponse.data
          
          const driver ={
@@ -71,12 +63,12 @@ const add = async () => {
          address:address.value,
          contact:contact.value,
          device:device.value,
-         photo: `http://localhost:3000/upload/${photo.value}`,config,
+         photo: `http://localhost:3000/upload/${photo.value}`,
          username:contact.value,
          password:"lazhopee-driver"
          
      }
-       const res = await axios.post(`http://localhost:3000/driver/add`,config,driver)
+       const res = await axios.post(`http://localhost:3000/driver/add`,driver)
        console.log(res.status); 
     name.value = null
     address.value = null

@@ -63,8 +63,8 @@ const  load = async(limit=limitPage.value,offset=page.value) =>{
   try {
       const res = await  axios.get(`http://localhost:3000/delivery/order/shipping`,config)
       orders.value = res.data
+      console.log(res.data);
   } catch (error) {
-      router.push({ name: 'index' })
       console.log(error);
   }
 }

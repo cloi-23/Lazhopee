@@ -16,7 +16,7 @@
     <td><date-formatter :timestamp="list.order.date"/></td>
     <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
     <td>{{ list.customer.address }}</td>
-    <td>{{ list.order.status }}</td>{{access_token}}
+    <td>{{ list.order.status }}</td>
     <td>
   <button @click="sendData(index)" v-if="list.order.status === 'Pending'">send</button>
   <select v-model="selectedDriver" >
@@ -33,7 +33,7 @@
 <script setup>
 import axios from 'axios'
 import { tokenJWT } from '../../store/token'
-import { storeToRefs } from 'pinia';
+import { mapActions, storeToRefs } from 'pinia';
 const limitPage = ref(10)
 const route  = useRoute()
 const router  = useRouter()
@@ -50,20 +50,25 @@ await load(limitPage.value,page.value)
 
 const myToken = tokenJWT()
 const { token } = storeToRefs(myToken)
-console.log(token.value,'computed');
   let config = {
     headers: { 
       Authorization: `Bearer ${token.value}` 
       }
     }
+  
+const reToken = () => {
+  myToken.$patch({ token: token.value
+  })
+}
+reToken()
+
 const orders = ref(null)
 const load = async(limit=limitPage.value,offset=page.value) =>{
   try {
       const res =  await axios.get(`http://localhost:3000/order`,config)
       orders.value = res.data
-      return 
   } catch (error) {
-      console.log(error);
+      return error
   }
 }
  load()
@@ -74,7 +79,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
       const res = await axios.get(`http://localhost:3000/driver/`,config)
       drivers.value = res.data
     } catch (error) {
-      console.log(error);
+      return error
     }
   }
   getDrivers()

@@ -63,7 +63,7 @@ const { token } = storeToRefs(myToken)
     }
   }
   const product = ref(null)
-  let res = await axios.get(`http://localhost:3000/purchase/product/${route.params.id}`,config)
+  let res = await axios.get(`http://localhost:3000/product/${route.params.id}`,config)
   if(res.status == 200) {
       product.value = res.data
   } else {

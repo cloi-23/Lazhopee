@@ -14,11 +14,11 @@ import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
 import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
 @Controller('driver')
 export class DriverController {
   constructor(private readonly driverService: DriverService) {}
 
+@UseGuards(JwtAuthGuard)
   @Get()
   findAll(/* @Query() pagination: PaginationDto */) {
     return this.driverService.findAll(/* pagination */);

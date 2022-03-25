@@ -29,7 +29,16 @@
 
 <script setup>
 import axios from 'axios'
-const { data:expenseList } =  await axios.get(`http://localhost:3000/expense`)
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia';
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+  let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
+const { data:expenseList } =  await axios.get(`http://localhost:3000/expense`,config)
 </script>
 
 <style>

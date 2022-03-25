@@ -48,7 +48,6 @@ let driverList = ref(null)
     if(res.status == 200) {
         driverList.value = res.data
     } else {
-        router.push({ name: 'index'})
         console.log(res);
     }
 </script>
