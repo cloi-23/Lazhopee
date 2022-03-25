@@ -1,3 +1,4 @@
+import { Purchase } from './../purchase/entity/purchase.enity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose'
@@ -11,10 +12,9 @@ import { Product } from '../product/entity/product.entity';
 export class OrderService {
   constructor(
     @InjectModel(Order.name) private readonly orderModel: Model<Order> ,
-    
     @InjectModel(Customer.name) private readonly customerModel: Model<Customer> ,
-
     @InjectModel(Product.name) private readonly productModel: Model<Product> ,
+    @InjectModel(Purchase.name) private readonly purchaseModel: Model<Purchase> ,
     
     ) {}
 
@@ -125,4 +125,6 @@ export class OrderService {
       const order = await this.orderModel.findOne({ _id: id }).exec();
       return order.remove();
     }
+
+
 }

@@ -21,7 +21,7 @@ const amountWithSymbol = computed(() =>
     "$0,0.00"
   )
 );
-console.log( Dinero({ amount: props.amount, precision: 0 }).toFormat("0,0.00"),props.amounts);
+
 const amountFormat = computed(() =>  
   Dinero({ amount: props.amount, precision: 0 }).toFormat("0,0.00")
 );

@@ -10,13 +10,13 @@ import { ManagerModule } from './manager/manager.module';
 import { OrderModule } from './order/order.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { UploadModule } from './upload/upload.module';
-import { PurchaseController } from './purchase/purchase.controller';
 import { PurchaseModule } from './purchase/purchase.module';
-import { AuthModule } from './auth/auth.module';
+import { ExpenseModule } from './expense/expense.module';
+import { IncomeStatementModule } from './income-statement/income-statement.module';
 
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost:27018/Lazhopee'),
+  imports: [MongooseModule.forRoot('mongodb://localhost:27017/Lazhopee'),
   CustomerModule,
   DriverModule,
   ManagerModule,
@@ -26,7 +26,8 @@ import { AuthModule } from './auth/auth.module';
   UploadModule,
   ProductModule,
   PurchaseModule,
-  AuthModule],
+  ExpenseModule,
+  IncomeStatementModule],
   controllers: [AppController],
   providers: [AppService],
 })
