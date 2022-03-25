@@ -48,7 +48,6 @@ export class DeliveryService {
 
   async findDeliveryOrder() {
     const deliveryList = await this.deliveryModel.find()/* .limit(limit).skip(page * limit) */
-    console.log(deliveryList);
     
     const deliveries = []
     for (const deliver of deliveryList) {

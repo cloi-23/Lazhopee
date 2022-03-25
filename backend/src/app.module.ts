@@ -12,6 +12,7 @@ import { DeliveryModule } from './delivery/delivery.module';
 import { UploadModule } from './upload/upload.module';
 import { PurchaseController } from './purchase/purchase.controller';
 import { PurchaseModule } from './purchase/purchase.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -24,7 +25,8 @@ import { PurchaseModule } from './purchase/purchase.module';
   StoreModule,
   UploadModule,
   ProductModule,
-  PurchaseModule],
+  PurchaseModule,
+  AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

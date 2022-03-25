@@ -25,9 +25,21 @@
 </template>
 <script setup>
 import axios from 'axios'
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia'
 const route = useRoute()
-
-  const { data: details } = await axios.get(`http://localhost:3000/order/details/${route.params.id}`)
-
-  
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+  const details = ref(null)
+    let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
+  let res = await axios.get(`http://localhost:3000/order/details/${route.params.id}`,config)
+  if(res.status == 200) {
+      details.value = res.data
+  } else {
+      console.log(res);
+  }
 </script>

@@ -1,8 +1,10 @@
 import { UpdateStoreDto } from './dto/update-store.dto';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { StoreService } from './store.service';
-import { Body, Controller, Get, Param, Post, Delete, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, Patch, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('store')
 export class StoreController {
     constructor(private readonly storeService:StoreService){}

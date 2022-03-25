@@ -32,10 +32,23 @@
 
 <script setup>
 import axios from 'axios';
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia';
+const router = useRouter()
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+let driverList = ref(null)
 
-const { data:driverList} = await axios.get(`http://localhost:3000/driver`)
+    let config = {
+    headers: { 
+      Authorization: `Bearer ${token.value}` 
+      }
+    }
+    let res = await axios.get(`http://localhost:3000/driver`,config)
+    if(res.status == 200) {
+        driverList.value = res.data
+    } else {
+        router.push({ name: 'index'})
+        console.log(res);
+    }
 </script>
-
-<style>
-
-</style>

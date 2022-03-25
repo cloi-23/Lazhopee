@@ -30,9 +30,21 @@
 
 <script setup>
 import axios from 'axios'
-const { data:purchaseList } =  await axios.get(`http://localhost:3000/purchase`)
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia';
+const router = useRouter()
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+let purchaseList = ref(null)
+  let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
+  let res = await axios.get(`http://localhost:3000/purchase`,config)
+  if(res.status == 200) {
+      purchaseList.value = res.data
+  } else {
+      console.log(res);
+  }
 </script>
-
-<style>
-
-</style>

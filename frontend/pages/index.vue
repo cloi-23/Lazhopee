@@ -1,7 +1,5 @@
 <template>
 <div>
-
-
       <div class="center">
       <h1>Login</h1>
        <span style="text-align:center">{{ response }}</span> 
@@ -25,21 +23,26 @@
     </div>
 </template>
 <script setup>
+import { tokenJWT } from '../store/token'
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia';
 import axios from 'axios'
-definePageMeta({layout:'login'})
 const router = useRouter()
+definePageMeta({layout:'login'})
 
 let username=ref('');
 let password=ref('');
 let response=ref('');
-
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
 const login = async() => {
 try {
-  const res = await axios.post('http://localhost:3000/manager/login',{
+  const res = await axios.post('http://localhost:3000/auth',{
     username: username.value,
     password: password.value
   })
+    myToken.add(res.data.access_token)
+    console.log(token.value,'index');
     username.value = ''
     password.value = ''
     if (res.status !== 201) {
@@ -47,7 +50,7 @@ try {
     }
     router.push({name:'dashboard'})
   } catch (e) {
-    response.value = 'username or password is not correct'
+    console.log(e);
   }
 }
 

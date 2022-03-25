@@ -16,7 +16,7 @@
     <td><date-formatter :timestamp="list.order.date"/></td>
     <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }">{{ list.customer.name }}</nuxt-link></td>
     <td>{{ list.customer.address }}</td>
-    <td>{{ list.order.status }}</td>
+    <td>{{ list.order.status }}</td>{{access_token}}
     <td>
   <button @click="sendData(index)" v-if="list.order.status === 'Pending'">send</button>
   <select v-model="selectedDriver" >
@@ -32,9 +32,11 @@
 </template>
 <script setup>
 import axios from 'axios'
-
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia';
 const limitPage = ref(10)
 const route  = useRoute()
+const router  = useRouter()
 const page = ref(Number(route.query.page))
 const prev =async ()=>{
 page.value--
@@ -42,24 +44,34 @@ await load(limitPage.value,page.value)
 }
 const next = async ()=>{
 page.value++
+
 await load(limitPage.value,page.value)
 }
 
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+console.log(token.value,'computed');
+  let config = {
+    headers: { 
+      Authorization: `Bearer ${token.value}` 
+      }
+    }
 const orders = ref(null)
 const load = async(limit=limitPage.value,offset=page.value) =>{
   try {
-      const res =  await axios.get(`http://localhost:3000/order`)
+      const res =  await axios.get(`http://localhost:3000/order`,config)
       orders.value = res.data
+      return 
   } catch (error) {
       console.log(error);
   }
 }
-  await load()
+ load()
 
   const drivers = ref(null)
   const getDrivers = async() => {
     try {
-      const res = await axios.get(`http://localhost:3000/driver/`)
+      const res = await axios.get(`http://localhost:3000/driver/`,config)
       drivers.value = res.data
     } catch (error) {
       console.log(error);
@@ -71,11 +83,11 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
   const sendData = async(index) => {
   const orderId = orders.value[index].order['_id']
   const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
-    await axios.post('http://localhost:3000/delivery', {
+    await axios.post('http://localhost:3000/delivery',config,{
       orderId: orderId,
       driverId: driver[0]['_id']
     })
-    await axios.patch(`http://localhost:3000/order/${orderId}`, {
+    await axios.patch(`http://localhost:3000/order/${orderId}`,config,{
     status: 'Shipping'
   }) 
   await load()

@@ -6,9 +6,12 @@ import {
   Param, 
   Patch, 
   Post, 
-  Query} from '@nestjs/common';
+  Query,
+  UseGuards} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
 import { DeliveryService } from './delivery.service';
 
+@UseGuards(JwtAuthGuard)
 @Controller('delivery')
 export class DeliveryController {
   constructor(

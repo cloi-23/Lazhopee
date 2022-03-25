@@ -7,11 +7,14 @@ import {
   Param, 
   Patch, 
   Post, 
-  Query} from '@nestjs/common';
+  Query,
+  UseGuards} from '@nestjs/common';
 import { DriverService } from './driver.service';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
+import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('driver')
 export class DriverController {
   constructor(private readonly driverService: DriverService) {}

@@ -47,7 +47,8 @@
 
 <script setup>
 import axios from 'axios'
-
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia'
 const name = ref(null)
 const store = ref(null)
 const sellingPrice = ref(null)
@@ -56,28 +57,35 @@ const image = ref(null)
 const category = ref(null)
 const description = ref(null)
 const router = useRouter()
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
  const imgUpload = ()=>{
   image.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
  }
+   let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
  const add = async () => {
      try {
           const formData = new FormData();
          formData.append('file', image.value);
     
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`,formData)
+         const uploadResponse = await axios.post(`http://localhost:3000/upload`,config,formData)
          image.value =uploadResponse.data
          const product ={
          name: name.value,
          storeId:store.value,
          category:category.value,
          sellingPrice:sellingPrice.value,
-         image: `http://172.22.91.133:3000/upload/${image.value}`,
+         image: `http://172.22.91.133:3000/upload/${image.value}`,config,
          description:description.value
          
      }
    
-     const res = await axios.post(`http://localhost:3000/product/add`,product)
+     const res = await axios.post(`http://localhost:3000/product/add`,config,product)
       console.log(res.status); 
          name.value = null
          store.value = null

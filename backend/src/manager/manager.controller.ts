@@ -7,10 +7,15 @@ import {
   Param, 
   Patch, 
   Post, 
-  Query} from '@nestjs/common';
+  Query,
+  UseGuards} from '@nestjs/common';
 import { CreateManagerDto } from './dto/create-manager.dto';
 import { UpdateManagerDto } from './dto/update-manager.dto';
 import { ManagerService } from './manager.service';
+import { LocalAuthGuard } from '../auth/auth/guard/local-auth.guard'
+import { JwtAuthGuard } from '../auth/auth/guard/jwt-auth.guard'
+import { AuthGuard } from '@nestjs/passport';
+
 
 @Controller('manager')
 export class ManagerController {
@@ -42,6 +47,7 @@ export class ManagerController {
   }
 
   @Post('/login')
+  @UseGuards(LocalAuthGuard)
   async validateUser(@Body() login: LoginManagerDto) {
     return this.managerService.validateUser(login)
   }
