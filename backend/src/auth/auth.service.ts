@@ -20,15 +20,13 @@ export class AuthService {
             return {username: user.username, id: user['_id'],status:HttpStatus.CREATED}
           }
           throw new HttpException('',HttpStatus.UNAUTHORIZED)
-        } catch {
+        } catch(e) {
            throw new HttpException('username or password not exist!', HttpStatus.UNAUTHORIZED)
         }
       }
 
      async loginWithCredentials(user: any) {
-        const payload = { username: user.username, sub: user.id };  
-        console.log(payload);
-              
+        const payload = { username: user.username, sub: user.id };                
         return {
             access_token: this.jwtTokenService.sign(payload),
         };

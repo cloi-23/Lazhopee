@@ -2,7 +2,7 @@
 <div>
       <div class="center">
       <h1>Login</h1>
-       <span style="text-align:center">{{ response }}</span> 
+       <span style="text-align:center; color: brown;">{{ response }}</span> 
      <form @submit.prevent="login">
         <div class="txt_field">
           <input  type="text" v-model="username" required>
@@ -49,6 +49,7 @@ try {
     }
     router.push({name:'dashboard'})
   } catch (e) {
+      response.value = 'username or password is not correct'
     console.log(e);
   }
 }

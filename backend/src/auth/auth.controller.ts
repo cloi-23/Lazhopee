@@ -17,7 +17,7 @@ export class AuthController {
     //   httpOnly: false,
     //   secure: true
     // });
-    console.log(req.user);
+    // console.log(req.user);
     
     return token
   }
