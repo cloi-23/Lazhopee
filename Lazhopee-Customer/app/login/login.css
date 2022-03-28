@@ -1,0 +1,42 @@
+.box{
+    align-items: stretch;
+    flex-direction: column;
+}
+.form{
+    flex-grow: 1;
+    vertical-align: middle;
+    margin: 0 30;
+}
+.btn-primary{
+    height: 50;
+    margin: 30 5 15 5;
+    background-color: #ffbf00;
+    border-radius: 5;
+    font-size: 20;
+    font-weight: 600;
+    color: cornsilk;
+}
+.btn-danger{
+    height: 50;
+    margin: 30 5 15 5;
+    background-color: #ff5252;
+    border-radius: 5;
+    font-size: 20;
+    font-weight: 600;
+    color: cornsilk;
+}
+.input-field{
+    margin-bottom: 25;
+}
+.logo{
+    height: 150;
+    width: 500;
+    margin-bottom: 20;
+}
+.header{
+    text-align: center;
+    font-size: 20;
+    margin-bottom: 40;
+    /* color: #ffbf00; */
+   font-weight: bold;
+}
