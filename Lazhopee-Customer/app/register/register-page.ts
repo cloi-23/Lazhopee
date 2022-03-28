@@ -35,7 +35,7 @@ export async function register() {
 
 try{
   const res = await Http.request({
-      url:'http://172.27.103.111:3000/customer/',
+      url:'http://172.24.13.100:3000/customer/',
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       content: JSON.stringify({

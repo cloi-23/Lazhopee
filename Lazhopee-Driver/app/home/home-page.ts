@@ -8,16 +8,24 @@ import { Frame, NavigatedData, Page } from '@nativescript/core'
 
 import { HomeViewModel } from './home-view-model'
 
-export function onNavigatingTo(args: NavigatedData) {
+let homeViewModel = null
+export async function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
 
   page.bindingContext = new HomeViewModel()
-  // console.log(new HomeViewModel());
+  homeViewModel = new HomeViewModel()
+  await homeViewModel.getDeliverDetails()
   
 }
-
+export  async function refreshList(args) {
+  const pullRefresh = args.object;
+  console.log( await homeViewModel.refresh());
+ await homeViewModel.refresh()
+      setTimeout(() => {
+        pullRefresh.refreshing = false;
+      }, 1000);
+}
 export function show(args){
-  // console.log(args.view.bindingContext);
   Frame.topmost().navigate({moduleName:'./order/detail-page',clearHistory:true,context:{
     data:args.view.bindingContext
   }})

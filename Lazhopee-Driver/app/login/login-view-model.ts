@@ -2,7 +2,7 @@ import { Observable,Dialogs,Frame ,ApplicationSettings} from "@nativescript/core
 import { Http } from "@nativescript/core";
 
 export class LoginViewModel extends Observable{
-    private _username:string="9481385"
+    private _username:string="6387043"
     private _password:string="lazhopee-driver"
     constructor(){
         super();
@@ -35,7 +35,7 @@ export class LoginViewModel extends Observable{
         const password =this.password
    try {
    const res= await Http.request({
-        url:"http://172.23.131.123:3000/driver/login",
+        url:"http://172.23.209.112:3000/driver/login",
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -46,7 +46,7 @@ export class LoginViewModel extends Observable{
     ApplicationSettings.setString("driverId",JSON.stringify(res.content.toJSON().id))
      const driverId= ApplicationSettings.getString('driverId')
     const resDelivery= await Http.request({
-        url:`http://172.23.131.123:3000/delivery/driver/${driverId.split('"').join('')}`,
+        url:`http://172.23.209.112:3000/delivery/driver/${driverId.split('"').join('')}`,
         method:'GET',
     })
     
@@ -54,9 +54,7 @@ export class LoginViewModel extends Observable{
     ApplicationSettings.setString("deliverList",JSON.stringify(resDelivery.content))
     if(res.content.toJSON().status == "ok" || 200){
 
-    Frame.topmost().navigate({moduleName:'./home/home-page',clearHistory:true,context:{
-        data:res.content.toJSON()
-    }})
+    Frame.topmost().navigate('./home/home-page')
 }else{
     Dialogs.alert({
         title:"Lazhopee App",

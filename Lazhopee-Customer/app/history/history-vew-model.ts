@@ -2,11 +2,11 @@ import { ApplicationSettings, Frame, Http, Observable } from "@nativescript/core
 
 export class HistoryViewModel extends Observable {
   private readonly customerId = JSON.parse(ApplicationSettings.getString('customerId'))
-  private readonly _history = JSON.parse(ApplicationSettings.getString('history'))
+  private readonly _history = JSON.parse(ApplicationSettings.getString('history','[]'))
   async history() {
     try {
         const res = await Http.request({
-          url:`http://172.27.103.111:3000/order/customer/${this.customerId}`,
+          url:`http://172.24.13.100:3000/order/customer/${this.customerId}`,
           method: 'GET'
         })
         const deliveredOrder = res.content.toJSON().filter(x => { 
@@ -20,7 +20,7 @@ export class HistoryViewModel extends Observable {
             const imageHost = y.image.split('').slice(7,16).join('')
             if(imageHost == 'localhost'){
                 const imgLocation = y.image.split('').slice(16).join('')
-                const image = `http://172.27.103.111${imgLocation}`;
+                const image = `http://172.24.13.100${imgLocation}`;
             return {
               productId: y.productId,
               sellingPrice: y.sellingPrice,
@@ -41,5 +41,6 @@ export class HistoryViewModel extends Observable {
     await this.history()
     // ApplicationSettings.setString("status",JSON.stringify(productList))
     Frame.topmost().navigate('./history/history-page')
+    return "reload"
     }
 }

@@ -21,7 +21,7 @@ export class HomeViewModel extends Observable {
       
        
        const orderRes= await Http.request({
-        url:`http://172.23.131.123:3000/order/details/${orderId.split('"').join('')}`,
+        url:`http://172.23.209.112:3000/order/details/${orderId.split('"').join('')}`,
         method:'GET',
     })
     const order = orderRes.content
@@ -44,24 +44,18 @@ export class HomeViewModel extends Observable {
       
     }
   }
-  clear(){
-    ApplicationSettings.remove('deliverList')
-    ApplicationSettings.remove('deliverDetails')
-   
-  
-  }
+
   async refresh(){
  
     const driverId= ApplicationSettings.getString('driverId')
    const res= await Http.request({
-       url:`http://172.23.131.123:3000/delivery/driver/${driverId.split('"').join('')}`,
+       url:`http://172.23.209.112:3000/delivery/driver/${driverId.split('"').join('')}`,
        method:'GET',
    })
-   
-
    ApplicationSettings.setString("deliverList",JSON.stringify(res.content))
     this.getDeliverDetails()
     Frame.topmost().navigate('./home/home-page')
+    return "reload"
   }
 
 }

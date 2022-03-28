@@ -4,30 +4,28 @@ a code-behind file. The code-behind is a great place to place your view
 logic, and to set up your page’s data binding.
 */
 import { ApplicationSettings, Frame, NavigatedData, Page } from '@nativescript/core'
-import { HomeViewModel } from './home-view-model'
+import { HomeViewModel } from './home-vew-model'
 import { StatusViewModel } from '~/order/status-view-model'
 
 let statusViewModel = null
-
-export function onNavigatingTo(args: NavigatedData) {
+let homeViewModel = null
+export async function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
-const homeViewModel =new HomeViewModel()
+ homeViewModel = new HomeViewModel
   page.bindingContext = homeViewModel
-  homeViewModel.getProduct()  
+  await homeViewModel.getProduct()  
+  console.log(homeViewModel);
+  
   statusViewModel = new StatusViewModel()
 }
 
-export async function refreshList(args) {
+export  async function refreshList(args) {
   const pullRefresh = args.object;
+  console.log( await homeViewModel.refresh());
+ await homeViewModel.refresh()
       setTimeout(() => {
         pullRefresh.refreshing = false;
-      }, 1000)
-  ApplicationSettings.remove('articles')
- console.log('refresh');
-}
-
-export function clear(){
-  ApplicationSettings.clear()
+      }, 1000);
 }
 
 export function goToCart() {

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@nativescript-community/ui-pulltorefresh": "^2.5.0",
     "@nativescript/core": "~8.2.0",
     "@nativescript/theme": "~3.0.2"
   },

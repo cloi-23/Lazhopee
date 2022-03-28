@@ -9,7 +9,11 @@ export async function onNavigatingTo(args: NavigatedData) {
 }
 
 export function back() {
-  Frame.goBack()
+  Frame.topmost().navigate('./home/home-page')
+}
+export function clear() {
+  ApplicationSettings.remove('articles')
+  Frame.topmost().navigate('./cart/cart-page')
 }
 
 const customerId = JSON.parse(ApplicationSettings.getString('customerId'))
@@ -43,7 +47,7 @@ export async function buy() {
   try {
     if (hasKey('articles')) {
         const res = await Http.request({
-        url:'http://172.27.103.111:3000/order/',
+        url:'http://172.24.13.100:3000/order/',
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         content:JSON.stringify({ customerId,articles })

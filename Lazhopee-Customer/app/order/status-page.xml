@@ -9,25 +9,27 @@ xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh">
 
     <!-- <PullRefresh:PullToRefresh refresh="refreshList"> -->
      <FlexboxLayout flexDirection="column">
-        <GridLayout columns="*,*,*,*,*,*" rows="30" >
-            <label text="Image" row="0" col="0"  class="text-center" />
-            <label text="Name" row="0" col="1"   class="text-center" />
-            <label text="Qauntity" row="0" col="2"   class="text-center" />
-            <label text="Price" row="0" col="3"   class="text-center"  />
-            <label text="Total" row="0" col="4"   class="text-center"  />
-            <label text="Status" row="0" col="5"   class="text-center"  />
+        <GridLayout columns="*,*,*,*,*,*" rows="70" class="order-title" >
+            <label text="Image" row="0" col="0"  class="order-text" />
+            <label text="Name" row="0" col="1"  class="order-text" />
+            <label text="Quantity" row="0" col="2" class="order-text"  />
+            <label text="Price" row="0" col="3"  class="order-text" />
+            <label text="Total" row="0" col="4"    class="order-text" />
+            <label text="Status" row="0" col="5"   class="order-text" />
         </GridLayout>
+      
      <PullRefresh:PullToRefresh refresh="refreshList">
         <ListView  items="{{ _status || 'no cart' }}"  >
             <ListView.itemTemplate >
                 <ScrollView scroll="onScroll">
-                <GridLayout columns="*,*,*,*,*,*" rows="25,50"  class="sub-layout" height="100%">
-                <Image src="{{ image }}"  row="2" col="0"/> 
-                <label text="{{ name || 'no Name'}}"   row="2" col="1" class="text-center" />
-                <label text="{{ quantity || 'no Quantity'}}"     row="2" col="2" class="text-center"  />
-                <label text="{{ sellingPrice || 'no Selling Price'}}"  row="2" col="3" class="text-center" />
-                <label text="{{ quantity * sellingPrice || 'no Total'}}"  row="2" col="4" class="text-center" />
-                <label text="{{ status || 'no status'}}"  row="2" col="5" class="text-center" />
+                <GridLayout columns="*,*,*,*,*,*" rows="20,*"  class="sub-layout" height="100%">
+                   
+                <Image src="{{image || 'No Image'}}" alt ="image" row="2" col="0" class="order-text"/> 
+                <label text="{{ name || 'no Name'}}"   row="2" col="1" textWrap="true" class="order-text"/>
+                <label text="{{ quantity || 'no Quantity'}}"     row="2" col="2"  class="order-text"/>
+                <label text="{{ sellingPrice || 'no Selling Price'}}"  row="2" col="3" class="order-text"/>
+                <label text="{{ quantity * sellingPrice || 'no Total'}}"  row="2" col="4"  class="order-text"/>
+                <label text="{{ status || 'no status'}}"  row="2" col="5" class="order-text" />
                </GridLayout>
             </ScrollView>
     </ListView.itemTemplate>

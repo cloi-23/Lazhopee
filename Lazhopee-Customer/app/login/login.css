@@ -16,6 +16,15 @@
     font-weight: 600;
     color: cornsilk;
 }
+.btn-danger{
+    height: 50;
+    margin: 30 5 15 5;
+    background-color: #ff5252;
+    border-radius: 5;
+    font-size: 20;
+    font-weight: 600;
+    color: cornsilk;
+}
 .input-field{
     margin-bottom: 25;
 }

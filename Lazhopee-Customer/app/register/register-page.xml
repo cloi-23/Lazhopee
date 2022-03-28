@@ -4,8 +4,6 @@
     </ActionBar>
     <FlexboxLayout class="box">
         <StackLayout class="form">
-
-            <Image src="~/images/Lazhopee.png" class="logo"/>
             <Label text="Register " class="header"/>
             <Label id="errMsg" class="errMsg"/>
             <StackLayout class="input-field">
@@ -30,7 +28,7 @@
                 <TextField hint="address" text="{{ address }}" class="input" />
             <StackLayout class="hr-light" />
             </StackLayout>
-            <Button  class="btn btn-primary" text="Register" class="btn btn-primary" tap="register" />
+            <Button text="Register" class="btn btn-primary" tap="register" />
         </StackLayout>
     </FlexboxLayout>
 

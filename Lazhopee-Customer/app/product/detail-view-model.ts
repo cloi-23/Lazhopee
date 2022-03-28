@@ -83,6 +83,7 @@ get price():number{
         product[0].quantity+=this._quantity
       }
     ApplicationSettings.setString('articles',JSON.stringify(articles))
+    Frame.topmost().navigate('./home/home-page')
   }
 
 backButton() {
@@ -91,7 +92,7 @@ backButton() {
 async buy() {
   try {
         const res = await Http.request({
-        url:'http://172.19.168.244:3000/order/',
+        url:'http://172.24.13.100:3000/order/',
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         content: JSON.stringify({
@@ -115,4 +116,14 @@ less() {
   if( this._quantity !== 1 ) this.quantity--
    
   }
+
+  get cart():string{
+    const count =JSON.parse(ApplicationSettings.getString('articles','[]'))
+    if(count.length == 0){
+      return 'Cart'
+    }
+    return `Cart (${count.length})`
+  }
+
+
 }
