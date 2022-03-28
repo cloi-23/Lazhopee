@@ -1,7 +1,9 @@
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { PurchaseService } from './purchase.service';
-import { Body, Controller, Get, Post, Param, Patch, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Patch, Delete, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('purchase')
 export class PurchaseController {
     constructor(private readonly purchaseService:PurchaseService){}

@@ -40,7 +40,7 @@
 							<span class="color blue"></span>
 						</h5> -->
 						<div class="action">
-							<nuxt-link :to="{name:'product'}" class="add-to-cart btn btn-default" type="button">Back</nuxt-link>
+							<nuxt-link :to="{name:'product'}" class="add-to-cart btn btn-default" type="button" data-cy="back">Back</nuxt-link>
 							<!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button> -->
 						</div>
 					</div>
@@ -52,9 +52,23 @@
 
 <script setup>
 import axios from 'axios'
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia'
 const route = useRoute()
-
-const { data:product } =  await axios.get(`http://localhost:3000/product/${route.params.id}`)
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+  let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
+  const product = ref(null)
+  let res = await axios.get(`http://localhost:3000/product/${route.params.id}`,config)
+  if(res.status == 200) {
+      product.value = res.data
+  } else {
+      console.log(res);
+  }
 </script>
 
 <style scoped>

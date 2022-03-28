@@ -23,7 +23,7 @@
                   <td>{{driver.name}}</td>
                   <td>{{driver.contact}}</td>
                   <td>{{driver.address}}</td>
-                   <td><i class="fa-solid fa-eye"></i><nuxt-link :to="{name: 'driver-id',params:{id : driver._id}}">View</nuxt-link></td>
+                   <td><i class="fa-solid fa-eye"></i><nuxt-link :to="{name: 'driver-id',params:{id : driver._id}}" data-cy="view">View</nuxt-link></td>
               </tr>
           </tbody>
       </table>
@@ -32,10 +32,22 @@
 
 <script setup>
 import axios from 'axios';
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia';
+const router = useRouter()
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+let driverList = ref(null)
 
-const { data:driverList} = await axios.get(`http://localhost:3000/driver`)
+    let config = {
+    headers: { 
+      Authorization: `Bearer ${token.value}` 
+      }
+    }
+    let res = await axios.get(`http://localhost:3000/driver`,config)
+    if(res.status == 200) {
+        driverList.value = res.data
+    } else {
+        console.log(res);
+    }
 </script>
-
-<style>
-
-</style>

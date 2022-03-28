@@ -19,15 +19,18 @@ export class DriverService {
       return this.driverModel.find()/* .limit(limit).skip(page * limit) */
     }
   
-    async findOne(id: string) {
+    async findOne(id: string) {     
+       
       try {
         const driver = await this.driverModel.findOne({ _id: id }).exec();
+        
         if (!driver) {
           throw new NotFoundException(`Driver #${id} not found`);
         }
         return driver;
       } catch (error) {
-        throw new NotFoundException(`Driver #${id} not found`);
+        return error
+        
       }    
     }
   

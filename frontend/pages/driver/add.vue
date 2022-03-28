@@ -39,7 +39,6 @@
 
 <script setup>
 import axios from 'axios';
-
 const name =  ref(null)
 const address = ref(null)
 const contact = ref(null)
@@ -51,6 +50,7 @@ const router = useRouter()
   photo.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
  }
+
 const add = async () => {
    const formData = new FormData();
          formData.append('file', photo.value);

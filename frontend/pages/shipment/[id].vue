@@ -3,7 +3,7 @@
   
   <div >
   <h1> Customer Name:  {{details.name}}</h1>
-<button @click="$router.go(-1)" class="addLink">Back</button>
+<button @click="$router.go(-1)" class="addLink" data-cy="back">Back</button>
   <table>
   <tr>
     <th>Image</th>
@@ -25,9 +25,21 @@
 </template>
 <script setup>
 import axios from 'axios'
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia'
 const route = useRoute()
-
-  const { data: details } = await axios.get(`http://localhost:3000/order/details/${route.params.id}`)
-
-  
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+  const details = ref(null)
+    let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
+  let res = await axios.get(`http://localhost:3000/order/details/${route.params.id}`,config)
+  if(res.status == 200) {
+      details.value = res.data
+  } else {
+      console.log(res);
+  }
 </script>

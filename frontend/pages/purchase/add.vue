@@ -18,7 +18,8 @@
 
 <script setup>
 import axios from 'axios'
-
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia'
 const searchValue = ref(null)
 const product = ref(null)
 const purchaseList = ref(null)
@@ -26,13 +27,17 @@ const router = useRouter()
 const list  = (list)=>{
 purchaseList.value = list
 }
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+  let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
 const save = async (listOfPurchase) =>{
   try {
     const purchaseTotal =  listOfPurchase.articles.map(article => {
     return article.quantity[article.index] * article.unitCost[article.index] }).reduce((x,y) => x + y)
-
- 
-
     const purchase = {
       storeId: listOfPurchase.storeId,
       dateOfPurchase:listOfPurchase.dateOfPurchase,
@@ -46,7 +51,7 @@ const save = async (listOfPurchase) =>{
       })
     }
      console.log(purchase);
-    const res = await axios.post(`http://localhost:3000/purchase/add`,purchase)
+    const res = await axios.post(`http://localhost:3000/purchase/add`,config,purchase)
     console.log(res.status);
 router.push({name:'purchase'})
   } catch (error) {

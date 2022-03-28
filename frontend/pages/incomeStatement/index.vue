@@ -26,12 +26,20 @@
 
 <script setup>
 import axios from 'axios'
-
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia';
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
 const startDate = ref('2022-03-01')
 const endDate = ref('2022-03-31')
 const incomeStatement = ref(null)
+  let config = {
+  headers: { 
+    Authorization: `Bearer ${token.value}` 
+    }
+  }
 const send = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/incomeStatement/${startDate.value}/${endDate.value}`)
+const { data } =  await axios.get(`http://localhost:3000/incomeStatement/${startDate.value}/${endDate.value}`,config)
 incomeStatement.value = data
 
 }

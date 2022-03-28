@@ -20,7 +20,7 @@
 						<h4 class="price">Device: <span>{{driver.device}}</span></h4>
 					
 						<div class="action">
-							<nuxt-link :to="{name:'driver'}" class="add-to-cart btn btn-default" type="button">Back</nuxt-link>
+							<nuxt-link :to="{name:'driver'}" class="add-to-cart btn btn-default" type="button" data-cy="back">Back</nuxt-link>
 						
 						</div>
 					</div>
@@ -34,7 +34,13 @@
 import axios from 'axios'
 const route = useRoute()
 
-const { data:driver } =  await axios.get(`http://localhost:3000/driver/${route.params.id}`)
+  const driver = ref(null)
+  let res = await axios.get(`http://localhost:3000/driver/${route.params.id}`)
+  if(res.status == 200) {
+      driver.value = res.data
+  } else {
+      console.log(res);
+  }
 </script>
 
 <style scoped>

@@ -3,16 +3,23 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "cypress": "cypress open"
   },
   "devDependencies": {
+    "cypress": "^9.5.2",
     "nuxt3": "latest"
   },
   "dependencies": {
+    "@nuxtjs/auth-next": "^5.0.0-1647967358.de1bb0f",
+    "@pinia/nuxt": "^0.1.8",
     "@vueuse/head": "^0.7.5",
     "axios": "^0.26.1",
+    "cookie-universal-nuxt": "^2.1.5",
     "date-fns": "^2.28.0",
     "dinero.js": "^1.9.1",
+    "h3": "^0.4.2",
+    "pinia": "^2.0.12",
     "vue-head": "^2.2.0"
   }
 }

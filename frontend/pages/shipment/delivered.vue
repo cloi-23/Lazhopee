@@ -14,7 +14,7 @@
   <tr v-for="(order,index) in orders" :key="index"  v-show="order.status == 'Success' || order.status == 'Failed'">
   <div v-show="false">{{index}}</div>
     <td><date-formatter :timestamp="order.date"/></td>
-    <td><nuxt-link :to = "{ name: 'shipment-id',params: { id: order.orderId } }">{{ order.customerName }}</nuxt-link></td>
+    <td><nuxt-link :to = "{ name: 'shipment-id',params: { id: order.orderId } }" data-cy="view">{{ order.customerName }}</nuxt-link></td>
     <td>{{ order.customerAddress }}</td>
     <td>{{ order.status }}</td>
        <td >{{ order.driverName }}</td>
@@ -28,7 +28,8 @@
 </template>
 <script setup>
 import axios from 'axios'
-
+import { tokenJWT } from '../../store/token'
+import { storeToRefs } from 'pinia';
 const limitPage = ref(10)
 const route  = useRoute()
 const router  = useRouter()
@@ -43,12 +44,20 @@ page.value++
 await load(limitPage.value,page.value)
 }
 
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+  let config = {
+    headers: { 
+      Authorization: `Bearer ${token.value}` 
+      }
+    }
 const orders = ref(null)
 const  load = async(limit=limitPage.value,offset=page.value) =>{
   try {
-      const res = await  axios.get(`http://localhost:3000/delivery/order/shipping`)
+      const res = await  axios.get(`http://localhost:3000/delivery/order/shipping`, config)
       orders.value = res.data
   } catch (error) {
+      router.push({name: 'index'})
       console.log(error);
   }
 }
