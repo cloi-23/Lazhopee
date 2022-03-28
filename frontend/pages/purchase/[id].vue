@@ -2,7 +2,7 @@
   <div>
       <h1>Purchase</h1>
         <div class="addLink"> 
-        <nuxt-link :to="{name : 'purchase'}" >  Back</nuxt-link>
+        <nuxt-link :to="{name : 'purchase'}" data-cy="back">  Back</nuxt-link>
     </div>
     <div class="sub-title">
      <ul>

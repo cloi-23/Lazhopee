@@ -3,7 +3,7 @@
   
   <div >
   <h1> Customer Name:  {{details.name}}</h1>
-<button @click="$router.go(-1)" class="addLink">Back</button>
+<button @click="$router.go(-1)" class="addLink" data-cy="back">Back</button>
   <table>
   <tr>
     <th>Image</th>

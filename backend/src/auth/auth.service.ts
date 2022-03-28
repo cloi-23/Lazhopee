@@ -16,8 +16,8 @@ export class AuthService {
           const user = await this.managerModel.findOne({ username: loginUser })        
           const isMatch = await bcrypt.compare(pass, user.password)
           
-          if  (isMatch) {
-            return {id: user['_id'],status:HttpStatus.CREATED}
+          if(isMatch) {
+            return {username: user.username, id: user['_id'],status:HttpStatus.CREATED}
           }
           throw new HttpException('',HttpStatus.UNAUTHORIZED)
         } catch {
@@ -26,8 +26,9 @@ export class AuthService {
       }
 
      async loginWithCredentials(user: any) {
-        const payload = { username: user.username, sub: user.userId };
-
+        const payload = { username: user.username, sub: user.id };  
+        console.log(payload);
+              
         return {
             access_token: this.jwtTokenService.sign(payload),
         };

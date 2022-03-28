@@ -8,16 +8,16 @@ export class AuthController {
 
   constructor(private authService: AuthService){}
   
-  // @UseGuards(AuthGuard('local'))
+  @UseGuards(AuthGuard('local'))
   @Post('auth')
   async login(@Request() req, /* @Response() res */) {
-    let token = this.authService.loginWithCredentials(req);
+    let token = this.authService.loginWithCredentials(req.user);
     // res.cookie('access-Token', token, {
     //   sameSite: 'strict',
     //   httpOnly: false,
     //   secure: true
     // });
-    // console.log(req);
+    console.log(req.user);
     
     return token
   }

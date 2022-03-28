@@ -20,7 +20,7 @@
 						<h4 class="price">Device: <span>{{driver.device}}</span></h4>
 					
 						<div class="action">
-							<nuxt-link :to="{name:'driver'}" class="add-to-cart btn btn-default" type="button">Back</nuxt-link>
+							<nuxt-link :to="{name:'driver'}" class="add-to-cart btn btn-default" type="button" data-cy="back">Back</nuxt-link>
 						
 						</div>
 					</div>

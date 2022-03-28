@@ -23,7 +23,7 @@
                   <td>{{driver.name}}</td>
                   <td>{{driver.contact}}</td>
                   <td>{{driver.address}}</td>
-                   <td><i class="fa-solid fa-eye"></i><nuxt-link :to="{name: 'driver-id',params:{id : driver._id}}">View</nuxt-link></td>
+                   <td><i class="fa-solid fa-eye"></i><nuxt-link :to="{name: 'driver-id',params:{id : driver._id}}" data-cy="view">View</nuxt-link></td>
               </tr>
           </tbody>
       </table>

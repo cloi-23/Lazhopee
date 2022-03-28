@@ -40,7 +40,7 @@
 							<span class="color blue"></span>
 						</h5> -->
 						<div class="action">
-							<nuxt-link :to="{name:'product'}" class="add-to-cart btn btn-default" type="button">Back</nuxt-link>
+							<nuxt-link :to="{name:'product'}" class="add-to-cart btn btn-default" type="button" data-cy="back">Back</nuxt-link>
 							<!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button> -->
 						</div>
 					</div>

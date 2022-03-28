@@ -14,7 +14,7 @@
   <tr v-for="(order,index) in orders" :key="index"  v-show="order.status == 'Success' || order.status == 'Failed'">
   <div v-show="false">{{index}}</div>
     <td><date-formatter :timestamp="order.date"/></td>
-    <td><nuxt-link :to = "{ name: 'shipment-id',params: { id: order.orderId } }">{{ order.customerName }}</nuxt-link></td>
+    <td><nuxt-link :to = "{ name: 'shipment-id',params: { id: order.orderId } }" data-cy="view">{{ order.customerName }}</nuxt-link></td>
     <td>{{ order.customerAddress }}</td>
     <td>{{ order.status }}</td>
        <td >{{ order.driverName }}</td>
