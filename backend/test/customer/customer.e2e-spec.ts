@@ -15,7 +15,7 @@ describe('Customer (e2e)', () => {
   }
   let params = { id: null }
   let app: INestApplication;
-
+  let token = null
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [CustomerModule,
@@ -45,14 +45,16 @@ describe('Customer (e2e)', () => {
               id:body._id,}
           })
       })
-      it('login [POST /] object it should 201 created', () => {                
-          return request(app.getHttpServer())
+      it('login [POST /] object it should 201 created then get a JWT', async() => {                
+          const res = await request(app.getHttpServer())
           .post('/customer/login')
           .send({
             username: 'dwadwadwas1',
             password: 'dawdwad'
           })
           .expect(HttpStatus.CREATED)
+
+           token = res.body.access_token;
       })
         
       it('findOne [GET /] object it should 200 ok', () => {
@@ -64,6 +66,7 @@ describe('Customer (e2e)', () => {
       it('findAll [GET /] object it should 200 ok', () => {
         return request(app.getHttpServer())
         .get(`/customer`)
+        .set('Authorization', 'Bearer ' + token)
         .expect(HttpStatus.OK)
       })
 

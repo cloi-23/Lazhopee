@@ -3,7 +3,7 @@ import { UpdateProductDto } from './dto/update-product-dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductService } from './product.service';
 import { Body, Controller, Get, Param, Post, Patch, Delete, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('product')

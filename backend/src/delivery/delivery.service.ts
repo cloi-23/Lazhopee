@@ -2,9 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Delivery } from './entities/delivery.entity';
 import { Model } from 'mongoose'
-import { Driver } from 'src/driver/entities/drivers.entity';
-import { Order } from 'src/order/entities/order.entity';
-import { Customer } from 'src/customer/entities/customer.entity';
+import { Driver } from '../driver/entities/drivers.entity';
+import { Order } from '../order/entities/order.entity';
+import { Customer } from '../customer/entities/customer.entity';
 
 @Injectable()
 export class DeliveryService {

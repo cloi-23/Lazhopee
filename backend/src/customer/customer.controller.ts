@@ -1,6 +1,7 @@
 // import { PaginationDto } from './../common/pagination/pagination-dto';
 import { 
-  Body, 
+  Body,
+  Request, 
   Controller, 
   Delete, Get, 
   Param, 
@@ -8,7 +9,8 @@ import {
   Post, 
   Query,
   UseGuards} from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
+import { CustomerLocalAuthGuard } from './auth/guard/local-auth.guard';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -42,10 +44,16 @@ export class CustomerController {
   remove(@Param('id') id: string) {
     return this.customerService.remove(id);  
   }
-
+  @UseGuards(CustomerLocalAuthGuard)
   @Post('/login')
-  async validateUser(@Body() login) {
-    return this.customerService.validateUser(login)
+  async validateCustomer(@Body() login  , @Body() pass , @Request() req) {    
+    return await this.customerService.validateCustomer(login.username, pass.password);
+    // let user = req.user.data
+    // let credentials = { token:token.access_token,
+    //   id: user.id,
+    //   status: user.status,
+    //  }  
+    // console.log(token);
+    //   return token  
   }
-
 }

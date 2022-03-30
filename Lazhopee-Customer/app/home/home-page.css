@@ -1,0 +1,25 @@
+.nav{
+    /* background-color: #FFBF00;
+    color: #fff; */
+    background-color: #111;
+    color: #FFBF00;
+}
+#nav-item{
+    color: #FFBF00;
+    font-size: 20px;
+    border: 2px solid red;
+}
+.product{
+     background-color: #FFBF00;
+    color: #fff; 
+}
+.title{
+font-size: 15;
+padding: 10;
+margin: 20 20 10 0; 
+}
+.price{
+    padding: 10;
+    font-size: 12;
+
+}

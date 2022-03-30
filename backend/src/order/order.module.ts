@@ -6,6 +6,7 @@ import { Customer, CustomerSchema } from '../customer/entities/customer.entity';
 import { Order, OrderSchema } from './entities/order.entity';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
+import { JwtStrategy } from '../manager/auth/strategy/jwt.strategy';
 
 @Module({
   imports: [MongooseModule.forFeature([
@@ -31,6 +32,6 @@ import { OrderService } from './order.service';
     }
   ]) ],
   controllers: [OrderController],
-  providers: [OrderService],
+  providers: [OrderService, JwtStrategy],
 })
 export class OrderModule {}

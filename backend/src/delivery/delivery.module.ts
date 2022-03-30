@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { JwtStrategy } from '../manager/auth/strategy/jwt.strategy';
 import { Customer, CustomerSchema } from '../customer/entities/customer.entity';
 import { Driver, DriverrSchema } from '../driver/entities/drivers.entity';
 import { Order, OrderSchema } from '../order/entities/order.entity';
@@ -33,7 +34,7 @@ import { Delivery, DeliverySchema } from './entities/delivery.entity';
     }
   ])],
   controllers: [DeliveryController],
-  providers: [DeliveryService],
+  providers: [DeliveryService, JwtStrategy],
   exports: [DeliveryService]
 })
 export class DeliveryModule {}

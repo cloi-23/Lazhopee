@@ -55,7 +55,7 @@ const { token } = storeToRefs(myToken)
         const formData = new FormData();
          formData.append('file', image.value);
     
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`,config,formData)
+         const uploadResponse = await axios.post(`http://localhost:3000/upload`, formData, config)
          image.value =uploadResponse.data
          const store ={
          name: name.value,
@@ -66,7 +66,7 @@ const { token } = storeToRefs(myToken)
      }
    
    
-     const res = await axios.post(`http://localhost:3000/store/add`,config,store)
+     const res = await axios.post(`http://localhost:3000/store/add`, store ,config)
       console.log(res.status); 
       name.value = null
       address.value = null

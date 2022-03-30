@@ -88,13 +88,13 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
   const sendData = async(index) => {
   const orderId = orders.value[index].order['_id']
   const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
-    await axios.post('http://localhost:3000/delivery',config,{
+    await axios.post('http://localhost:3000/delivery',{
       orderId: orderId,
       driverId: driver[0]['_id']
-    })
-    await axios.patch(`http://localhost:3000/order/${orderId}`,config,{
+    },config)
+    await axios.patch(`http://localhost:3000/order/${orderId}`,{
     status: 'Shipping'
-  }) 
+  },config) 
   await load()
   await getDrivers()
 }

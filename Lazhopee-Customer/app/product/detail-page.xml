@@ -1,0 +1,86 @@
+<Page navigatingTo="onNavigatingTo" xmlns="http://schemas.nativescript.org/tns.xsd" >
+    <ActionBar title="Lazhopee">
+        <ActionBar.actionItems>
+             <ActionItem text="Back" tap="back"/>
+             <ActionItem text="{{cart}}" tap="goToCart"/>
+        </ActionBar.actionItems>
+    </ActionBar>
+    <scrollView orientation="vertical">
+      <StackLayout orientation="vertical" >
+    <FlexboxLayout flexDirection="column">
+      <!--Image and Name -->
+      <StackLayout orientation="vertical" class="stackLayout" height="35%">
+        <Image src="{{image}}" />
+        <Label text="{{name}}" class="text-center"/>
+        </StackLayout>
+      <!--Image and Name -->
+        <!--Description Title -->
+        <StackLayout orientation="vertical" height="6%" class="description">
+          <label text="Description :" class="h1"  />
+        </StackLayout>
+         <!--Description Title -->
+         <!--Description Content -->
+        <FlexboxLayout flexDirection="column" height="5%" class="description" id="descLayout" >
+          <scrollView orientation="vertical">
+          <Label id="description" text="{{description}}" textWrap="false" tap="show"/>
+        </scrollView>
+        </FlexboxLayout>
+        <!--Description Content -->
+        <!--Quantity -->
+        <FlexboxLayout alignItems="flex-start" height="200px">
+          <label text="Quantity :" width="100" height="100" id="label"   class="text-center"/>
+          <Button text="-"  tap="{{less || null}}"  id="countBTN" />
+          <Label id="quantity" text="{{quantity}}"  class="text-center"/>
+          <Button text="+"  tap="{{add || null}}"  id="plusBTN"  />
+        </FlexboxLayout>
+        <!--Quantity -->
+         <!--Price -->
+        <FlexboxLayout alignItems="flex-start"  height="200px">
+          <label text="Price :" width="100" height="100" class="text-center"/>
+          <Label  text="{{'₱' +price}}" textWrap="false" tap="show" class="text-center"/>
+        </FlexboxLayout>
+         <!--Price -->
+        <!--Total -->
+        <FlexboxLayout alignItems="flex-start" height="200px">
+          <label text="Total Amount :" width="100" height="100" class="text-center"/>
+          <Label  text="{{'₱' +totalPrice || 0}}" textWrap="false" tap="show" class="text-center"/>
+        </FlexboxLayout>
+        <!--Total -->
+      <!--Button -->
+      <FlexboxLayout flexDirection="column"  >
+        <Button text="Add Cart" class="btn btn-primary" tap="{{addToCart || null}}"/>
+        <Button text="Buy Now" class="btn btn-primary" tap="{{buy || null}}"/>      
+      </FlexboxLayout>
+      <!--Button -->
+    </FlexboxLayout>
+    </StackLayout>
+    </scrollView>
+</Page>
+      <!-- <scrollView orientation="vertical">
+        <StackLayout orientation="vertical" class="form">
+            <Image src="{{image}}"  width ="200 "/>
+            <Label text="{{name}}" class="header"/>
+        
+            <GridLayout columns="300, *" rows="*, *">
+                <label text="Description :" row="0" col="0" id="label" />
+                <Label id="description" text="{{description}}" textWrap="false" tap="show" row="1" col="0"/>
+              </GridLayout>
+
+              <GridLayout columns="*,*,*,*" rows="*, *,*,*">
+                <label text="Quantity :" row="0" col="0" id="label"/>
+                <Label id="quantity" text="{{quantity}}"  row="0" col="2" id="count"/>
+                <Button text="-"  tap="{{less || null}}"  id="countBTN" row="0" col="1"/>
+                <Button text="+"  tap="{{add || null}}"  id="plusBTN"  row="0" col="3" />
+              </GridLayout>
+              <GridLayout columns="300" rows="*, *">
+                <label text="Price :" row="0" col="0"   id="label"/>
+                <Label  text="{{'₱' +price}}" textWrap="false" tap="show" row="0" col="0"  id="count"/>
+              </GridLayout>
+              <GridLayout columns="300" rows="*, *">
+                <label text="Total Price :" row="0" col="0"   id="totalPrice"/>
+                <Label  text="{{'₱' +totalPrice || 0}}" textWrap="false" tap="show" row="0" col="0"  id="count"/>
+              </GridLayout>
+            <Button text="Add Cart" class="btn btn-primary" tap="{{addToCart || null}}"/>
+            <Button text="Buy Now" class="btn btn-primary" tap="{{buy || null}}"/>      
+        </StackLayout>
+    </scrollView> -->

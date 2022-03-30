@@ -6,6 +6,7 @@ import { Expense, ExpenseSchema } from './../expense/entity/expense.enitity';
 import { Product, ProductSchema } from './../product/entity/product.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
+import { JwtStrategy } from '../manager/auth/strategy/jwt.strategy';
 
 @Module({
     imports:[
@@ -29,7 +30,7 @@ import { Module } from '@nestjs/common';
         ])
     ],
   controllers:[IncomeStatementController],
-  providers:[IncomeStatementService],
+  providers:[IncomeStatementService, JwtStrategy],
   exports:[IncomeStatementService]
 })
 export class IncomeStatementModule {}

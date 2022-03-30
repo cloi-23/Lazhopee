@@ -1,17 +1,19 @@
 // import { PaginationDto } from './../common/pagination/pagination-dto';
 import { LoginCustomerDto } from './dto/login-cutomer.dto';
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Customer } from './entities/customer.entity';
 import { Model } from 'mongoose'
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import * as bcrypt from 'bcrypt'
+// import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class CustomerService {
   constructor(
-    @InjectModel(Customer.name) private customerModel: Model<Customer>) {}
+    @InjectModel(Customer.name) private customerModel: Model<Customer>,
+    @Inject('JwtSecret1Service') private jwtSecret1Module  ) {}
 
     findAll(/* pagination: PaginationDto */) {
 /*       const {limit ,offset} = pagination
@@ -52,15 +54,23 @@ export class CustomerService {
       return customer.save()
     }
   
-    async validateUser(login:LoginCustomerDto): Promise<any> {
+    async validateCustomer(login,pass): Promise<any> {
+      
       try {
-        const user = await this.customerModel.findOne({ username: login.username.toLocaleLowerCase() }).exec();
-        const isMatch = await bcrypt.compare(login.password, user.password)
+        const user = await this.customerModel.findOne({ username: login.toLocaleLowerCase() }).exec();
+        
+        const isMatch = await bcrypt.compare(pass, user.password)
+
         if (isMatch) {   
-          return {id: user['_id'],status:'ok'}
+
+          const token = await this.loginCustomerWithCredentials(user)               
+          return { id: user['_id'], status:'ok', ...token}
         }
+        
         throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)
       } catch (err){
+        console.log(err);
+        
         throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)       
       }
     }
@@ -82,5 +92,12 @@ export class CustomerService {
       const product = await this.findOne(id)
       return product.remove();
     }
+
+    async loginCustomerWithCredentials(user: any) {
+      const payload = { username: user.username, sub: user.id };                
+      return {
+        access_token: this.jwtSecret1Module.sign(payload),
+      };
+  }
 
 }

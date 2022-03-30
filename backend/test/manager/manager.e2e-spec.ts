@@ -14,6 +14,7 @@ describe('Manager (e2e)', () => {
   }
   let app: INestApplication;
   let params = { id: null }
+  let token = null
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [ManagerModule,
@@ -42,21 +43,21 @@ describe('Manager (e2e)', () => {
           params = { id: body._id})
       })
 
-      it('login [POST /] object it should 201 created', () => {
-        console.log(params.id);
-        
-          return request(app.getHttpServer())
+      it('login [POST /] object it should 201 created', async() => {
+          const res = await request(app.getHttpServer())
           .post('/manager/login')
           .send({
             username: 'dwadwadwas1',
             password: 'dawdwad'
           })
           .expect(HttpStatus.CREATED)
+          token = res.body.access_token
       })
         
       it('findOne [GET /] object it should 200 ok', () => {
         return request(app.getHttpServer())
         .get(`/manager/${params.id}`)
+        .set('Authorization', 'Bearer ' + token)
         .expect(HttpStatus.OK)
       })
 

@@ -12,7 +12,8 @@ import {
 import { DriverService } from './driver.service';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
-import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
+import { LocalStrategy } from './auth/strategy/local.strategy';
 
 @Controller('driver')
 export class DriverController {
@@ -43,8 +44,16 @@ export class DriverController {
   remove(@Param('id') id: string) {
     return this.driverService.remove(id);  
   }
+  @UseGuards(LocalStrategy)
   @Post('/login')
-  async validateUser(@Body() login:LoginDriveDto ) {
-    return this.driverService.validateUser(login);  
-  }
+  async validateManager(@Body() login) { 
+    return await this.driverService.validateDriver(login)
+    //  await this.managerService.validateManager(login);
+    // let manager = req.user.data
+    // let credentials = { token:token.access_token,
+    //   id: manager.id,
+    //   status: manager.status,
+    //  }  
+    // return token
+  } 
 }

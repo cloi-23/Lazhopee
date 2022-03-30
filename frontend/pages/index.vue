@@ -36,7 +36,7 @@ const myToken = tokenJWT()
 const { token } = storeToRefs(myToken)
 const login = async() => {
 try {
-  const res = await axios.post('http://localhost:3000/auth',{
+  const res = await axios.post('http://localhost:3000/manager/login',{
     username: username.value,
     password: password.value
   })

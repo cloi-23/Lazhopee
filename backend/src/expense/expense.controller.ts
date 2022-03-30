@@ -3,7 +3,7 @@ import { CreateExpenseDto } from './dto/create-expense.dto';
 import { ExpenseService } from './expense.service';
 import { Body, Controller, Delete, Get, Injectable, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { CreateOrderDto } from 'src/order/dto/create-order.dto';
-import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('expense')

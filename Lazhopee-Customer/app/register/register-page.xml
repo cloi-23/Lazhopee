@@ -1,0 +1,35 @@
+<Page navigatingTo="myPageWasLoaded">
+    <ActionBar title="Login">
+        <NavigationButton text="Go back" android.systemIcon="ic_menu_back" tap="backButton"></NavigationButton>
+    </ActionBar>
+    <FlexboxLayout class="box">
+        <StackLayout class="form">
+            <Label text="Register " class="header"/>
+            <Label id="errMsg" class="errMsg"/>
+            <StackLayout class="input-field">
+                <TextField hint="username" text="{{ username }}" class="input" />
+                <StackLayout class="hr-light" />
+            </StackLayout>
+
+            <StackLayout class="input-field">
+                <TextField hint="password" text="{{ password }}" class="input" secure="true"/>
+                <StackLayout class="hr-light" />
+            </StackLayout>
+            <StackLayout class="input-field">
+                <TextField hint="name" text="{{ name }}" class="input" />
+            <StackLayout class="hr-light" />
+            </StackLayout>
+
+            <StackLayout class="input-field">
+                <TextField hint="contact" keyboardType='number' text="{{ contact }}" class="input" />
+            <StackLayout class="hr-light" />
+            </StackLayout>
+            <StackLayout class="input-field">
+                <TextField hint="address" text="{{ address }}" class="input" />
+            <StackLayout class="hr-light" />
+            </StackLayout>
+            <Button text="Register" class="btn btn-primary" tap="register" />
+        </StackLayout>
+    </FlexboxLayout>
+
+</Page>

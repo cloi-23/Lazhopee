@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
+import { JwtStrategy } from '../manager/auth/strategy/jwt.strategy';
 
 @Module({
   imports:[MongooseModule.forFeature([{
@@ -16,7 +17,7 @@ import { ProductService } from './product.service';
   }
 ])],
   controllers: [ProductController],
-  providers: [ProductService],
+  providers: [ProductService, JwtStrategy],
   exports:[ProductService],
 })
 export class ProductModule {}
