@@ -40,7 +40,7 @@
       </form>
       </div>
 
-      <pie-chart :dataSet="productSale" title="Product Sale"/>
+      <pie-chart :dataSet="productSale" title="Product Per Sale"/>
 </div> 
 </template>
 <script  setup>
