@@ -2,8 +2,73 @@
 <div>
 
 <h1>DashBoard</h1>
-</div>
+   <div class="incomeForm">
+           <form @submit.prevent="send" >
+         <div>
+              <label for="startDate"> Start Date </label>
+              <input type ="date"  v-model="startDate"/>
+               <label for="startDate"> End Date </label>
+              <input type ="date"  v-model="endDate"/>
+              <button @click="day">Per Day</button>
+              <button @click="month">Per Month</button>
+              <button @click="year">Per Year</button>
+        </div>
+      </form>
+    </div>
+    <div v-if="dayToggle && monthToggle==false  && yearToggle==false">
+      <line-chart-template :dataSet="sales"/>
+    </div>
+  
+      <div v-else-if="monthToggle && yearToggle==false">
+      <line-chart-template :dataSet="monthSale"/>
+    </div>
+        <div v-else-if="yearToggle && monthToggle==false">
+      <line-chart-template :dataSet="yearSale"/>
+    </div>
+
+
+</div> 
 </template>
 <script  setup>
+import axios from 'axios'
+const startDate = ref('2022-03-01')
+const endDate = ref('2022-03-31')
+const sales = ref(null)
+const dayToggle=ref(true)
+const monthToggle=ref(false)
+const yearToggle=ref(false)
+const monthSale = ref(null)
+const yearSale = ref(null)
+const send = async()=>{
+const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`)
+sales.value =data.sale
+}
+const day = async ()=>{
+  await send()
+      dayToggle.value= true
+   monthToggle.value= false
+  yearToggle.value=false
+}
+const month =async ()=>{
+const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDate.value}/${endDate.value}`)
+   monthSale.value=data
+   dayToggle.value= false
+  yearToggle.value=  false
+  monthToggle.value=! monthToggle.value
+  
+}
+const year =async ()=>{
+const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate.value}/${endDate.value}`)
+   yearSale.value=data
+    dayToggle.value= false
+   monthToggle.value= false
+  yearToggle.value=! yearToggle.value
+  
+}
 
+await send()
 </script>
+
+<style scoped>
+
+</style>

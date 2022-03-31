@@ -12,9 +12,8 @@ import { DeliveryModule } from './delivery/delivery.module';
 import { UploadModule } from './upload/upload.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { ExpenseModule } from './expense/expense.module';
-import { IncomeStatementController } from './income-statement/income-statement.controller';
-import { IncomeStatementService } from './income-statement/income-statement.service';
 import { IncomeStatementModule } from './income-statement/income-statement.module';
+import { SaleModule } from './sale/sale.module';
 
 
 @Module({
@@ -29,7 +28,8 @@ import { IncomeStatementModule } from './income-statement/income-statement.modul
   ProductModule,
   PurchaseModule,
   ExpenseModule,
-  IncomeStatementModule],
+  IncomeStatementModule,
+  SaleModule],
   controllers: [AppController],
   providers: [AppService],
 })
