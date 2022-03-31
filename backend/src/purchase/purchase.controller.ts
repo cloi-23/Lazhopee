@@ -1,7 +1,7 @@
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { PurchaseService } from './purchase.service';
 import { Body, Controller, Get, Post, Param, Patch, Delete, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('purchase')

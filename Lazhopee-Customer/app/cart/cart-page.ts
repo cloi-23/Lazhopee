@@ -39,17 +39,20 @@ function list () {
   }  
   
   return newArticles
-  // return articles
 }
+const token:String=  JSON.parse(ApplicationSettings.getString("token","[]"))
 export async function buy() {
   let articles = list()
   
   try {
     if (hasKey('articles')) {
         const res = await Http.request({
-        url:'http://172.24.13.100:3000/order/',
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
+          url:'http://172.20.189.123:3000/order/',
+          method: 'POST',
+          headers:{
+            'Content-Type':'application/json',
+            'Authorization' : `Bearer ${token}`    
+        },
         content:JSON.stringify({ customerId,articles })
     })
     console.log('Successfully Purchase!')

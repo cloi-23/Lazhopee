@@ -8,7 +8,7 @@ import {
   Post, 
   Query,
   UseGuards} from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
 import { DeliveryService } from './delivery.service';
 
 @UseGuards(JwtAuthGuard)
@@ -21,7 +21,7 @@ export class DeliveryController {
     findAll(/* @Query() pagination: PaginationDto */) {
       return this.deliveryService.findAll(/* pagination */);
     }
-  
+
     @Get(':id')
     findOne(@Param('id') id: string) {
       return this.deliveryService.findOne(id)
@@ -36,7 +36,7 @@ export class DeliveryController {
     findAllDriverDelivery(@Param('id') id: string) {
       return this.deliveryService.findAllDriverDelivery(id)
     }
-  
+
     @Post()
     create(@Body() createDelivery: Object[]) {    
     return this.deliveryService.create(createDelivery);

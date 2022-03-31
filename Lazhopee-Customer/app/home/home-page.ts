@@ -14,14 +14,20 @@ export async function onNavigatingTo(args: NavigatedData) {
  homeViewModel = new HomeViewModel
   page.bindingContext = homeViewModel
   await homeViewModel.getProduct()  
+<<<<<<< HEAD
   console.log(homeViewModel);
+=======
+>>>>>>> 93e116a34a9a785a4dc52d166b9a363d78fc5d65
   
   statusViewModel = new StatusViewModel()
 }
 
 export  async function refreshList(args) {
   const pullRefresh = args.object;
+<<<<<<< HEAD
   console.log( await homeViewModel.refresh());
+=======
+>>>>>>> 93e116a34a9a785a4dc52d166b9a363d78fc5d65
  await homeViewModel.refresh()
       setTimeout(() => {
         pullRefresh.refreshing = false;

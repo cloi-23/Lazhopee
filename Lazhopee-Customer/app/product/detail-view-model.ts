@@ -92,7 +92,7 @@ backButton() {
 async buy() {
   try {
         const res = await Http.request({
-        url:'http://172.24.13.100:3000/order/',
+        url:'http://172.17.3.195:3000/order/',
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         content: JSON.stringify({

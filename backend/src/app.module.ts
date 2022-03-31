@@ -27,7 +27,8 @@ import { IncomeStatementModule } from './income-statement/income-statement.modul
   ProductModule,
   PurchaseModule,
   ExpenseModule,
-  IncomeStatementModule],
+  IncomeStatementModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

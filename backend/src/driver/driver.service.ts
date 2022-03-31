@@ -7,11 +7,13 @@ import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
 import { Driver } from './entities/drivers.entity';
 import * as bcrypt from 'bcrypt'
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class DriverService {
   constructor(
-    @InjectModel(Driver.name) private readonly driverModel: Model<Driver>) {}
+    @InjectModel(Driver.name) private readonly driverModel: Model<Driver>,
+    private jwtService: JwtService) {}
 
     findAll(/* pagination: PaginationDto */) {
 /*       const{ limit , offset } = pagination
@@ -63,12 +65,14 @@ export class DriverService {
       }
     }
 
-    async validateUser(login:LoginDriveDto): Promise<any> {
+    async validateDriver(login): Promise<any> {  
       try {
-        const user = await this.driverModel.findOne({ username: login.username }).exec();
+        const user = await this.driverModel.findOne({ username: login.username.toLocaleLowerCase() }).exec();
+        
         const isMatch = await bcrypt.compare(login.password, user.password)
         if (isMatch) {   
-          return {id: user['_id'],status:HttpStatus.CREATED}
+          const token = await this.loginWithCredentials(user)          
+          return { id: user['_id'], status:'ok', ...token}
         }
         throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)
       } catch (err){
@@ -80,4 +84,11 @@ export class DriverService {
       const product = await this.findOne(id)
       return product.remove();
     }
+
+    async loginWithCredentials(user: any) {
+      const payload = { username: user.username, sub: user.id };                
+      return {
+          access_token: this.jwtService.sign(payload),
+      };
+  }
 }

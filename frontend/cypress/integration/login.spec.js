@@ -1,5 +1,15 @@
 /// <reference types="cypress" />
 
+function addDropdown(loggedIn) {
+  if (loggedIn) {
+    cy.get("[data-cy='sidebar-store']").should("be.visible");
+    cy.url().should('include', '/dashboard')
+    cy.get('h1').should('contain', 'DashBoard')
+  } else {
+    cy.get('span').should('be.visible')
+  }
+ }
+
 context('Login', () => {
   beforeEach(() => {
     cy.visit('http://localhost:4000')
@@ -19,13 +29,12 @@ context('Login', () => {
 
   it('cy.get() - Fill up the form', () => {
 
-    cy.get('input[type=text]').type('user2')
-    cy.get('input[type=password]').type('user2')
+   const user = cy.get('input[type=text]').type('user2s')
+   const pw = cy.get('input[type=password]').type('pass2')
 
     cy.get('input[type=submit]').as('submitBtn')
-      .click()
-     cy.url().should('include', '/dashboard')
-     cy.get('h1').should('contain', 'DashBoard')
+        let res = user == 'user2' && pw == 'pass2' ? true : false
+        addDropdown(res)
+
   })
 })
-

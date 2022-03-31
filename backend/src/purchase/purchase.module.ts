@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PurchaseController } from './purchase.controller';
 import { Module } from '@nestjs/common';
 import { PurchaseService } from './purchase.service';
+import { JwtStrategy } from '../manager/auth/strategy/jwt.strategy';
 
 @Module({
   imports:[MongooseModule.forFeature([
@@ -22,7 +23,7 @@ import { PurchaseService } from './purchase.service';
     }
   ])],
   controllers:[PurchaseController],
-  providers: [PurchaseService],
+  providers: [PurchaseService, JwtStrategy],
   exports: [PurchaseService]
 })
 export class PurchaseModule {}

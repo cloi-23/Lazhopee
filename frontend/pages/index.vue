@@ -2,7 +2,7 @@
 <div>
       <div class="center">
       <h1>Login</h1>
-       <span style="text-align:center">{{ response }}</span> 
+       <span style="text-align:center; color: brown;">{{ response }}</span> 
      <form @submit.prevent="login">
         <div class="txt_field">
           <input  type="text" v-model="username" required>
@@ -36,7 +36,7 @@ const myToken = tokenJWT()
 const { token } = storeToRefs(myToken)
 const login = async() => {
 try {
-  const res = await axios.post('http://localhost:3000/auth',{
+  const res = await axios.post('http://localhost:3000/manager/login',{
     username: username.value,
     password: password.value
   })
@@ -49,6 +49,7 @@ try {
     }
     router.push({name:'dashboard'})
   } catch (e) {
+      response.value = 'username or password is not correct'
     console.log(e);
   }
 }

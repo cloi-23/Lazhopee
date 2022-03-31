@@ -1,5 +1,5 @@
 // import { PaginationDto } from './../common/pagination/pagination-dto';
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose'
 import { Manager } from './entities/manager.entity';
@@ -8,11 +8,13 @@ import { UpdateManagerDto } from './dto/update-manager.dto';
 import { LoginManagerDto } from './dto/login-manager.dto';
 
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class ManagerService {
   constructor(
-    @InjectModel(Manager.name) private readonly managerModel: Model<Manager>) {}
+    @InjectModel(Manager.name) private readonly managerModel: Model<Manager>,
+    @Inject('JwtSecret2Service') private jwtSecret2) {}
 
     findAll(/* pagination: PaginationDto */) {
 /*       const { limit , offset } = pagination
@@ -50,16 +52,19 @@ export class ManagerService {
       return customer.save()
     }
   
-    async validateUser(login:LoginManagerDto): Promise<any> {
+    async validateManager(login): Promise<any> {
+      
       try {
-        const user = await this.managerModel.findOne({ username: login.username }).exec();
+        const user = await this.managerModel.findOne({ username: login.username.toLocaleLowerCase() }).exec();
+        
         const isMatch = await bcrypt.compare(login.password, user.password)
-        if  (isMatch) {
-          return {id: user['_id'],status:HttpStatus.CREATED}
+        if (isMatch) {   
+          const token = await this.loginWithCredentials(user)          
+          return { id: user['_id'], status:'ok', ...token}
         }
-        throw new HttpException('',HttpStatus.UNAUTHORIZED)
-      } catch {
-         throw new HttpException('username or password not exist!', HttpStatus.UNAUTHORIZED)
+        throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)
+      } catch (err){
+        throw new HttpException('username or password not exist!',HttpStatus.UNAUTHORIZED)       
       }
     }
   
@@ -81,4 +86,10 @@ export class ManagerService {
       return product.remove();
     }
     
+    async loginWithCredentials(user: any) {
+      const payload = { username: user.username, sub: user.id };                
+      return {
+          access_token: this.jwtSecret2.sign(payload),
+      };
+  }
 }

@@ -51,7 +51,7 @@ const save = async (listOfPurchase) =>{
       })
     }
      console.log(purchase);
-    const res = await axios.post(`http://localhost:3000/purchase/add`,config,purchase)
+    const res = await axios.post(`http://localhost:3000/purchase/add`, purchase, config)
     console.log(res.status);
 router.push({name:'purchase'})
   } catch (error) {

@@ -6,7 +6,7 @@ export async function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
   page.bindingContext = new HistoryViewModel()
   historyViewModel = new HistoryViewModel()
- await historyViewModel.history(); 
+ await new historyViewModel.history(); 
   
 }
 

@@ -2,8 +2,8 @@ import { Observable,Dialogs,Frame ,ApplicationSettings} from "@nativescript/core
 import { Http } from "@nativescript/core";
 
 export class LoginViewModel extends Observable{
-    private _username:string="seth"
-    private _password:string="123"
+    private _username:string="user1"
+    private _password:string="user1"
     constructor(){
         super();
         this.username;
@@ -27,30 +27,24 @@ export class LoginViewModel extends Observable{
             this.notifyPropertyChange("password", value);
         }
     }
-    public async login():Promise<void>{
-        //adb reverse tcp:5000 tcp:5000
-        console.log("login");
-        
+    public async login():Promise<void>{   
         const username =this.username
         const password =this.password
    try {
    const res= await Http.request({
-        url:"http://172.24.13.100:3000/customer/login",
+        url:"http://172.20.189.123:3000/customer/login",
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         content:JSON.stringify({username:username,password:password})
     })
-    // const resProduct = await Http.request({
-    //     url:"http://172.24.13.100:3000/product/",
-    //     method:'GET',
-    // })
-    // ApplicationSettings.setString("productList",JSON.stringify(resProduct.content))
+    
     ApplicationSettings.setString("customerId",JSON.stringify(res.content.toJSON().id))
+
+    ApplicationSettings.setString("token",JSON.stringify(res.content.toJSON().access_token))
    
     if(res.content.toJSON().status == "ok"){
-        // console.log(res.content.toJSON());
         
     Frame.topmost().navigate('./home/home-page')
 }else{
