@@ -20,6 +20,11 @@ export class SaleController {
     async findYearlySale(@Param('startDate') startDate: string,@Param('endDate') endDate: string){
         return this.saleService.findYearlySale(startDate,endDate)
     }
+    @Get("product/:pieStartDate/:pieEndDate")
+    async findProductSale(@Param('pieStartDate') startDate: string,@Param('pieEndDate') endDate: string){
+        return this.saleService.findProductSale(startDate,endDate)
+    }
+
 
 
 }

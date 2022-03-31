@@ -15,36 +15,55 @@
         </div>
       </form>
     </div>
+    <div class="chart">
     <div v-if="dayToggle && monthToggle==false  && yearToggle==false">
-      <line-chart-template :dataSet="sales"/>
+      <line-chart-template :dataSet="sales" title="Daily Sales"/>
     </div>
   
       <div v-else-if="monthToggle && yearToggle==false">
-      <line-chart-template :dataSet="monthSale"/>
+      <line-chart-template :dataSet="monthSale" title="Monthly Sales"/>
     </div>
         <div v-else-if="yearToggle && monthToggle==false">
-      <line-chart-template :dataSet="yearSale"/>
+      <line-chart-template :dataSet="yearSale" title="Yearly Sales"/>
+    </div>
     </div>
 
+ <div class="incomeForm">
+           <form @submit.prevent="save" >
+         <div>
+              <label for="startDate"> Start Date </label>
+              <input type ="date"  v-model="pieStartDate"/>
+               <label for="startDate"> End Date </label>
+              <input type ="date"  v-model="pieEndDate"/>
+              <button >Send</button>
+        </div>
+      </form>
+      </div>
 
+      <pie-chart :dataSet="productSale" title="Product Sale"/>
 </div> 
 </template>
 <script  setup>
 import axios from 'axios'
-const startDate = ref('2022-03-01')
-const endDate = ref('2022-03-31')
+const startDate = ref('2022-01-01')
+const endDate = ref('2022-12-31')
+const pieStartDate = ref('2022-03-01')
+const pieEndDate = ref('2022-03-31')
 const sales = ref(null)
 const dayToggle=ref(true)
 const monthToggle=ref(false)
 const yearToggle=ref(false)
 const monthSale = ref(null)
 const yearSale = ref(null)
+const daySale = ref(null)
+const productSale = ref(null)
 const send = async()=>{
 const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`)
 sales.value =data.sale
 }
 const day = async ()=>{
-  await send()
+const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`)
+daySale.value =data.sale
       dayToggle.value= true
    monthToggle.value= false
   yearToggle.value=false
@@ -65,10 +84,13 @@ const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate
   yearToggle.value=! yearToggle.value
   
 }
-
+const save = async()=>{
+const { data } =  await axios.get(`http://localhost:3000/sale/product/${pieStartDate.value}/${pieEndDate.value}`)
+productSale.value =data
+}
+await save()
 await send()
 </script>
 
 <style scoped>
-
 </style>

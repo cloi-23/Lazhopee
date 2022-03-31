@@ -1,29 +1,43 @@
 <template>
-  <DoughnutChart :chartData="testData" />
+<div>
+    <h1>{{title}}</h1>
+  <DoughnutChart :chartData="data" :options="options"   style="height:500px;"/>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { DoughnutChart } from 'vue-chart-3';
+<script  setup>
+
+   import { DoughnutChart } from 'vue-chart-3';
 import { Chart, registerables } from "chart.js";
 
 Chart.register(...registerables);
+const props = defineProps({
+    dataSet:Array,
+    title:String
+})
 
-export default defineComponent({
-  name: 'Home',
-  components: { DoughnutChart },
-  setup() {
-    const testData = {
-      labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
+const data = computed(() => ({
+      labels: props.dataSet.map(x=>x.prod),
       datasets: [
         {
-          data: [30, 40, 60, 70, 5],
+          data: props.dataSet.map(x=>x.total),
           backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+
         },
       ],
-    };
+    }))
 
-    return { testData };
-  },
-});
+  const options = ref({
+plugins: {
+         legend: {
+                display: true,
+                position:'bottom',
+                labels: {
+                    color: 'rgb(255, 99, 132)'
+                }
+            }
+        }
+  
+})
+
 </script>

@@ -114,12 +114,13 @@ export class SaleService {
                 })
                 monthFormat.map(x=>{
                     if(month.some(item => item.date === x.no)){
-                        const total = month.map(y=>{
+                        const total = month.filter(y=>{
                             if(y.date === x.no){
                                 return y.total
                             }
                         })
-                        dataSet.push({date:x.name,total:total.reduce((x,y)=>x+y) })
+                        const totalAmount = total.map(x=>x.total).reduce((x,y)=>x+y)
+                        dataSet.push({date:x.name,total:totalAmount })
                     }
                 })
            
@@ -153,14 +154,62 @@ export class SaleService {
             }     
                 })
                 for (let item of yearList) {
-                  const total = year.map(x =>{
+                  const total = year.filter(x =>{
                     if(x.date === item){
                        return x.total
                       }
                   })
-                  dataSet.push({date:item,total:total.reduce((x,y)=>x+y)})
+                  const totalAmount = total.map(x=>x.total).reduce((x,y)=>x+y)
+                  dataSet.push({date:item,total:totalAmount})
                 }
             return dataSet
+        }
+        async findProductSale(startDate:string= '02/02/2022',endDate:string = '03/23/2022'){
+          
+          const orderList =  await this.orderModel.find({
+            date: {
+              $gte:startDate,
+              $lt:endDate
+          },
+          status:'Success'
+          }).sort({date:1})
+          const productOrder= []
+          const orderArticles=[]
+          const dataSetArticles = []
+          const dataSet = []
+          const productNameList = new Set()
+          for (const order of orderList) {
+            for (const articles of order.articles) {
+            const productId = articles.productId
+            const product = await this.productModel.findOne({_id: productId})
+            productNameList.add(product.name)
+            orderArticles.push({
+              productId:articles.productId,
+              prodName: product.name,
+              quantity:articles.quantity,
+              sellingPrice:articles.sellingPrice,
+              total:articles.quantity * articles.sellingPrice
+            })
+            } 
+            productOrder.push({
+              date:order.date,
+              articles:orderArticles
+            })
+              
+          }
+          for (let item of productNameList) {
+            const total = orderArticles.filter(x =>{
+              if(x.prodName === item){
+                 return x.total
+                }
+            })
+            const totalAmount = total.map(x=>x.total).reduce((x,y)=>x+y)
+            dataSet.push({prod:item,total:totalAmount})
+          }
+        
+          
+          return dataSet
+   
         }
           
 }

@@ -1,8 +1,10 @@
 <template>
 <div>
+    <h1>{{title}}</h1>
   <LineChart
     :chart-data="data"
     :options="options"
+     style="height:500px;"
     css-classes="chart-container"
   />
 </div>
@@ -28,7 +30,8 @@ Chart.register(
   LineElement
 )
 const props = defineProps({
-  dataSet:Array
+  dataSet:Array,
+  title:String
 })
 const dataValues = ref(props.dataSet.map(x=>x.total))
 const data = computed(() => ({
@@ -43,9 +46,10 @@ const data = computed(() => ({
 }))
 const options = ref({
   plugins: {
-    title: {
-      text: "Line"
-    }
-  }
+         legend: {
+                display: false,
+                
+            }
+        }
 })
 </script>
