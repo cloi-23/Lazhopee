@@ -8,9 +8,9 @@ import { ManagerModule } from '../../src/manager/manager.module';
     
     describe('Delivery (e2e)', () => {
       const manager  = {
-        name:'dawdwaas1',
+        name:'dawdwaas2',
         contact:'312321',
-        username: 'dwadwadwas1',
+        username: 'dwadwadwa2',
         password: 'dawdwad'
       }
       const delivery  = {
@@ -55,7 +55,7 @@ import { ManagerModule } from '../../src/manager/manager.module';
           const res = await request(app.getHttpServer())
           .post('/manager/login')
           .send({
-            username: 'dwadwadwas1',
+            username: 'dwadwadwa2',
             password: 'dawdwad'
           })
           .expect(HttpStatus.CREATED)

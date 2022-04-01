@@ -1,18 +1,22 @@
 // import { PaginationDto } from './../common/pagination/pagination-dto';
 import { 
   Body,
-  Request, 
+  Req,
+  Res, 
   Controller, 
   Delete, Get, 
   Param, 
   Patch, 
   Post, 
   Query,
-  UseGuards} from '@nestjs/common';
-import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
+  UseGuards
+} from '@nestjs/common';
+import { Request, Response } from 'express'
+import { JwtAuthGuard } from '../customer/auth/guard/jwt-auth.guard';
 import { CustomerLocalAuthGuard } from './auth/guard/local-auth.guard';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
+import { LoginCustomerDto } from './dto/login-cutomer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @Controller('customer')
@@ -31,8 +35,12 @@ export class CustomerController {
   }
 
   @Post()
-  create(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.customerService.create(createCustomerDto);
+  async create(@Body() createCustomerDto: CreateCustomerDto, @Res() res: Response) {
+   await this.customerService.create(createCustomerDto);
+    res.send({
+      message:
+        "User was registered successfully! Please check your email",
+   });
   }
 
   @Patch(':id')
@@ -46,14 +54,21 @@ export class CustomerController {
   }
   @UseGuards(CustomerLocalAuthGuard)
   @Post('/login')
-  async validateCustomer(@Body() login  , @Body() pass , @Request() req) {    
-    return await this.customerService.validateCustomer(login.username, pass.password);
-    // let user = req.user.data
-    // let credentials = { token:token.access_token,
-    //   id: user.id,
-    //   status: user.status,
-    //  }  
-    // console.log(token);
-    //   return token  
+  async validateCustomer(@Body() login, @Res() res: Response) { 
+   const user = await this.customerService.validateCustomer(login.username, login.password);
+   const token = await this.customerService.loginCustomerWithCredentials(user)               
+   if (user.status != "Active") {
+    return res.status(401).send({
+      message: "Pending Account. Please Verify Your Email!",
+    });
+  }
+    res.send({ id: user['_id'], status:'ok', ...token}); 
+  }
+
+  
+  @Get('/confirm/:id')
+  async findNewOne(@Param('id') id: string, @Res() res: Response) {
+    this.customerService.newOne(id)
+    res.send('<h1> Congrats! </h1>')
   }
 }

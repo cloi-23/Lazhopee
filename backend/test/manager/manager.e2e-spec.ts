@@ -7,9 +7,9 @@ import { CreateManagerDto } from '../../src/manager/dto/create-manager.dto';
 
 describe('Manager (e2e)', () => {
   const manager  = {
-    name:'dawdwaas1',
+    name:'dawdwaa',
     contact:'312321',
-    username: 'dwadwadwas1',
+    username: 'dwadwadwa',
     password: 'dawdwad'
   }
   let app: INestApplication;
@@ -47,7 +47,7 @@ describe('Manager (e2e)', () => {
           const res = await request(app.getHttpServer())
           .post('/manager/login')
           .send({
-            username: 'dwadwadwas1',
+            username: 'dwadwadwa',
             password: 'dawdwad'
           })
           .expect(HttpStatus.CREATED)

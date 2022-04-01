@@ -18,9 +18,9 @@ import { ManagerModule } from '../../src/manager/manager.module';
         sellingPrice:1000
       }
       const manager  = {
-        name:'dawdwaas1',
+        name:'dawdw',
         contact:'312321',
-        username: 'dwadwadwas1',
+        username: 'dwadwad',
         password: 'dawdwad'
       }
       let app: INestApplication;
@@ -60,7 +60,7 @@ import { ManagerModule } from '../../src/manager/manager.module';
          const res = await request(app.getHttpServer())
          .post('/manager/login')
          .send({
-           username: 'dwadwadwas1',
+           username: 'dwadwad',
            password: 'dawdwad'
          })
          .expect(HttpStatus.CREATED)

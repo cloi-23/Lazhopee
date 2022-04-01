@@ -10,11 +10,11 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'driver') {
   }
   async validate (username): Promise<any> {
     
-    const manager = await this.driverService.validateDriver(username);    
-    if (!manager) {
+    const driver = await this.driverService.validateDriver(username);    
+    if (!driver) {
       return { errorMsg:'Wrong username or password' }
     }
     
-    return { data: manager };
+    return { data: driver };
   }
 }

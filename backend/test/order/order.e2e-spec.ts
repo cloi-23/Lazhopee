@@ -13,9 +13,9 @@ import { ManagerModule } from '../../src/manager/manager.module';
         status:'wdsadaw'
       }
       const manager  = {
-        name:'dawdwaas1',
+        name:'dawdwa',
         contact:'312321',
-        username: 'dwadwadwas1',
+        username: 'dwadwadw',
         password: 'dawdwad'
       }
       let params = { id: null }
@@ -56,7 +56,7 @@ import { ManagerModule } from '../../src/manager/manager.module';
           const res = await request(app.getHttpServer())
           .post('/manager/login')
           .send({
-            username: 'dwadwadwas1',
+            username: 'dwadwadw',
             password: 'dawdwad'
           })
           .expect(HttpStatus.CREATED)

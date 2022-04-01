@@ -10,8 +10,8 @@ export async function onNavigatingTo(args: NavigatedData) {
   statusViewModel= new StatusViewModel()
   await statusViewModel.status(); 
   historyViewModel = new HistoryViewModel()
+console.log(statusViewModel);
 
-  
 }
 
 export async function refreshList(args) {

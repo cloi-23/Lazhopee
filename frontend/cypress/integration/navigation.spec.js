@@ -3,8 +3,8 @@
 context('Navigation', () => {
     it('Should Login First',() => {
       cy.visit('localhost:4000')
-      cy.get('input[type=text]').type('user2')
-      cy.get('input[type=password]').type('pass2')
+      cy.get('input[type=text]').type('user0')
+      cy.get('input[type=password]').type('pass0')
   
       cy.get('input[type=submit]').as('submitBtn')
         .click()

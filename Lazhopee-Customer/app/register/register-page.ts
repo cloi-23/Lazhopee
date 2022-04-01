@@ -5,6 +5,7 @@ import {
   Frame,
   ApplicationSettings, 
   Dialogs} from "@nativescript/core";
+import { validEmail } from './emailValidator'
 let errorMessage = null
 const obj:Observable = fromObject({
   username: "",
@@ -20,26 +21,28 @@ export function myPageWasLoaded(args) {
   page.bindingContext = obj
   errorMessage = page.getViewById('errMsg')
 } 
-
 export function backButton() {    
   Frame.goBack()
   Frame.topmost().navigate('./login/login-page')
 }
 
 export async function register() {  
-  const username = obj.get('username')
-  const password = obj.get('password')
-  const name = obj.get('name')
-  const address = obj.get('address')
-  const contact = obj.get('contact')
-
+  let username = obj.get('username')
+  let password = obj.get('password')
+  let name = obj.get('name')
+  let address = obj.get('address')
+  let contact = obj.get('contact')
+  let email = obj.get('email')
+  
+if(validEmail(email) && username.length >= 5 && password.length >= 5 && address && contact) {
 try{
   const res = await Http.request({
-      url:'http://172.17.3.195:3000/customer/',
+      url:'http://172.20.188.182:3000/customer/',
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       content: JSON.stringify({
           username,
+          email,
           password,
           address,
           contact,
@@ -50,7 +53,7 @@ try{
   if(res.statusCode == 201){
     Dialogs.alert({
       title:"Register Successfuly",
-      message:'Proceed to login page',
+      message:'Verification to your email',
       cancelable:true,
       okButtonText:"ok"
   }).then(() => {
@@ -59,20 +62,20 @@ try{
       clearHistory:true,
   }           
   Frame.topmost().navigate(option)
-    })
+    })  
+    console.log('Username or Password length must be 5 or more');
     
-  } else {
-  Dialogs.alert({
-    title:"Username Exist",
-    message:'Choose different',
-    cancelable:true,
-    okButtonText:"ok"
-})  
   }
 }
 catch (e) {
   console.log(e);
 }
-
+  } else if ( username.length < 5 || password.length < 5) {
+  errorMessage.text = 'Username or Password must be 5 characters or more'
+  } else if (validEmail(email) === false){
+    errorMessage.text = 'Input Valid Email Address'
+  }else {
+  errorMessage.text = 'All fields must meet the requirements'
+  }
 }
 

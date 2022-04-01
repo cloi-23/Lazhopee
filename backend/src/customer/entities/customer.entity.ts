@@ -18,7 +18,15 @@ export class Customer  extends Document {
 
   @Prop()
   password: string;
-  
+
+  @Prop({ unique: true })
+  email: string;
+
+  @Prop({ default: 'Pending'})
+  status: string;
+
+  @Prop()
+  confirmationCode: string;
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer)
