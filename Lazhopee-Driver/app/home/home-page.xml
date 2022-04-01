@@ -1,26 +1,20 @@
-<Page navigatingTo="onNavigatingTo" xmlns="http://schemas.nativescript.org/tns.xsd">
-    
-    <ActionBar title="Lazhopee Driver ">
-        <ActionBar.actionItems>
-             <ActionItem text="Back" tap="back"/>
-             <ActionItem text="Clear" tap="{{clear}}"/>
-             <ActionItem text="Refresh" tap="{{refresh}}"/>
-        </ActionBar.actionItems>
-    </ActionBar>
 
+<Page navigatingTo="onNavigatingTo" xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
     <GridLayout>
-        <ScrollView scroll="onScroll">
-        <ListView  items="{{deliverList}}" itemTap="show">
-            <ListView.itemTemplate>
-               <StackLayout>
-                <Label text="{{order.name }}" class="customer"/>
-                <Label text="{{order.contact }}" class="customer-details"/>
-                <Label text="{{order.address }}"   class="customer-details"/>
-                <Label text="{{order.status }}" class="customer-details"/>
-               </StackLayout>
-            </ListView.itemTemplate>
-        </ListView>
-        </ScrollView>
-    </GridLayout>
-   
+<TabView androidTabsPosition="bottom"  androidOffscreenTabLimit="0" iosIconRenderingMode="alwaysOriginal">
+    <TabViewItem title="To Ship" >
+        <Frame defaultPage="shipping/shipping-page" />
+    </TabViewItem>
+
+    <TabViewItem title="Delivered" >
+        <Frame defaultPage="success/delivered-page" />
+    </TabViewItem>
+    <TabViewItem title="Failed" >
+        <Frame defaultPage="failed/delivered-page" />
+    </TabViewItem>
+
+
+  
+</TabView>
+</GridLayout>
 </Page>

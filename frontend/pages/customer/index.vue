@@ -27,26 +27,15 @@
 
 <script setup>
 import axios from 'axios'
-import { tokenJWT } from '../../store/token'
-import { storeToRefs } from 'pinia';
-
 const router = useRouter()
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
-
-  let config = {
-  headers: { 
-    Authorization: `Bearer ${token.value}` 
-    }
+ const customerList = ref(null)
+  try {
+    const { data } = await axios.get(`http://localhost:3000/customer`,useJwtToken())
+    customerList.value= data
+ 
+  } catch (error) {
+     router.push({ name: 'index'})
+        console.log(error);
   }
-    const customerList = ref(null)
-    try {
-      let res = await axios.get(`http://localhost:3000/customer`,config)  
-        if(res.status == 200) {
-         customerList.value = res.data
-      }  
-  } catch {
-    router.push({ name: 'index' })
-    location.reload()
-  }
+  
 </script>

@@ -50,7 +50,6 @@ const router = useRouter()
   photo.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
  }
-
 const add = async () => {
    const formData = new FormData();
          formData.append('file', photo.value);
@@ -70,13 +69,14 @@ const add = async () => {
      }
        const res = await axios.post(`http://localhost:3000/driver/add`,driver)
        console.log(res.status); 
-    name.value = null
-    address.value = null
-    contact.value = null
-    device.value = null
-    router.push({name:'driver'}) 
-  
-}
+        name.value = null
+        address.value = null
+        contact.value = null
+        device.value = null
+        router.push({name:'driver'}) 
+  }
+
+
 </script>
 
 <style>

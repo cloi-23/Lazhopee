@@ -52,23 +52,18 @@
 
 <script setup>
 import axios from 'axios'
-import { tokenJWT } from '../../store/token'
-import { storeToRefs } from 'pinia'
 const route = useRoute()
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
-  let config = {
-  headers: { 
-    Authorization: `Bearer ${token.value}` 
-    }
+const router  = useRouter()
+const product = ref(null)
+  try {
+      const { data } = await axios.get(`http://localhost:3000/product/${route.params.id}`,useJwtToken())
+       product.value = data
+  } catch (error) {
+      router.push({name: 'index'})
+      console.log(error);
   }
-  const product = ref(null)
-  let res = await axios.get(`http://localhost:3000/product/${route.params.id}`,config)
-  if(res.status == 200) {
-      product.value = res.data
-  } else {
-      console.log(res);
-  }
+
+ 
 </script>
 
 <style scoped>

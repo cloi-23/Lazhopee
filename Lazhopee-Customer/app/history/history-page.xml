@@ -7,7 +7,11 @@ xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh">
     </ActionBar>
 
      <FlexboxLayout flexDirection="column">
+<<<<<<< HEAD
+        <GridLayout columns="*,*,*,*,*,*" rows="30" >
+=======
         <GridLayout columns="*,*,*,*,*,*" rows="60" >
+>>>>>>> 93e116a34a9a785a4dc52d166b9a363d78fc5d65
             <label text="Image" row="0" col="0"  class="text-center" />
             <label text="Name" row="0" col="1"   class="text-center" />
             <label text="Qauntity" row="0" col="2"   class="text-center" />

@@ -35,8 +35,6 @@
 </template>
 <script setup>
 import axios from 'axios'
-import { tokenJWT } from '../../store/token'
-import { storeToRefs } from 'pinia'
 const limitPage = ref(10)
 const route  = useRoute()
 const router  = useRouter()
@@ -51,20 +49,14 @@ page.value++
 await load(limitPage.value,page.value)
 }
 
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
-  let config = {
-    headers: { 
-      Authorization: `Bearer ${token.value}` 
-      }
-    }
 const orders = ref(null)
 const  load = async(limit=limitPage.value,offset=page.value) =>{
   try {
-      const res = await  axios.get(`http://localhost:3000/delivery/order/shipping`,config)
-      orders.value = res.data
-      console.log(res.data);
+      const { data } = await  axios.get(`http://localhost:3000/delivery/order/shipping`,useJwtToken())
+      orders.value = data 
+      console.log(data);
   } catch (error) {
+     router.push({name: 'index'})
       console.log(error);
   }
 }
@@ -73,22 +65,26 @@ const  load = async(limit=limitPage.value,offset=page.value) =>{
   const drivers = ref(null)
   const getDrivers = async() => {
     try {
-      const res = await axios.get(`http://localhost:3000/driver/`,config)
-      drivers.value = res.data
+      const  { data }  = await axios.get(`http://localhost:3000/driver/`,useJwtToken())
+      drivers.value = data 
     } catch (error) {
+       router.push({name: 'index'})
       console.log(error);
     }
   }
   getDrivers()
-  
   const selectedDriver = ref('')
   const updateData = async(id) => {
+    try {
      const res = axios.patch(`http://localhost:3000/delivery/${id}`,{
       driverId: selectedDriver.value
-    }, config)
+    }, useJwtToken())
     setTimeout(() => {
       load()
     }, 500);
-    
+    } catch (error) {
+       router.push({name: 'index'})
+      console.log(error);
+    }
   }
 </script>

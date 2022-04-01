@@ -2,6 +2,11 @@
 @import '@nativescript/theme/css/default.css';
 @import './login/login.css';
 @import './home/home.css';
-@import './order/detail.css'
+@import './shipping/order/detail.css';
+
+ActionBar{
+    background-color: #fff;
+    color: #FFBF00;
+  } 
 /* Place any CSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your CSS code goes. */

@@ -31,31 +31,21 @@
 
 <script setup>
 import axios from 'axios'
-import { tokenJWT } from '../../store/token'
-import { storeToRefs } from 'pinia'
 const name = ref(null)
 const contact = ref(null)
 const address = ref(null)
 const fileData = ref(null)
 const image = ref(null)
 const router  =  useRouter()
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
- const imgUpload = ()=>{
+const imgUpload = ()=>{
   image.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
  }
-    let config = {
-  headers: { 
-    Authorization: `Bearer ${token.value}` 
-    }
-  }
  const add = async ()=>{
    try {
         const formData = new FormData();
          formData.append('file', image.value);
-    
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`, formData, config)
+         const uploadResponse = await axios.post(`http://localhost:3000/upload`, formData, useJwtToken())
          image.value =uploadResponse.data
          const store ={
          name: name.value,
@@ -64,9 +54,7 @@ const { token } = storeToRefs(myToken)
          image: `http://localhost:3000/upload/${image.value}`,
          
      }
-   
-   
-     const res = await axios.post(`http://localhost:3000/store/add`, store ,config)
+     const res = await axios.post(`http://localhost:3000/store/add`, store ,useJwtToken())
       console.log(res.status); 
       name.value = null
       address.value = null
@@ -75,6 +63,7 @@ const { token } = storeToRefs(myToken)
     router.push({name:"store"})
 
    } catch (error) {
+     
        console.log(error);
        
    }

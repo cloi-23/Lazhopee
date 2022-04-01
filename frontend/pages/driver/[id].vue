@@ -33,14 +33,17 @@
 <script setup>
 import axios from 'axios'
 const route = useRoute()
+const router  = useRouter()
+ const driver = ref(null)
+try {
+   const { data } = await axios.get(`http://localhost:3000/driver/${route.params.id}`,useJwtToken())
+      driver.value = data
+} catch (error) {
+     router.push({name: 'index'})
+     console.log(error);
+}
+ 
 
-  const driver = ref(null)
-  let res = await axios.get(`http://localhost:3000/driver/${route.params.id}`)
-  if(res.status == 200) {
-      driver.value = res.data
-  } else {
-      console.log(res);
-  }
 </script>
 
 <style scoped>

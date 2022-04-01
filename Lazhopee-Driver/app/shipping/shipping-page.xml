@@ -1,0 +1,26 @@
+<Page navigatingTo="onNavigatingTo" xmlns="http://schemas.nativescript.org/tns.xsd"
+ xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh">
+    
+    <ActionBar title="Lazhopee Driver ">
+        <ActionBar.actionItems>
+        </ActionBar.actionItems>
+    </ActionBar>
+
+    <GridLayout>
+        <PullRefresh:PullToRefresh refresh="refreshList">
+        <ScrollView scroll="onScroll">
+        <ListView  items="{{shippingList}}" itemTap="show">
+            <ListView.itemTemplate>
+               <StackLayout>
+                <Label text="{{order.name }}" class="customer"/>
+                <Label text="{{order.contact }}" class="customer-details"/>
+                <Label text="{{order.address }}"   class="customer-details"/>
+                <Label text="{{order.status }}" class="customer-details"/>
+               </StackLayout>
+            </ListView.itemTemplate>
+        </ListView>  
+        </ScrollView>
+    </PullRefresh:PullToRefresh>
+    </GridLayout>
+   
+</Page>

@@ -16,6 +16,7 @@ import { IncomeStatementModule } from './income-statement/income-statement.modul
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { SaleModule } from './sale/sale.module'
 
 @Module({
   imports: [MailerModule.forRoot({
@@ -54,7 +55,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
   PurchaseModule,
   ExpenseModule,
   IncomeStatementModule,
-  ],
+  SaleModule],
   controllers: [AppController],
   providers: [AppService],
 })
