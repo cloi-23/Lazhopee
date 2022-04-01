@@ -45,8 +45,6 @@
 </template>
 <script  setup>
 import axios from 'axios'
-import { tokenJWT } from '../store/token'
-import { storeToRefs } from 'pinia';
 
 const startDate = ref('2022-01-01')
 const endDate = ref('2022-12-31')
@@ -61,27 +59,19 @@ const yearSale = ref(null)
 const daySale = ref(null)
 const productSale = ref(null)
 
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
-    let config = {
-    headers: { 
-      Authorization: `Bearer ${token.value}` 
-      }
-    }
-
 const send = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,config)
+const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,useJwtToken())
 sales.value =data.sale
 }
 const day = async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,config)
+const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,useJwtToken())
 daySale.value =data.sale
       dayToggle.value= true
    monthToggle.value= false
   yearToggle.value=false
 }
 const month =async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDate.value}/${endDate.value}`,config)
+const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDate.value}/${endDate.value}`,useJwtToken())
    monthSale.value=data
    dayToggle.value= false
   yearToggle.value=  false
@@ -89,7 +79,7 @@ const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDat
   
 }
 const year =async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate.value}/${endDate.value}`,config)
+const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate.value}/${endDate.value}`,useJwtToken())
    yearSale.value=data
     dayToggle.value= false
    monthToggle.value= false
@@ -97,7 +87,7 @@ const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate
   
 }
 const save = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/product/${pieStartDate.value}/${pieEndDate.value}`,config)
+const { data } =  await axios.get(`http://localhost:3000/sale/product/${pieStartDate.value}/${pieEndDate.value}`,useJwtToken())
 productSale.value =data
 }
 await save()
