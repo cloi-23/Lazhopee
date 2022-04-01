@@ -13,6 +13,7 @@ import { UploadModule } from './upload/upload.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { ExpenseModule } from './expense/expense.module';
 import { IncomeStatementModule } from './income-statement/income-statement.module';
+import { SaleModule } from './sale/sale.module';
 
 
 @Module({
@@ -28,7 +29,7 @@ import { IncomeStatementModule } from './income-statement/income-statement.modul
   PurchaseModule,
   ExpenseModule,
   IncomeStatementModule,
-  ],
+  SaleModule],
   controllers: [AppController],
   providers: [AppService],
 })

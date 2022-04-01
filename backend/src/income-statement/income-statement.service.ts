@@ -5,7 +5,7 @@ import { Purchase } from './../purchase/entity/purchase.enity';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose'
-import { log } from 'console';
+
 @Injectable()
 export class IncomeStatementService {
     constructor(
