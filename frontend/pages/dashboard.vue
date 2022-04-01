@@ -45,6 +45,9 @@
 </template>
 <script  setup>
 import axios from 'axios'
+import { tokenJWT } from '../store/token'
+import { storeToRefs } from 'pinia';
+
 const startDate = ref('2022-01-01')
 const endDate = ref('2022-12-31')
 const pieStartDate = ref('2022-03-01')
@@ -57,35 +60,44 @@ const monthSale = ref(null)
 const yearSale = ref(null)
 const daySale = ref(null)
 const productSale = ref(null)
+
+const myToken = tokenJWT()
+const { token } = storeToRefs(myToken)
+    let config = {
+    headers: { 
+      Authorization: `Bearer ${token.value}` 
+      }
+    }
+
 const send = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`)
+const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,config)
 sales.value =data.sale
 }
 const day = async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`)
+const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,config)
 daySale.value =data.sale
       dayToggle.value= true
    monthToggle.value= false
   yearToggle.value=false
 }
 const month =async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDate.value}/${endDate.value}`)
+const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDate.value}/${endDate.value}`,config)
    monthSale.value=data
    dayToggle.value= false
   yearToggle.value=  false
-  monthToggle.value=! monthToggle.value
+  monthToggle.value=true
   
 }
 const year =async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate.value}/${endDate.value}`)
+const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate.value}/${endDate.value}`,config)
    yearSale.value=data
     dayToggle.value= false
    monthToggle.value= false
-  yearToggle.value=! yearToggle.value
+  yearToggle.value=true
   
 }
 const save = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/product/${pieStartDate.value}/${pieEndDate.value}`)
+const { data } =  await axios.get(`http://localhost:3000/sale/product/${pieStartDate.value}/${pieEndDate.value}`,config)
 productSale.value =data
 }
 await save()

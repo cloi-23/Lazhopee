@@ -1,25 +1,24 @@
 import { ApplicationSettings, EventData, Frame, Http, ListPicker, NavigatedData, Page} from '@nativescript/core'
-import { HomeViewModel } from '~/home/home-view-model';
+import { DeliveredViewModel } from '~/failed/delivered-view-model';
 import { DetailViewModel } from './detail-view-model';
 
 let detailview = null
 let status = null
 let currentStat = null
 let updateStatus =null
-let homeViewModel = null
+let deliveredViewModel = null
 export function onNavigatingTo(args: NavigatedData) {
   const page = <Page>args.object
     page.bindingContext=new DetailViewModel(page.navigationContext.data)
      detailview = new DetailViewModel(page.navigationContext.data)
-     console.log(page.navigationContext.data);
     currentStat = page.getViewById('currentStat')
     updateStatus = page.getViewById('updateStatus')
-    homeViewModel = new HomeViewModel
+    deliveredViewModel = new DeliveredViewModel
      
 
 }
 export function back(){
-  Frame.topmost().navigate('./home/home-page')
+  Frame.goBack()
 }
 
 export function onListPickerLoaded(args) {
@@ -36,7 +35,7 @@ export async function save(){
 if(status!=null){
  try {
   const res= await Http.request({
-    url:`http://172.23.209.112:3000/order/${detailview.orderId.split('"').join('')}`,
+    url:`http://172.24.211.16:3000/order/${detailview.orderId.split('"').join('')}`,
     method:'PATCH',
     headers: { "Content-Type": "application/json" },
     content: JSON.stringify({
@@ -46,8 +45,8 @@ if(status!=null){
 })
 currentStat.visibility="visible"
 updateStatus.visibility="collapsed"
-await homeViewModel.refresh()
-Frame.topmost().navigate('home/home-page')
+await deliveredViewModel.refresh()
+Frame.topmost().navigate('./failed/delivered-page')
 const result = res.content.toJSON();
 console.log(`Http POST Result: ${result}`)
 

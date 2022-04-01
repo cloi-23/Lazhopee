@@ -2,7 +2,7 @@
 @import '@nativescript/theme/css/default.css';
 @import './login/login.css';
 @import './home/home.css';
-@import './order/detail.css';
+@import './shipping/order/detail.css';
 
 ActionBar{
     background-color: #fff;
