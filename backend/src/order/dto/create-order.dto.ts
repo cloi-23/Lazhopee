@@ -1,3 +1,4 @@
+import { IsDate } from 'class-validator';
 import { IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer'
 import { Articles } from './articles-dto'
@@ -13,4 +14,8 @@ export class CreateOrderDto {
   @IsOptional()
   @IsString()
   status: string
+
+  @IsOptional()
+  @IsDate()
+  date: Date
 }

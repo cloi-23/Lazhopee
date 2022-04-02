@@ -4,13 +4,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { CreateManagerDto } from '../../src/manager/dto/create-manager.dto';
+import { faker } from '@faker-js/faker'
 
 describe('Manager (e2e)', () => {
   const manager  = {
-    name:'dawdwaas1',
-    contact:'312321',
-    username: 'dwadwadwas1',
-    password: 'dawdwad'
+    name:faker.fake('{{name.lastName}}, {{name.firstName}} {{name.suffix}}'),
+    contact:faker.phone.phoneNumber('!## ### #####!'),
+    username: `manager${faker.datatype.number(100)}`,
+    password: 'pass'
   }
   let app: INestApplication;
   let params = { id: null }
@@ -47,8 +48,8 @@ describe('Manager (e2e)', () => {
           const res = await request(app.getHttpServer())
           .post('/manager/login')
           .send({
-            username: 'dwadwadwas1',
-            password: 'dawdwad'
+            username: manager.username,
+            password:manager.password
           })
           .expect(HttpStatus.CREATED)
           token = res.body.access_token

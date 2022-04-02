@@ -1,17 +1,22 @@
+import { UpdateCustomerDto } from './../../src/customer/dto/update-customer.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CustomerModule } from '../../src/customer/customer.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { CreateCustomerDto } from '../../src/customer/dto/create-customer.dto';
-
+import { faker } from '@faker-js/faker'
 describe('Customer (e2e)', () => {
   const customer  = {
-    name:'dawdwaas1',
-    address:'dawdwdwad',
-    contact:'312321',
-    username: 'dwadwadwas1',
-    password: 'dawdwad'
+    name:faker.fake('{{name.lastName}}, {{name.firstName}} {{name.suffix}}'),
+    contact:faker.phone.phoneNumber('!## ### #####!'),
+    address:faker.address.streetAddress(),
+    username: `customer${faker.datatype.number(100)}`,
+    password: 'pass'
+  }
+  const updateCustomer  = {
+    username: faker.internet.userName(),
+    password: faker.internet.password()
   }
   let params = { id: null }
   let app: INestApplication;
@@ -49,8 +54,8 @@ describe('Customer (e2e)', () => {
           const res = await request(app.getHttpServer())
           .post('/customer/login')
           .send({
-            username: 'dwadwadwas1',
-            password: 'dawdwad'
+            username: customer.username,
+            password: customer.password
           })
           .expect(HttpStatus.CREATED)
 
@@ -99,10 +104,7 @@ describe('Customer (e2e)', () => {
       it('login [POST /] object it should 401 unauthorized', () => {
         return request(app.getHttpServer())
         .post('/customer/login')
-        .send({
-          username: 'sadaw',
-          password: 'sadaw'
-        })
+        .send(updateCustomer)
         .expect(HttpStatus.UNAUTHORIZED)
     })
 

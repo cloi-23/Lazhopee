@@ -33,7 +33,7 @@ const incomeStatement = ref(null)
 
 const send = async()=>{
   try {
-  const { data } =  await axios.get(`http://localhost:3000/incomeStatement/${startDate.value}/${endDate.value}`,useJwtToken())
+  const { data } =  await axios.get(`http://localhost:3000/incomeStatement/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
   incomeStatement.value = data
 } catch (error) {
    router.push({ name: 'index'})

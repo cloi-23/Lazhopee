@@ -1,5 +1,5 @@
+import { Product } from './../product/entity/product.entity';
 import { Articles } from './dto/articles.dto';
-import { Product } from 'src/product/entity/product.entity';
 import { Store } from './../store/entity/store.entity';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
@@ -63,14 +63,11 @@ export class PurchaseService {
      }
     }
     async update(id:string, updatePurchaseDto:UpdatePurchaseDto){
-        try {
-         const purchase = this.findOne(id)
-         await this.purchaseModel
-         .findOneAndUpdate({ _id: id }, { $set: updatePurchaseDto }, { new: true })
-         .exec(); 
-        } catch (error) {
-            
-        }
+      await this.findOne(id)
+      await this.purchaseModel
+      .findOneAndUpdate({ _id: id }, { $set: updatePurchaseDto }, { new: true })
+      .exec();
+      
     }
  
     async remove(id: string) {

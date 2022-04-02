@@ -43,14 +43,15 @@ const router = useRouter()
          cost:cost.value,
      }
 
-     const res = await axios.post(`http://localhost:3000/expense/add`,expense)
+     const res = await axios.post(`http://localhost:3000/expense/add`,expense,useJwtToken())
       console.log(res.status); 
          name.value = null
          date.value = null
          cost.value = null
         router.push({name:'expense'}) 
      } catch (error) {
-         
+         router.push({ name: 'index'})
+     console.log(error);
      }
  }
 

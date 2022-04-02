@@ -20,7 +20,7 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Get()
-  findAll(@Req() req/*@Query() pagination: PaginationDto*/) {
+  findAll(/*@Req() req @Query() pagination: PaginationDto*/) {
     return this.orderService.findAll(/* pagination */);
   }
 

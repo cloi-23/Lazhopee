@@ -1,32 +1,28 @@
-import { UpdateProductDto } from './../../src/product/dto/update-product-dto';
+import { UpdateExpenseDto } from './../../src/expense/dto/update-expense.dto';
+import { ExpenseModule } from './../../src/expense/expense.module';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProductModule } from '../../src/product/product.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
-import { CreateProductDto } from '../../src/product/dto/create-product.dto';
 import { ManagerModule } from '../../src/manager/manager.module';
 import { faker } from '@faker-js/faker'
+import { CreateExpenseDto } from '../../src/expense/dto/create-expense.dto';
     
-    describe('Product (e2e)', () => {
-      const product  = {
-        name:faker.commerce.product(),
-        storeId: faker.datatype.uuid(),
-        category:faker.commerce.productAdjective(),
-        image:faker.image.avatar(),
-        description:faker.commerce.productDescription(),
-        sellingPrice:Number(faker.commerce.price(100, 1000) )
+    describe('expense (e2e)', () => {
+      const expense  = {
+        name:faker.company.companyName(),
+        date: new Date(),
+        cost:Number(faker.commerce.price(1000, 10000))
       }
       const manager  = {
         name:faker.fake('{{name.lastName}}, {{name.firstName}} {{name.suffix}}'),
         contact:faker.phone.phoneNumber('!## ### #####!'),
-        username: `productmanager${faker.datatype.number(100)}`,
+        username: `expensemanager${faker.datatype.number(100)}`,
         password: 'pass'
       }
-      const updateProduct  = {
-        name:faker.commerce.product(),
-        description:faker.commerce.productDescription(),
-        sellingPrice:Number(faker.commerce.price(100, 1000) )
+      const updateexpense  = {
+        name:faker.company.companyName() ,
+        cost:Number(faker.commerce.price(1000, 10000)),
       }
       
       let app: INestApplication;
@@ -35,7 +31,7 @@ import { faker } from '@faker-js/faker'
       let token = null
       beforeAll(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
-          imports: [ProductModule,
+          imports: [ExpenseModule,
             ManagerModule,
             MongooseModule.forRoot('mongodb://localhost:27019/TestLazhopee'),
             ],
@@ -79,30 +75,37 @@ import { faker } from '@faker-js/faker'
         })      
           it('Create Post [POST /] if no duplicate status 201 created', () => {
               return request(app.getHttpServer())
-              .post('/product/add')
+              .post('/expense/add')
               .set('Authorization', 'Bearer ' + token)
-              .send(product as CreateProductDto)
-              .expect(HttpStatus.CREATED).then(({ body }) => 
+              .send(expense as CreateExpenseDto)
+              .expect(HttpStatus.CREATED)
+              .then(({ body }) => 
               params = { id: body['_id']})
+          })
+          it('findAll [GET /] object it should 200 ok', () => {
+            return request(app.getHttpServer())
+            .get(`/expense`)
+            .set('Authorization', 'Bearer ' + token)
+            .expect(HttpStatus.OK)
           })
             
           it('findOne [GET /] object it should 200 ok', () => {
             return request(app.getHttpServer())
-            .get(`/product/${params.id}`)
+            .get(`/expense/${params.id}`)
             .set('Authorization', 'Bearer ' + token)
             .expect(HttpStatus.OK)
           })
     
           it('update [PATCH /] object it should 200 ok', () => {
             return request(app.getHttpServer())
-            .patch(`/product/${params.id}`)
+            .patch(`/expense/${params.id}`)
             .set('Authorization', 'Bearer ' + token)
-            .send(updateProduct as UpdateProductDto)
+            .send(updateexpense as UpdateExpenseDto)
             .expect(HttpStatus.OK)
           })
-          it(' [DELETE /] product it should 200 ok', () => {
+          it(' [DELETE /] expense it should 200 ok', () => {
             return request(app.getHttpServer())
-            .delete(`/product/${params.id}`)
+            .delete(`/expense/${params.id}`)
             .set('Authorization', 'Bearer ' + token)
             .expect(HttpStatus.OK)
           })
@@ -116,55 +119,55 @@ import { faker } from '@faker-js/faker'
       describe( 'failed', () => {
           it('Create Post [POST /] checking duplicate status 409 conflict', () => {
                request(app.getHttpServer())
-                .post('/product/add')
+                .post('/expense/add')
                 .set('Authorization', 'Bearer ' + token)
-                .send(product as CreateProductDto)
+                .send(expense as CreateExpenseDto)
           })
 
           it('Create Post [POST /] status will be 401 unauthorized', () => {
             request(app.getHttpServer())
-             .post('/product/add')
-             .send(product as CreateProductDto)
+             .post('/expense/add')
+             .send(expense as CreateExpenseDto)
              .expect(HttpStatus.UNAUTHORIZED)
        })
 
     
           it('findOne [GET /] status will be 401 unauthorized', () => {
               return request(app.getHttpServer())
-                .get('/product/1')
+                .get('/expense/1')
                 .expect(HttpStatus.UNAUTHORIZED)
                  })
 
-          it('findOne [GET /] if productId is not exist status will be 404 not found', () => {
+          it('findOne [GET /] if expenseId is not exist status will be 404 not found', () => {
                return request(app.getHttpServer())
-                .get('/product/1')
+                .get('/expense/1')
                 .set('Authorization', 'Bearer ' + token)
                 .expect(HttpStatus.NOT_FOUND)
                  })
 
-          it('update [PATCH /]  if productId is not exist status will be 404 not found', () => {
+          it('update [PATCH /]  if expenseId is not exist status will be 404 not found', () => {
                   return request(app.getHttpServer())
-                  .patch(`/product/2`)
+                  .patch(`/expense/2`)
                   .set('Authorization', 'Bearer ' + token)
-                  .send(updateProduct as UpdateProductDto)
+                  .send(updateexpense as UpdateExpenseDto)
                   .expect(HttpStatus.NOT_FOUND)
              })   
           it('update [PATCH /] status will be 401 unauthorized', () => {
               return request(app.getHttpServer())
-              .patch(`/product/2`)
-              .send(updateProduct as UpdateProductDto)
+              .patch(`/expense/2`)
+              .send(updateexpense as UpdateExpenseDto)
               .expect(HttpStatus.UNAUTHORIZED)
          })   
          
-         it(' [DELETE /]  if productId is not exist status will be 404 not found', () => {
+         it(' [DELETE /]  if expenseId is not exist status will be 404 not found', () => {
           return request(app.getHttpServer())
-          .delete(`/product/1`)
+          .delete(`/expense/1`)
           .set('Authorization', 'Bearer ' + token)
           .expect(HttpStatus.NOT_FOUND)
         })
         it(' [DELETE /]  status will be 401 unauthorized', () => {
           return request(app.getHttpServer())
-          .delete(`/product/1`)
+          .delete(`/expense/1`)
           .expect(HttpStatus.UNAUTHORIZED)
         })
      

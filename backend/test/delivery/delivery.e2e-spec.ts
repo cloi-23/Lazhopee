@@ -5,17 +5,18 @@ import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { CreateManagerDto } from '../../src/manager/dto/create-manager.dto';
 import request from 'supertest';
 import { ManagerModule } from '../../src/manager/manager.module';
-    
+import { faker } from '@faker-js/faker'
+
     describe('Delivery (e2e)', () => {
       const manager  = {
-        name:'dawdwaas1',
-        contact:'312321',
-        username: 'dwadwadwas1',
-        password: 'dawdwad'
+        name:faker.fake('{{name.lastName}}, {{name.firstName}} {{name.suffix}}'),
+        contact:faker.phone.phoneNumber('!## ### #####!'),
+        username: `deliverymanager${faker.datatype.number(100)}`,
+        password: 'pass'
       }
       const delivery  = {
-        orderId:'dawdwadaw',
-        driverId:'adwadwa',
+        orderId:faker.datatype.uuid(),
+        driverId:faker.datatype.uuid(),
       }
       let app: INestApplication;
       let params = { id: null}
@@ -55,8 +56,8 @@ import { ManagerModule } from '../../src/manager/manager.module';
           const res = await request(app.getHttpServer())
           .post('/manager/login')
           .send({
-            username: 'dwadwadwas1',
-            password: 'dawdwad'
+            username: manager.username,
+            password: manager.password
           })
           .expect(HttpStatus.CREATED)
           token = res.body.access_token

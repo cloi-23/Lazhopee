@@ -52,7 +52,6 @@ export class ProductService {
    }
 
    async create(name: string, createProductDto: CreateProductDto) {
-    // await this.productModel.insertMany(DATA);
     const product = new this.productModel(createProductDto);
     const isExisting = await this.productModel.findOne({ name: name }).exec()
 
@@ -63,14 +62,10 @@ export class ProductService {
   }
 
    async update(id:string, updateProductDto:UpdateProductDto){
-       try {
-        const product = this.findOne(id)
-        await this.productModel
+          await this.findOne(id)
+          await this.productModel
         .findOneAndUpdate({ _id: id }, { $set: updateProductDto }, { new: true })
-        .exec(); 
-       } catch (error) {
-           
-       }
+        .exec();   
    }
 
    async remove(id: string) {
