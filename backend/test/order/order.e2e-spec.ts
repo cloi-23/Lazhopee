@@ -26,7 +26,9 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
         contact:faker.phone.phoneNumber('!## ### #####!'),
         address:faker.address.streetAddress(),
         username: `customerorder${faker.datatype.number(100)}`,
-        password: 'pass'
+        password: 'pass',
+        email:faker.internet.email(),
+        status:'Active',
       }
 
       const manager  = {
@@ -74,14 +76,26 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
           .expect(HttpStatus.CREATED).then(({ body }) => 
           user = { id: body._id})
        })
-       it('Create sample customer for cutomerId', async() => {
+       it('Create sample customer for customer login', async() => {
         await request(app.getHttpServer())
        .post('/customer')
        .send(customer)
        .expect(HttpStatus.CREATED)
-       .then(({body}) => customerId = body._id)  
- 
     })
+
+    it('login [POST /] object it should 201 created then get a JWT', async() => {                
+      const res = await request(app.getHttpServer())
+      .post('/customer/login')
+      .send({
+        username: customer.username,
+        password: customer.password
+      })
+      .expect(HttpStatus.CREATED)
+      .then(({body}) => {
+       customerId=body.id
+       })
+    
+  })
         it('login [POST /] object it should get token', async() => {
           const res = await request(app.getHttpServer())
           .post('/manager/login')

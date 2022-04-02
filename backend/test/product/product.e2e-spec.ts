@@ -119,6 +119,7 @@ import { faker } from '@faker-js/faker'
                 .post('/product/add')
                 .set('Authorization', 'Bearer ' + token)
                 .send(product as CreateProductDto)
+                .expect(HttpStatus.CONFLICT)
           })
 
           it('Create Post [POST /] status will be 401 unauthorized', () => {

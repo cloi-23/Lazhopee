@@ -34,7 +34,9 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
         contact:faker.phone.phoneNumber('!## ### #####!'),
         address:faker.address.streetAddress(),
         username:  `salecustomer${faker.datatype.number(100)}`,
-        password: 'pass'
+        password: 'pass',
+        email:faker.internet.email(),
+        status:'Active',
       }
       const startDate = '01/31/2021'
       const endDate = '01/31/2023'
@@ -100,14 +102,26 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
           }
             )
         })
-        it('Create sample customer for cutomerId', async() => {
-            await request(app.getHttpServer())
-           .post('/customer')
-           .send(customer)
-           .expect(HttpStatus.CREATED)
-           .then(({body}) => customerId =body._id)  
-     
+        it('Create sample customer for customer login', async() => {
+          await request(app.getHttpServer())
+         .post('/customer')
+         .send(customer)
+         .expect(HttpStatus.CREATED)
+      })
+  
+      it('login [POST /] object it should 201 created then get a JWT', async() => {                
+        const res = await request(app.getHttpServer())
+        .post('/customer/login')
+        .send({
+          username: customer.username,
+          password: customer.password
         })
+        .expect(HttpStatus.CREATED)
+        .then(({body}) => {
+         customerId=body.id
+         })
+      
+    })
         it('Create Post [POST /]', () => {
             const order  = {
               customerId: customerId,
@@ -165,10 +179,6 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
             .get(`/sale/product/?startDate=2022-03-01&endDate=2022-04-31`)
             .set('Authorization', 'Bearer ' + token)
             .expect(HttpStatus.OK)
-            .then(({body})=>{
-                 console.log('Product',body);
-                
-            })   
           })
       })    
     
