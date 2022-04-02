@@ -42,12 +42,17 @@ export class LoginViewModel extends Observable{
         },
         content:JSON.stringify({username:username,password:password})
     })
+    let token = ApplicationSettings.setString("token",JSON.stringify(res.content.toJSON().access_token)) 
     console.log("From login:",res.content);
     ApplicationSettings.setString("driverId",JSON.stringify(res.content.toJSON().id))
      const driverId= ApplicationSettings.getString('driverId')
     const resDelivery= await Http.request({
         url:`http://172.24.211.16:3000/delivery/driver/${driverId.split('"').join('')}`,
         method:'GET',
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization' : `Bearer ${token}`    
+      },
     })
     
 

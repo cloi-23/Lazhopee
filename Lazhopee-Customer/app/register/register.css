@@ -31,3 +31,7 @@
     /* color: #ffbf00; */
    font-weight: bold;
 }
+.errMsg{
+    text-align: center; 
+    color: rgb(241, 14, 7);
+}

@@ -4,7 +4,7 @@
       <h2>Lazhopee</h2>
       <ul class="nav">
           <li>
-              <nuxt-link :to="{name:'dashboard'}" >
+              <nuxt-link :to="{name:'dashboard'}" data-cy="dashboard">
                   <i class='bx bxs-dashboard bx-sm'></i>
                   <span class="label" >Dashboard</span> 
              </nuxt-link>
@@ -43,7 +43,7 @@
             <li>
                     <nuxt-link :to="{name:'expense'}" data-cy="sidebar-expense">
                         <i class='bx bxs-dollar-circle bx-sm'></i>
-                        <span class="label"  >Expense</span> 
+                        <span class="label">Expenses</span> 
                    </nuxt-link>
                  </li>
                  <li>

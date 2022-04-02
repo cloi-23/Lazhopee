@@ -3,7 +3,7 @@
    
       <h1>Expense</h1>
       <div  class="addLink">
-              <nuxt-link :to="{name:'expense-add'}">Add</nuxt-link>
+              <nuxt-link :to="{name:'expense-add'}" data-cy="addE">Add</nuxt-link>
       </div>
 
         <table>

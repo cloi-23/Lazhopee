@@ -8,7 +8,7 @@ export class StatusViewModel extends Observable {
   async status() {
     try {
         const res = await Http.request({
-          url:`http://172.20.189.123:3000/order/customer/${this.customerId}`,
+          url:`http://172.20.188.182:3000/order/customer/${this.customerId}`,
           method: 'GET',
           headers:{
             'Content-Type':'application/json',
@@ -24,9 +24,9 @@ export class StatusViewModel extends Observable {
            })
            const productList = deliveredOrder.map(y => {
             const imageHost = y.image.split('').slice(7,16).join('')
-            if(imageHost == 'localhost'){
+            if(imageHost == 'localhost') {
                 const imgLocation = y.image.split('').slice(16).join('')
-                const image = `http://172.20.189.123${imgLocation}`;       
+                const image = `http://172.20.188.182${imgLocation}`;       
                const data = {
                   productId: y.productId,
                   sellingPrice: y.sellingPrice,
@@ -38,9 +38,7 @@ export class StatusViewModel extends Observable {
                return data                       
             }
           })
-         
           
-           
           ApplicationSettings.setString('status', JSON.stringify(productList))
           
     } catch (error) {

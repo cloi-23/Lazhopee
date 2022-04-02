@@ -11,6 +11,7 @@ export class ShippingViewModel extends Observable {
 
   private _shippingList = JSON.parse(ApplicationSettings.getString("shippingList","[]"))
   private shippingList:any=JSON.parse(ApplicationSettings.getString("shippingDetails","[]"))
+  private token: string = JSON.parse(ApplicationSettings.getString('token'))
 
   async getShippingDetails(){
     try {
@@ -21,6 +22,10 @@ export class ShippingViewModel extends Observable {
        const orderRes= await Http.request({
         url:`http://172.24.211.16:3000/order/details/${orderId.split('"').join('')}`,
         method:'GET',
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization' : `Bearer ${this.token}`    
+      },
     })
     const order = orderRes.content.toJSON()
        const data = {
@@ -49,6 +54,10 @@ const filteredOrderByShipping = shippingOrder.filter(x=>{
    const res= await Http.request({
        url:`http://172.24.211.16:3000/delivery/driver/${driverId.split('"').join('')}`,
        method:'GET',
+       headers:{
+         'Content-Type':'application/json',
+         'Authorization' : `Bearer ${this.token}`    
+     },
    })
    ApplicationSettings.setString("shippingList",JSON.stringify(res.content))
     await this.getShippingDetails()

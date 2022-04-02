@@ -15,6 +15,12 @@
                 <TextField hint="password" text="{{ password }}" class="input" secure="true"/>
                 <StackLayout class="hr-light" />
             </StackLayout>
+
+            <StackLayout class="input-field">
+                <TextField hint="working email" text="{{ email }}" class="input" />
+                <StackLayout class="hr-light" />
+            </StackLayout>
+
             <StackLayout class="input-field">
                 <TextField hint="name" text="{{ name }}" class="input" />
             <StackLayout class="hr-light" />

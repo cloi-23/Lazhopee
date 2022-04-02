@@ -13,11 +13,37 @@ import { UploadModule } from './upload/upload.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { ExpenseModule } from './expense/expense.module';
 import { IncomeStatementModule } from './income-statement/income-statement.module';
-import { SaleModule } from './sale/sale.module';
-
+import { ConfigModule } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { SaleModule } from './sale/sale.module'
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost:27017/Lazhopee'),
+  imports: [MailerModule.forRoot({
+    transport: {
+      host: "smtp.gmail.com",
+      port: 465,
+      ignoreTLS: true,
+      secure: true,
+      auth: {
+        user: 'mejaricruz123@gmail.com',
+        pass: 'wmzjwevlutlbmjwe',
+      },
+    },
+    defaults: {
+      from: '"No Reply" <no-reply@localhost>',
+    },
+    preview: true,
+    template: {
+      dir: process.cwd() + '/template/',
+      adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
+      options: {
+        strict: true,
+      },
+    },
+  }),
+  ConfigModule.forRoot(),
+  MongooseModule.forRoot('mongodb://localhost:27018/Lazhopee'),
   CustomerModule,
   DriverModule,
   ManagerModule,

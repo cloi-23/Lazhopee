@@ -24,12 +24,12 @@
                    <td>{{prod.category}}</td>
                     <td>{{prod.store}}</td>
                     
-                      <td><input type="number" v-model="quantity[index]"/> </td>
-                        <td><input type="number" v-model="unitCost[index]"/> </td>
+                      <td><input type="number" v-model="quantity[index]" data-cy="quantity"/> </td>
+                        <td><input type="number" v-model="unitCost[index]" data-cy="unitCost" /> </td>
                         <td>{{quantity[index] * unitCost[index]||0}} </td>
 
                
-                    <td><button @click="add(prod,index)">Select</button></td>
+                    <td><button @click="add(prod,index)" data-cy="select">Select</button></td>
             </tr>
           </tbody>
       </table>

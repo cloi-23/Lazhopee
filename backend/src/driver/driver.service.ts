@@ -67,8 +67,7 @@ export class DriverService {
 
     async validateDriver(login): Promise<any> {  
       try {
-        const user = await this.driverModel.findOne({ username: login.username.toLocaleLowerCase() }).exec();
-        
+        const user = await this.driverModel.findOne({ username: login.username.toLocaleLowerCase() }).exec();        
         const isMatch = await bcrypt.compare(login.password, user.password)
         if (isMatch) {   
           const token = await this.loginWithCredentials(user)          

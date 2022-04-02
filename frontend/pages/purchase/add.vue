@@ -9,7 +9,7 @@
       </div>
       <div v-if="purchaseList">
          <list-purchase :purchaseList="purchaseList"/>
-         <button @click="save(purchaseList)" class="btn btn-primary">Save</button>
+         <button @click="save(purchaseList)" class="btn btn-primary" data-cy="add">Save</button>
       </div>
   
    

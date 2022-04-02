@@ -24,8 +24,8 @@
           </tbody>
            <tr>
                   <th  style="text-align:left">Total Revenue:</th>
-                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue" withSymbol/></th>
-                  <th  style="text-align:center" v-else>0</th>
+                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue" withSymbol data-cy="TRvalue"/></th>
+                  <th  style="text-align:center" v-else data-cy="TRzero">0</th>
                   </tr>
          <!--Revenue-->
 
@@ -53,8 +53,8 @@
           </tbody>
            <tr>
                   <th  style="text-align:left">Net Income:</th>
-                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="netIncome" withSymbol/></th>
-                  <th  style="text-align:center" v-else>0</th>
+                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="netIncome" withSymbol data-cy="NIvalue"/></th>
+                  <th  style="text-align:center" v-else data-cy="NIzero">0</th>
                   </tr>
       </table>
       </div>

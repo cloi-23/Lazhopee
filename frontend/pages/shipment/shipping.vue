@@ -20,9 +20,9 @@
     <td>{{ order.status }}</td>
        <td v-if="order.status !== 'Pending'">{{ order.driverName }}</td>
     <td> 
-  <button @click="sendData(index)" v-if="order.status === 'Pending'">send</button>
-  <button @click="updateData(order._id)" v-else>update</button>
-  <select v-model="selectedDriver" >
+  <button @click="sendData(index)" v-if="order.status === 'Pending'" >send</button>
+  <button @click="updateData(order._id)" v-else data-cy="update">update</button>
+  <select v-model="selectedDriver" data-cy="driver">
     <option v-for="(driver, index) in drivers" :value="driver._id" :key="index">{{driver.name}}</option>
   </select>
   </td>

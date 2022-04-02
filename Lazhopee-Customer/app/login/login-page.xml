@@ -4,6 +4,7 @@
             <Image src="~/images/Lazhopee.png" class="logo"/>
             <Label text="Online Store" class="header"/>
 
+            <Label text="{{ errMsg }}" class="text-center"/>
             <StackLayout class="input-field">
                 <TextField hint="Username" class="input" text="{{username }}"/>
             </StackLayout>

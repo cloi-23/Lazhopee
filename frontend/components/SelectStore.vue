@@ -1,7 +1,7 @@
 <template>
  <div>
        
-      <label for="search"> Store</label>  <select name="" id="" v-model="storeSelect" @change="storeSort">
+      <label for="search"> Store</label>  <select name="" id="" v-model="storeSelect" @change="storeSort" data-cy="store">
         <option selected>Select Store</option>
         <option v-for="(store,index) in storeList" :key="index" :value="store._id">{{store.name}}</option>
       </select><br>
@@ -10,7 +10,7 @@
           <input type="date" v-model="dateOfPurchase">
       </label>
       <br>
-     <label for="search"> Search Product</label> <input type="text" v-model="searchValue" @keydown="search"/>
+     <label for="search"> Search Product</label> <input type="text" v-model="searchValue" @keydown="search" data-cy="search"/>
       <select-product :product="product" @message="messageData"/>
      
 

@@ -20,6 +20,7 @@ export class DetailViewModel extends Observable{
     private _articles:any
     private _cart: object
     private customerId = ApplicationSettings.getString('customerId').split('"').join('')
+    private token:String=  JSON.parse(ApplicationSettings.getString("token","[]"))
     private _page:Page
     private _id:string
 constructor(data:Data){
@@ -92,9 +93,10 @@ backButton() {
 async buy() {
   try {
         const res = await Http.request({
-        url:'http://172.17.3.195:3000/order/',
+        url:'http://172.20.188.182:3000/order/',
         method: 'POST',
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+        'Authorization' : `Bearer ${this.token}` },
         content: JSON.stringify({
           customerId: this.customerId,
           articles:[{
@@ -104,7 +106,7 @@ async buy() {
         })
     })
       console.log('Successfully Purchase!')
-
+      this.backButton()
     } catch (error) {
       console.log(error);
   }

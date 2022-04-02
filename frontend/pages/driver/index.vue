@@ -2,7 +2,7 @@
   <div>
       <h1>Driver</h1>
          <div  class="addLink">
-             <nuxt-link :to="{name:'driver-add'}" >Add</nuxt-link>
+             <nuxt-link :to="{name:'driver-add'}" data-cy="add">Add</nuxt-link>
          </div>
 
       <table>

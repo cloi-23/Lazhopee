@@ -3,7 +3,7 @@
    
       <h1>Purchase</h1>
       <div  class="addLink">
-              <nuxt-link :to="{name:'purchase-add'}">Add</nuxt-link>
+              <nuxt-link :to="{name:'purchase-add'}" data-cy="addS">Add</nuxt-link>
       </div>
 
         <table>

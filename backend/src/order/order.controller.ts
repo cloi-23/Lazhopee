@@ -8,6 +8,7 @@ import {
   Post, 
   Query,
   Req,
+  Res,
   UseGuards} from '@nestjs/common';
 import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -20,7 +21,11 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Get()
+<<<<<<< HEAD
   findAll(/*@Req() req @Query() pagination: PaginationDto*/) {
+=======
+  findAll(/*@Query() pagination: PaginationDto*/) {    
+>>>>>>> 84666f7c4139c57aa92f87186b64f6f065b95206
     return this.orderService.findAll(/* pagination */);
   }
 

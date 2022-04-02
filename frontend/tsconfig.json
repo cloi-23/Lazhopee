@@ -4,7 +4,8 @@
   "compilerOptions": {
     "types": [
       // ...
-      "@pinia/nuxt"
+      "@pinia/nuxt",
+      "cypress", "cypress-wait-until"
     ]
   }
 }
