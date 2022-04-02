@@ -1,4 +1,4 @@
-import { Product, ProductSchema } from 'src/product/entity/product.entity';
+import { Product,ProductSchema } from './../product/entity/product.entity';
 import { Store, StoreSchema } from './../store/entity/store.entity';
 import { Purchase, PurchaseSchema } from './entity/purchase.enity';
 import { MongooseModule } from '@nestjs/mongoose';

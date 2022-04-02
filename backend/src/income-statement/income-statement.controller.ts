@@ -1,5 +1,5 @@
 import { IncomeStatementService } from './income-statement.service';
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
@@ -7,8 +7,13 @@ import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
 export class IncomeStatementController {
 constructor(private readonly incomeStatementService:IncomeStatementService){}
 
-    @Get(":startDate/:endDate")
-    async findAll(@Param('startDate') startDate: string,@Param('endDate') endDate: string){
-        return this.incomeStatementService.findAll(startDate,endDate)
+    @Get()
+    async findAll(@Query('startDate') startDate: string,@Query('endDate') endDate: string){
+        try {
+            return this.incomeStatementService.findAll(startDate,endDate)
+        } catch (error) {
+            throw new NotFoundException(`No Income Statement Record on ${startDate}  - ${endDate}`);
+          }
+        
     }
 }

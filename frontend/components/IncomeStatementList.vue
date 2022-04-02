@@ -18,7 +18,7 @@
          <currency-formatter :amount="incomeStatement.totalPurchase" withSymbol/></td>
           </tr>
              <tr>
-         <th>  Cost of Revenue</th>
+         <th>  Cost of Goods</th>
       
           </tr>
           </tbody>

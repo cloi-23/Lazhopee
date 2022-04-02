@@ -1,12 +1,12 @@
-import { IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
+import { IsDate, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 
 export class CreateExpenseDto {
     @IsString()
     name:string
 
     @IsOptional()
-    @IsString()
-    date: string
+    @IsDate()
+    date: Date
 
     @IsNumber()
     @IsPositive()

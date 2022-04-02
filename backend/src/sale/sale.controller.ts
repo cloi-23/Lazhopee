@@ -1,27 +1,30 @@
 import { SaleService } from './sale.service';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../manager/auth/guard/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('sale')
 export class SaleController {
     constructor(private readonly saleService:SaleService){}
 
-    @Get("daily/:startDate/:endDate")
-    async findDailySale(@Param('startDate') startDate: string,@Param('endDate') endDate: string){
+    @Get("daily")
+    async findDailySale(@Query('startDate') startDate: string,@Query('endDate') endDate: string){
         return this.saleService.findDailySale(startDate,endDate)
     }
 
-    @Get("monthly/:startDate/:endDate")
-    async findMonthSale(@Param('startDate') startDate: string,@Param('endDate') endDate: string){
+    @Get("monthly")
+    async findMonthSale(@Query('startDate') startDate: string,@Query('endDate') endDate: string){
         return this.saleService.findMonthSale(startDate,endDate)
     }
 
     
-    @Get("yearly/:startDate/:endDate")
-    async findYearlySale(@Param('startDate') startDate: string,@Param('endDate') endDate: string){
+    @Get("yearly")
+    async findYearlySale(@Query('startDate') startDate: string,@Query('endDate') endDate: string){
         return this.saleService.findYearlySale(startDate,endDate)
     }
-    @Get("product/:pieStartDate/:pieEndDate")
-    async findProductSale(@Param('pieStartDate') startDate: string,@Param('pieEndDate') endDate: string){
+    
+    @Get("product")
+    async findProductSale(@Query('startDate') startDate: string,@Query('endDate') endDate: string,@Query() q:any){
         return this.saleService.findProductSale(startDate,endDate)
     }
 

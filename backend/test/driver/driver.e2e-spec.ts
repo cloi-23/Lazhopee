@@ -4,16 +4,21 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { CreateDriverDto } from '../../src/driver/dto/create-driver.dto';
+import { faker } from '@faker-js/faker'
 
 describe('Driver (e2e)', () => {
   const driver  = {
-    name:'dawdwaas',
-    address:'dawdwdwad',
-    contact:'312321',
-    username: 'dwadwadwass',
-    password: 'dawdwad',
-    device: 'adawwa',
-    photo: 'dwadawda'
+    name:faker.fake('{{name.lastName}}, {{name.firstName}} {{name.suffix}}'),
+    contact:faker.phone.phoneNumber('!## ### #####!'),
+    address:faker.address.streetAddress(),
+    username: `driver${faker.datatype.number(100)}`,
+    password: 'pass',
+    device: faker.commerce.product(),
+    photo: faker.image.avatar()
+  }
+  const updateDriver  = {
+    username: faker.internet.userName(),
+    password: faker.internet.password()
   }
   let app: INestApplication;
   let params = { id: null}
@@ -50,8 +55,8 @@ describe('Driver (e2e)', () => {
            const res = await request(app.getHttpServer())
           .post('/driver/login')
           .send({
-            username: 'dwadwadwass',
-            password: 'dawdwad',
+            username: driver.username,
+            password:driver.password
           })
           .expect(HttpStatus.CREATED)
           token = res.body.access_token;
@@ -105,10 +110,7 @@ describe('Driver (e2e)', () => {
       it('login [POST /] object it should 401 unauthorized', () => {
         return request(app.getHttpServer())
         .post('/driver/login')
-        .send({
-          username: 'dwadwadwas',
-          password: 'dawdwads'
-        })
+        .send(updateDriver)
         .expect(HttpStatus.UNAUTHORIZED)
     })
     describe('delete', () => {

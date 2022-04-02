@@ -39,9 +39,10 @@ export class StoreService {
       }
     
       async update(id: string, updateStoreDto: UpdateStoreDto) {
-        await this.storeModel
-        .findOneAndUpdate({ _id: id }, { $set: updateStoreDto }, { new: true })
-        .exec();
+         await this.findOne(id)
+         await this.storeModel
+         .findOneAndUpdate({ _id: id }, { $set: updateStoreDto }, { new: true })
+         .exec();
       }
     
       async remove(id: string) {

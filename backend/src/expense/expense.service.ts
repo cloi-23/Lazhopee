@@ -33,12 +33,15 @@ constructor(
         return expense.save();
       }
     
-      async update(id: string, updateExpenseDto: UpdateExpenseDto) {      
+      async update(id: string, updateExpenseDto: UpdateExpenseDto) { 
+        await this.findOne(id)     
         await this.expenseModel
         .findOneAndUpdate({ _id: id }, { $set: updateExpenseDto }, { new: true })
         .exec();
         }
-        async remove(id: string) {
+
+      async remove(id: string) {
+        await this.findOne(id)
         const expense = await this.expenseModel.findOne({ _id: id }).exec();
         return expense.remove();
       }

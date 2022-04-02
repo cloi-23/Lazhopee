@@ -19,29 +19,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { SaleModule } from './sale/sale.module'
 
 @Module({
-  imports: [MailerModule.forRoot({
-    transport: {
-      host: "smtp.gmail.com",
-      port: 465,
-      ignoreTLS: true,
-      secure: true,
-      auth: {
-        user: 'mejaricruz123@gmail.com',
-        pass: 'wmzjwevlutlbmjwe',
-      },
-    },
-    defaults: {
-      from: '"No Reply" <no-reply@localhost>',
-    },
-    preview: true,
-    template: {
-      dir: process.cwd() + '/template/',
-      adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
-      options: {
-        strict: true,
-      },
-    },
-  }),
+  imports: [
   ConfigModule.forRoot(),
   MongooseModule.forRoot(process.env.DEVELOP),
   CustomerModule,

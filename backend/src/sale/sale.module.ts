@@ -1,11 +1,11 @@
+import { Product,ProductSchema } from './../product/entity/product.entity';
 import { SaleController } from './sale.controller';
 import { SaleService } from './sale.service';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Expense, ExpenseSchema } from 'src/expense/entity/expense.enitity';
-import { Order, OrderSchema } from 'src/order/entities/order.entity';
-import { Product, ProductSchema } from 'src/product/entity/product.entity';
-import { Purchase, PurchaseSchema } from 'src/purchase/entity/purchase.enity';
+import { Order, OrderSchema } from './../order/entities/order.entity';
+
+import { Purchase, PurchaseSchema } from './../purchase/entity/purchase.enity';
 
 @Module({
    imports: [
@@ -13,10 +13,6 @@ import { Purchase, PurchaseSchema } from 'src/purchase/entity/purchase.enity';
             {
                 name:Product.name,
                 schema:ProductSchema
-            },
-            {
-                name:Expense.name,
-                schema:ExpenseSchema
             },
             {
                 name: Purchase.name,

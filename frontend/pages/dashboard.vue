@@ -64,10 +64,16 @@ const yearSaleTotal = ref(null)
 const daySale = ref(null)
 const daySaleTotal = ref(null)
 const productSale = ref(null)
+const router = useRouter()
 
 const send = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,useJwtToken())
-sales.value =data.sale
+  try {
+    const { data } =  await axios.get(`http://localhost:3000/sale/daily/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
+    sales.value =data.sale
+  } catch (error) {
+    router.push({name:'index'})
+  }
+
 }
 const day = async ()=>{
 const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,useJwtToken())
@@ -83,19 +89,30 @@ const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDat
    dayToggle.value= false
   yearToggle.value=  false
   monthToggle.value=true
-  monthSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
 }
+  
 const year =async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate.value}/${endDate.value}`,useJwtToken())
-   yearSale.value=data
-    dayToggle.value= false
-   monthToggle.value= false
-  yearToggle.value=true
-  yearSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
+  try {
+    const { data } =  await axios.get(`http://localhost:3000/sale/yearly/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
+     yearSale.value=data
+     dayToggle.value= false
+     monthToggle.value= false
+     yearToggle.value=true
+    yearSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
+  } catch (error) {
+    router.push({name:'index'})
+  }
+
+  
 }
 const save = async()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/product/${pieStartDate.value}/${pieEndDate.value}`,useJwtToken())
-productSale.value =data
+  try {
+    const { data } =  await axios.get(`http://localhost:3000/sale/product/?startDate=${pieStartDate.value}/&endDate=${pieEndDate.value}`,useJwtToken())
+    productSale.value =data
+  } catch (error) {
+     router.push({name:'index'})
+  }
+
 }
 await save()
 await send()
