@@ -43,7 +43,7 @@ import { SaleModule } from './sale/sale.module'
     },
   }),
   ConfigModule.forRoot(),
-  MongooseModule.forRoot('mongodb://localhost:27018/Lazhopee'),
+  MongooseModule.forRoot(process.env.DEVELOP),
   CustomerModule,
   DriverModule,
   ManagerModule,

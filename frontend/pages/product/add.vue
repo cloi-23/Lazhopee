@@ -57,23 +57,17 @@ const image = ref(null)
 const category = ref(null)
 const description = ref(null)
 const router = useRouter()
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
  const imgUpload = ()=>{
   image.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
  }
-   let config = {
-  headers: { 
-    Authorization: `Bearer ${token.value}` 
-    }
-  }
+
  const add = async () => {
      try {
           const formData = new FormData();
          formData.append('file', image.value);
     
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`, formData, config)
+         const uploadResponse = await axios.post(`http://localhost:3000/upload`, formData, useJwtToken())
          image.value =uploadResponse.data
          const product ={
          name: name.value,
@@ -85,7 +79,7 @@ const { token } = storeToRefs(myToken)
          
      }
    
-     const res = await axios.post(`http://localhost:3000/product/add`, product, config)
+     const res = await axios.post(`http://localhost:3000/product/add`, product, useJwtToken())
       console.log(res.status); 
          name.value = null
          store.value = null
@@ -97,7 +91,7 @@ const { token } = storeToRefs(myToken)
          
      }
  }
-const { data:storeList } =  await axios.get(`http://localhost:3000/store`,config)
+const { data:storeList } =  await axios.get(`http://localhost:3000/store`,useJwtToken())
 
 
 </script>

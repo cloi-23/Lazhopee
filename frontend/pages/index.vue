@@ -22,9 +22,7 @@
     </div>
 </template>
 <script setup>
-import { tokenJWT } from '../store/token'
 import { ref } from 'vue'
-import { storeToRefs } from 'pinia';
 import axios from 'axios'
 const router = useRouter()
 definePageMeta({layout:'login'})
@@ -32,16 +30,16 @@ definePageMeta({layout:'login'})
 let username=ref('');
 let password=ref('');
 let response=ref('');
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
+
 const login = async() => {
 try {
   const res = await axios.post('http://localhost:3000/manager/login',{
     username: username.value,
     password: password.value
   })
-    myToken.add(res.data.access_token)
-    console.log(token.value,'index');
+    typeof window !== 'undefined' ? localStorage.setItem('token',res.data.access_token) : null
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+    console.log(token,'index');
     username.value = ''
     password.value = ''
     if (res.status !== 201) {

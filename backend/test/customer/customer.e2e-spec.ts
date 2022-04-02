@@ -11,7 +11,8 @@ describe('Customer (e2e)', () => {
     address:'dawdwdwad',
     contact:'312321',
     username: 'dwadwadwas1',
-    password: 'dawdwad'
+    password: 'dawdwad',
+    email:'dawdwada@gmail.com'
   }
   let params = { id: null }
   let app: INestApplication;

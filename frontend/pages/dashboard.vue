@@ -1,5 +1,8 @@
 <template>
 <div>
+      <span data-cy="daily" v-show="false">{{daySaleTotal}}</span><br>
+      <span data-cy="monthly" v-show="false">{{monthSaleTotal}}</span><br>
+      <span data-cy="yearly" v-show="false">{{yearSaleTotal}}</span>
 
 <h1>DashBoard</h1>
    <div class="incomeForm">
@@ -17,14 +20,14 @@
     </div>
     <div class="chart">
     <div v-if="dayToggle && monthToggle==false  && yearToggle==false">
-      <line-chart-template :dataSet="sales" title="Daily Sales" data-cy="daily"/>
+      <line-chart-template :dataSet="sales" title="Daily Sales" />
     </div>
   
       <div v-else-if="monthToggle && yearToggle==false">
-      <line-chart-template :dataSet="monthSale" title="Monthly Sales" data-cy="monthly"/>
+      <line-chart-template :dataSet="monthSale" title="Monthly Sales" />
     </div>
         <div v-else-if="yearToggle && monthToggle==false">
-      <line-chart-template :dataSet="yearSale" title="Yearly Sales" data-cy="yearly"/>
+      <line-chart-template :dataSet="yearSale" title="Yearly Sales" />
     </div>
     </div>
 
@@ -55,8 +58,11 @@ const dayToggle=ref(true)
 const monthToggle=ref(false)
 const yearToggle=ref(false)
 const monthSale = ref(null)
+const monthSaleTotal = ref(null)
 const yearSale = ref(null)
+const yearSaleTotal = ref(null)
 const daySale = ref(null)
+const daySaleTotal = ref(null)
 const productSale = ref(null)
 
 const send = async()=>{
@@ -69,6 +75,7 @@ daySale.value =data.sale
       dayToggle.value= true
    monthToggle.value= false
   yearToggle.value=false
+  daySaleTotal.value = data.sale.map(x => x.total).reduce((x,y) => x+y,0)
 }
 const month =async ()=>{
 const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDate.value}/${endDate.value}`,useJwtToken())
@@ -76,7 +83,7 @@ const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDat
    dayToggle.value= false
   yearToggle.value=  false
   monthToggle.value=true
-  
+  monthSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
 }
 const year =async ()=>{
 const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate.value}/${endDate.value}`,useJwtToken())
@@ -84,7 +91,7 @@ const { data } =  await axios.get(`http://localhost:3000/sale/yearly/${startDate
     dayToggle.value= false
    monthToggle.value= false
   yearToggle.value=true
-  
+  yearSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
 }
 const save = async()=>{
 const { data } =  await axios.get(`http://localhost:3000/sale/product/${pieStartDate.value}/${pieEndDate.value}`,useJwtToken())

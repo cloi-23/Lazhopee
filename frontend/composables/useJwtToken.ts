@@ -1,12 +1,10 @@
-import { tokenJWT } from '../store/token'
-import { storeToRefs } from 'pinia';
+
 
 export function useJwtToken(){
-const myToken = tokenJWT()
-const { token } = storeToRefs(myToken)
+const token =  typeof window !== 'undefined' ? localStorage.getItem('token') : null
     let config = {
     headers: { 
-      Authorization: `Bearer ${token.value}` 
+      Authorization: `Bearer ${token}` 
       }
     }
     return config

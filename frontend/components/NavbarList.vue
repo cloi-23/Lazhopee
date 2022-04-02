@@ -86,13 +86,21 @@
                         </nuxt-link>
                     </li>
                  </span>
+            <li>
+              <nuxt-link @click="logout" :to="{name:'index'}" data-cy="logout">
+                  <i class='bx bxs-dashboard bx-sm'></i>
+                  <span class="label" >Logout</span> 
+             </nuxt-link>
+          </li>
       </ul>
   </div>
 </template>
 
 <script setup>
 const IsToggle = ref(false)
-
+const logout = () => {
+    localStorage.clear('token')
+}
 </script>
 
 <style>

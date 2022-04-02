@@ -1,3 +1,4 @@
+import { MailerModule, MailerService } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -9,7 +10,6 @@ import { CustomerController } from './customer.controller';
 import { CustomerService } from './customer.service';
 import { Customer, CustomerSchema } from './entities/customer.entity';
 import { MailService } from './mailer/service';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [MongooseModule.forFeature([
