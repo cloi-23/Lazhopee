@@ -17,10 +17,10 @@
     <td><nuxt-link :to = "{ name: 'shipment-id',params: {id: list.order['_id']} }" data-cy="view">{{ list.customer.name }}</nuxt-link></td>
     <td>{{ list.customer.address }}</td>
     <td>{{ list.order.status }}</td>
-    <td>
-  <button @click="sendData(index)" v-if="list.order.status === 'Pending'">send</button>
-  <select v-model="selectedDriver" >
-    <option v-for="(driver, index) in drivers" :value="driver.name" :key="index">{{driver.name}}</option>
+    <td >
+  <button @click="sendData(index)" v-if="list.order.status === 'Pending'" data-cy="send">send</button>
+  <select v-model="selectedDriver" data-cy="driver">
+    <option v-for="(driver, index) in drivers" :value="driver.name" :key="index" >{{driver.name}}</option>
   </select>
   </td>
  

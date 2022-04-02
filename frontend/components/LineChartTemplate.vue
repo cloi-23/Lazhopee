@@ -6,6 +6,7 @@
     :options="options"
      style="height:500px;"
     css-classes="chart-container"
+    data-cy="line"
   />
 </div>
 
@@ -44,6 +45,7 @@ const data = computed(() => ({
     }
   ]
 }))
+console.log(data.value);
 const options = ref({
   plugins: {
          legend: {

@@ -6,25 +6,25 @@
            <form @submit.prevent="send" >
          <div>
               <label for="startDate"> Start Date </label>
-              <input type ="date"  v-model="startDate"/>
+              <input type ="date"  v-model="startDate" data-cy="startDate"/>
                <label for="startDate"> End Date </label>
-              <input type ="date"  v-model="endDate"/>
-              <button @click="day">Per Day</button>
-              <button @click="month">Per Month</button>
-              <button @click="year">Per Year</button>
+              <input type ="date"  v-model="endDate" data-cy="endDate"/>
+              <button @click="day" data-cy="perDay">Per Day</button>
+              <button @click="month" data-cy="perMonth">Per Month</button>
+              <button @click="year" data-cy="perYear">Per Year</button>
         </div>
       </form>
     </div>
     <div class="chart">
     <div v-if="dayToggle && monthToggle==false  && yearToggle==false">
-      <line-chart-template :dataSet="sales" title="Daily Sales"/>
+      <line-chart-template :dataSet="sales" title="Daily Sales" data-cy="daily"/>
     </div>
   
       <div v-else-if="monthToggle && yearToggle==false">
-      <line-chart-template :dataSet="monthSale" title="Monthly Sales"/>
+      <line-chart-template :dataSet="monthSale" title="Monthly Sales" data-cy="monthly"/>
     </div>
         <div v-else-if="yearToggle && monthToggle==false">
-      <line-chart-template :dataSet="yearSale" title="Yearly Sales"/>
+      <line-chart-template :dataSet="yearSale" title="Yearly Sales" data-cy="yearly"/>
     </div>
     </div>
 
@@ -32,10 +32,10 @@
            <form @submit.prevent="save" >
          <div>
               <label for="startDate"> Start Date </label>
-              <input type ="date"  v-model="pieStartDate"/>
+              <input type ="date"  v-model="pieStartDate" data-cy="start"/>
                <label for="startDate"> End Date </label>
-              <input type ="date"  v-model="pieEndDate"/>
-              <button >Send</button>
+              <input type ="date"  v-model="pieEndDate" data-cy="end"/>
+              <button data-cy="send">Send</button>
         </div>
       </form>
       </div>

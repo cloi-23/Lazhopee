@@ -10,6 +10,7 @@ order:Array<object>
 export class DeliveredViewModel extends Observable {
 
   private _deliverList = JSON.parse(ApplicationSettings.getString("deliverList","[]"))
+  private token = JSON.parse(ApplicationSettings.getString("token","[]"))
   private deliverList:any=JSON.parse(ApplicationSettings.getString("deliverDetails","[]"))
 
   async getDeliverDetails(){
@@ -21,6 +22,10 @@ export class DeliveredViewModel extends Observable {
        const orderRes= await Http.request({
         url:`http://172.24.211.16:3000/order/details/${orderId.split('"').join('')}`,
         method:'GET',
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization' : `Bearer ${this.token}`    
+      },
     })
     const order = orderRes.content.toJSON()
        const data = {
@@ -51,6 +56,10 @@ export class DeliveredViewModel extends Observable {
    const res= await Http.request({
        url:`http://172.24.211.16:3000/delivery/driver/${driverId.split('"').join('')}`,
        method:'GET',
+       headers:{
+         'Content-Type':'application/json',
+         'Authorization' : `Bearer ${this.token}`    
+     },
    })
    ApplicationSettings.setString("deliverList",JSON.stringify(res.content))
     await this.getDeliverDetails()

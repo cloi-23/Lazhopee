@@ -5,10 +5,10 @@
            <form @submit.prevent="send" >
          <div>
               <label for="startDate"> Start Date </label>
-              <input type ="date"  v-model="startDate"/>
+              <input type ="date"  v-model="startDate" data-cy="startDate"/>
                <label for="startDate"> End Date </label>
-              <input type ="date"  v-model="endDate"/>
-              <button>Send</button>
+              <input type ="date"  v-model="endDate" data-cy="endDate"/>
+              <button data-cy="send">Send</button>
         </div>
         
       </form>

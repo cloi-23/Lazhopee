@@ -1,7 +1,7 @@
 <template>
 <div>
     <h1>{{title}}</h1>
-  <DoughnutChart :chartData="data" :options="options"   style="height:500px;"/>
+  <DoughnutChart :chartData="data" :options="options"   style="height:500px;" data-cy="pie"/>
   </div>
 </template>
 

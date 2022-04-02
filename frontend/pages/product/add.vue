@@ -8,25 +8,25 @@
     <form @submit.prevent="add">
         <div class="mb-3">
         <label for="formFile" class="form-label">Image:</label>
-        <input class="form-control" type="file" id="formFile" name="file"  ref="fileData" @change="imgUpload" required>
+        <input class="form-control" type="file" id="formFile" name="file"  ref="fileData" @change="imgUpload" data-cy="file" required>
         </div>
         <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Name:</label>
-        <input type="text" class="form-control" v-model="name" placeholder="Enter Name" required>
+        <input type="text" class="form-control" v-model="name" placeholder="Enter Name" data-cy="name" required>
         </div>
          <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Category:</label>
-        <input type="text" class="form-control" v-model="category" placeholder="Enter Name" required>
+        <input type="text" class="form-control" v-model="category" placeholder="Enter Name" data-cy="category" required>
         </div>
      <div class="mb-3">
              <label for="floatingTextarea2">Description</label>
-             <textarea  v-model="description"  cols="100" rows="10" required></textarea>
+             <textarea  v-model="description"  cols="100" rows="10" data-cy="description" required></textarea>
       
      
         </div>
        <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupSelect01">Store</label>
-        <select class="form-select"  v-model="store">
+        <select class="form-select"  v-model="store" data-cy="store" >
             <option selected>Choose...</option>
             <option v-for="(store,index) in storeList"  :key="index" :value="store._id" :data-thumbnail="store.image">
              {{store.name}}</option>
@@ -35,11 +35,11 @@
         </div>
          <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Selling Price: </label>
-        <input type="number" class="form-control"   v-model="sellingPrice" placeholder="Enter Amount" required>
+        <input type="number" class="form-control"   v-model="sellingPrice" placeholder="Enter Amount" data-cy="sellingPrice" required>
         </div>
       
         <div class="col-12">
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary" data-cy="add">Add</button>
     </div>
     </form>
   </div>
