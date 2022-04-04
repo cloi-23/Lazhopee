@@ -33,9 +33,11 @@
 <script setup>
 import axios from 'axios';
 const router = useRouter()
+const config = useRuntimeConfig()
 const driverList = ref(null)
+
 try {
-     const { data } = await axios.get(`http://localhost:3000/driver`,useJwtToken())
+     const { data } = await axios.get(`${config.BACKEND_URL}/driver`,useJwtToken())
      driverList.value = data
 } catch (error) {
      router.push({ name: 'index'})

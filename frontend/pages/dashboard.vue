@@ -65,10 +65,11 @@ const daySale = ref(null)
 const daySaleTotal = ref(null)
 const productSale = ref(null)
 const router = useRouter()
+const config = useRuntimeConfig()
 
 const send = async()=>{
   try {
-    const { data } =  await axios.get(`http://localhost:3000/sale/daily/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
+    const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
     sales.value =data.sale
   } catch (error) {
     router.push({name:'index'})
@@ -76,7 +77,7 @@ const send = async()=>{
 
 }
 const day = async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/daily/${startDate.value}/${endDate.value}`,useJwtToken())
+const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/${startDate.value}/${endDate.value}`,useJwtToken())
 daySale.value =data.sale
       dayToggle.value= true
    monthToggle.value= false
@@ -84,7 +85,7 @@ daySale.value =data.sale
   daySaleTotal.value = data.sale.map(x => x.total).reduce((x,y) => x+y,0)
 }
 const month =async ()=>{
-const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDate.value}/${endDate.value}`,useJwtToken())
+const { data } =  await axios.get(`${config.BACKEND_URL}/sale/monthly/${startDate.value}/${endDate.value}`,useJwtToken())
    monthSale.value=data
    dayToggle.value= false
   yearToggle.value=  false
@@ -93,7 +94,7 @@ const { data } =  await axios.get(`http://localhost:3000/sale/monthly/${startDat
   
 const year =async ()=>{
   try {
-    const { data } =  await axios.get(`http://localhost:3000/sale/yearly/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
+    const { data } =  await axios.get(`${config.BACKEND_URL}/sale/yearly/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
      yearSale.value=data
      dayToggle.value= false
      monthToggle.value= false
@@ -107,7 +108,7 @@ const year =async ()=>{
 }
 const save = async()=>{
   try {
-    const { data } =  await axios.get(`http://localhost:3000/sale/product/?startDate=${pieStartDate.value}/&endDate=${pieEndDate.value}`,useJwtToken())
+    const { data } =  await axios.get(`${config.BACKEND_URL}/sale/product/?startDate=${pieStartDate.value}/&endDate=${pieEndDate.value}`,useJwtToken())
     productSale.value =data
   } catch (error) {
      router.push({name:'index'})

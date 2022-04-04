@@ -22,6 +22,8 @@ const searchValue = ref(null)
 const product = ref(null)
 const purchaseList = ref(null)
 const router = useRouter()
+const config = useRuntimeConfig()
+
 const list  = (list)=>{
 purchaseList.value = list
 }
@@ -42,7 +44,7 @@ const save = async (listOfPurchase) =>{
       })
     }
      console.log(purchase);
-    const res = await axios.post(`http://localhost:3000/purchase/add`, purchase, useJwtToken())
+    const res = await axios.post(`${config.BACKEND_URL}/purchase/add`, purchase, useJwtToken())
     console.log(res.status);
 router.push({name:'purchase'})
   } catch (error) {

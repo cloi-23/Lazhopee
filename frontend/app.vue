@@ -12,11 +12,9 @@
 </template>
 
 <script setup>
-
 import "https://kit.fontawesome.com/df309824c2.js" 
 import '~/assets/css/sidebar.css'
 definePageMeta({layout:'default'})
-
 </script>
 
 

@@ -31,9 +31,11 @@
 <script setup>
 import axios from 'axios'
 const router = useRouter()
+const config = useRuntimeConfig()
+
 const purchaseList = ref(null)
 try {
-   const { data } = await axios.get(`http://localhost:3000/purchase`,useJwtToken())
+   const { data } = await axios.get(`${config.BACKEND_URL}/purchase`,useJwtToken())
       purchaseList.value = data
 } catch (error) {
   router.push({ name: 'index'})

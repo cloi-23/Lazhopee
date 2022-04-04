@@ -34,6 +34,8 @@ const name = ref(null)
 const date = ref(null)
 const cost = ref(null)
 const router = useRouter()
+const config = useRuntimeConfig()
+
  const add = async () => {
      try {
        
@@ -43,7 +45,7 @@ const router = useRouter()
          cost:cost.value,
      }
 
-     const res = await axios.post(`http://localhost:3000/expense/add`,expense,useJwtToken())
+     const res = await axios.post(`${config.BACKEND_URL}/expense/add`,expense,useJwtToken())
       console.log(res.status); 
          name.value = null
          date.value = null

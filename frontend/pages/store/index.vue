@@ -32,8 +32,10 @@
 import axios from 'axios'
 const router  = useRouter()
 const storeList = ref(null)
+const config = useRuntimeConfig()
+
 try {
-   const { data } = await axios.get(`http://localhost:3000/store`,useJwtToken())
+   const { data } = await axios.get(`${config.BACKEND_URL}/store`,useJwtToken())
   storeList.value = data 
 } catch (error) {
   router.push({name: 'index'})

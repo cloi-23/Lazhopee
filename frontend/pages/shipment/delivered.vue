@@ -31,6 +31,7 @@ import axios from 'axios'
 const limitPage = ref(10)
 const route  = useRoute()
 const router  = useRouter()
+const config = useRuntimeConfig()
 
 const page = ref(Number(route.query.page))
 const prev =async ()=>{
@@ -45,7 +46,7 @@ await load(limitPage.value,page.value)
 const orders = ref(null)
 const  load = async(limit=limitPage.value,offset=page.value) =>{
   try {
-      const { data } = await  axios.get(`http://localhost:3000/delivery/order/shipping`, useJwtToken())
+      const { data } = await  axios.get(`${config.BACKEND_URL}/delivery/order/shipping`, useJwtToken())
       orders.value = data
   } catch (error) {
       router.push({name: 'index'})

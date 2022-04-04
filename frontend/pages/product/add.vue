@@ -57,6 +57,8 @@ const image = ref(null)
 const category = ref(null)
 const description = ref(null)
 const router = useRouter()
+const config = useRuntimeConfig()
+
  const imgUpload = ()=>{
   image.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
@@ -67,19 +69,19 @@ const router = useRouter()
           const formData = new FormData();
          formData.append('file', image.value);
     
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`, formData, useJwtToken())
+         const uploadResponse = await axios.post(`${config.BACKEND_URL}/upload`, formData, useJwtToken())
          image.value =uploadResponse.data
          const product ={
          name: name.value,
          storeId:store.value,
          category:category.value,
          sellingPrice:sellingPrice.value,
-         image: `http://localhost:3000/upload/${image.value}`,
+         image: `${config.BACKEND_URL}/upload/${image.value}`,
          description:description.value
          
      }
    
-     const res = await axios.post(`http://localhost:3000/product/add`, product, useJwtToken())
+     const res = await axios.post(`${config.BACKEND_URL}/product/add`, product, useJwtToken())
       console.log(res.status); 
          name.value = null
          store.value = null
@@ -91,7 +93,7 @@ const router = useRouter()
          
      }
  }
-const { data:storeList } =  await axios.get(`http://localhost:3000/store`,useJwtToken())
+const { data:storeList } =  await axios.get(`${config.BACKEND_URL}/store`,useJwtToken())
 
 
 </script>

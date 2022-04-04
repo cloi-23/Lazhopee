@@ -30,10 +30,10 @@ definePageMeta({layout:'login'})
 let username=ref('');
 let password=ref('');
 let response=ref('');
-
+const config = useRuntimeConfig()
 const login = async() => {
 try {
-  const res = await axios.post('http://localhost:3000/manager/login',{
+  const res = await axios.post(`${config.BACKEND_URL}/manager/login`,{
     username: username.value,
     password: password.value
   })

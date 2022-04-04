@@ -37,6 +37,8 @@ const address = ref(null)
 const fileData = ref(null)
 const image = ref(null)
 const router  =  useRouter()
+const config = useRuntimeConfig()
+
 const imgUpload = ()=>{
   image.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
@@ -45,16 +47,16 @@ const imgUpload = ()=>{
    try {
         const formData = new FormData();
          formData.append('file', image.value);
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`, formData, useJwtToken())
+         const uploadResponse = await axios.post(`${config.BACKEND_URL}/upload`, formData, useJwtToken())
          image.value =uploadResponse.data
          const store ={
          name: name.value,
          address:address.value,
          contact:contact.value,
-         image: `http://localhost:3000/upload/${image.value}`,
+         image: `${config.BACKEND_URL}/upload/${image.value}`,
          
      }
-     const res = await axios.post(`http://localhost:3000/store/add`, store ,useJwtToken())
+     const res = await axios.post(`${config.BACKEND_URL}/store/add`, store ,useJwtToken())
       console.log(res.status); 
       name.value = null
       address.value = null

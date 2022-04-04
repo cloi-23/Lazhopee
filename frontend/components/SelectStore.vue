@@ -20,15 +20,17 @@
 
 <script setup>
 import axios from 'axios'
-const { data:storeList } =  await axios.get(`http://localhost:3000/store`,useJwtToken())
-const { data:productList } =  await axios.get(`http://localhost:3000/product`,useJwtToken())
+const config = useRuntimeConfig()
+
+const { data:storeList } =  await axios.get(`${config.BACKEND_URL}/store`,useJwtToken())
+const { data:productList } =  await axios.get(`${config.BACKEND_URL}/product`,useJwtToken())
 const searchValue = ref(null)
 const product = ref(null)
 const dateOfPurchase = ref(null)
 const emit = defineEmits(['puchases'])
 const storeSelect = ref(null)
 const search = async()=>{
-const { data:productList } =  await axios.get(`http://localhost:3000/product`,useJwtToken())
+const { data:productList } =  await axios.get(`${config.BACKEND_URL}/product`,useJwtToken())
 
 
  const filterwdByStore = productList.filter((src) => src.storeId === storeSelect.value)
@@ -49,7 +51,7 @@ product.value = filterwdByStore.filter((src) => {
 
 }
 const storeSort =async()=>{
-    const { data:productList } =  await axios.get(`http://localhost:3000/product`,useJwtToken())
+    const { data:productList } =  await axios.get(`${config.BACKEND_URL}/product`,useJwtToken())
 product.value = productList.filter((src) => src.storeId === storeSelect.value)
 }
 const purchaseList = ref([])

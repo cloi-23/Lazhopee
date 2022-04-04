@@ -28,9 +28,11 @@
 <script setup>
 import axios from 'axios'
 const router = useRouter()
+const config = useRuntimeConfig()
  const customerList = ref(null)
+ 
   try {
-    const { data } = await axios.get(`http://localhost:3000/customer`,useJwtToken())
+    const { data } = await axios.get(`${config.BACKEND_URL}/customer`,useJwtToken())
     customerList.value= data
  
   } catch (error) {
