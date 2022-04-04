@@ -11,6 +11,7 @@
     <th v-if="$route.path === '/shipment/shipping'">Driver</th>
     <th>Action</th>
   </tr>
+ 
   <tbody  v-if="orders">
   <tr  v-for="(order,index) in orders" :key="index"  v-show="order.status == 'Shipping'">
   <div v-show="false">{{index}}</div>
@@ -73,7 +74,7 @@ const  load = async(limit=limitPage.value,offset=page.value) =>{
       console.log(error);
     }
   }
-  getDrivers()
+  await getDrivers()
   const selectedDriver = ref('')
   const updateData = async(id) => {
     try {

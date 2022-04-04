@@ -75,7 +75,8 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
   const sendData = async(index) => {
   const orderId = orders.value[index].order['_id']
   const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
-    await axios.post('${config.BACKEND_URL}/delivery',{
+  console.log( orderId, driver[0]['_id']);
+    await axios.post(`${config.BACKEND_URL}/delivery`,{
       orderId: orderId,
       driverId: driver[0]['_id']
     },useJwtToken())

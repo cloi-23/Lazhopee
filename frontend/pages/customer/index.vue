@@ -9,6 +9,7 @@
                   <th>Address</th>
                    <th>Contact</th>
                    <th>Username</th>
+                    <th>Email</th>
                   </tr>
           </thead>
           <tbody v-if="customerList">
@@ -18,7 +19,7 @@
                  <td>{{customer.address}}</td>
                   <td>{{customer.contact}}</td>
                    <td>{{customer.username}}</td>
-                   
+                     <td>{{customer.email}}</td>
             </tr>
           </tbody>
       </table>
