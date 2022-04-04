@@ -19,7 +19,7 @@
     <td>{{ order.customerAddress }}</td>
     <td>{{ order.status }}</td>
        <td v-if="order.status !== 'Pending'">{{ order.driverName }}</td>
-    <td> 
+    <td>
   <button @click="sendData(index)" v-if="order.status === 'Pending'" >send</button>
   <button @click="updateData(order._id)" v-else data-cy="update">update</button>
   <select v-model="selectedDriver" data-cy="driver">

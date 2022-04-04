@@ -15,8 +15,13 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import './expense'
+import './driver'
+import './order'
+import './store'
+import './purchase'
+import './product'
 import 'cypress-file-upload'
-import 'cypress-wait-until';
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from failing the test
   return false

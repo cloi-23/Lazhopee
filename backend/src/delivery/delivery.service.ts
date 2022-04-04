@@ -72,6 +72,7 @@ export class DeliveryService {
       
       deliveries.push(data)    
     }
+    
     return deliveries
   }
 

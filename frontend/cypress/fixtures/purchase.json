@@ -1,0 +1,11 @@
+{
+  "purchase": [
+    {
+      "id": "9c5c7272-f0ce-40da-b271-536d55d5fd86",
+      "date": "2022-04-04T10:24:15.828Z",
+      "name": "Computer",
+      "cost": "53",
+      "quantity": "3"
+    }
+  ]
+}

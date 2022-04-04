@@ -1,3 +1,4 @@
+import faker from '@faker-js/faker'
 
 Cypress.Commands.add('login', () => {
   cy.visit('localhost:4000')
@@ -6,3 +7,4 @@ Cypress.Commands.add('login', () => {
   cy.get('input[type=submit]').as('submitBtn')
     .click()
 })
+

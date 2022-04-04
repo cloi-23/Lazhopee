@@ -26,8 +26,13 @@ export class OrderService {
         const customerId = order.customerId
         const customer = await this.customerModel.findOne({_id: customerId})
         const data = {
-          order,
-          customer
+          _id:order._id,
+          date:order.date,
+          customerId:customer.id,
+          status:order.status,
+          articles:order.articles,
+          name:customer.name,
+          address:customer.address
         }
          customerOrder.push(data)    
       }
