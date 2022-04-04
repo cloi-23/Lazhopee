@@ -33,7 +33,7 @@ const token = JSON.parse(ApplicationSettings.getString('token'))
 if(status!=null){
  try {
   const res= await Http.request({
-    url:`http://172.24.211.16:3000/order/${detailview.orderId.split('"').join('')}`,
+    url:`${process.env.BACKEND_URL}/order/${detailview.orderId.split('"').join('')}`,
     method:'PATCH',
     headers:{
       'Content-Type':'application/json',

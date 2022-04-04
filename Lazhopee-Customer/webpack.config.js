@@ -1,12 +1,37 @@
 const webpack = require("@nativescript/webpack");
-
+const dotenv = require("dotenv");
 module.exports = (env) => {
 	webpack.init(env);
 
-	// Learn how to customize:
-	// https://docs.nativescript.org/webpack
+	dotenv.config()
+    const isUppercase = key => key.toUpperCase() === key;
+    const envKeys = Object.keys(env);
+    let dotEnvValues = envKeys
+        .filter(isUppercase)
+        .reduce((memo, key) => {
+            return {...memo, [key]: JSON.stringify(env[key])};
+        }, {})
+
+    const dotEnvkeys = Object.keys(process.env);
+    dotEnvValues = dotEnvkeys
+        .filter(isUppercase)
+        .reduce((memo, key) => {
+            if (memo[key]) {
+                return memo;
+            }
+
+            return {...memo, [key]: dotEnvValues[key] || JSON.stringify(process.env[key])};
+        }, {...dotEnvValues})
+
+		// console.log(dotEnvValues);
+
+		webpack.chainWebpack(config => {
+			config.plugin('DefinePlugin').tap(args => {
+			  Object.assign(args[0], dotEnvValues)
+		
+			  return args
+			})
+		  })
 
 	return webpack.resolveConfig();
 };
-
-

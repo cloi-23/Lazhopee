@@ -6,7 +6,8 @@
   "dependencies": {
     "@nativescript-community/ui-pulltorefresh": "^2.5.0",
     "@nativescript/core": "~8.2.0",
-    "@nativescript/theme": "~3.0.2"
+    "@nativescript/theme": "~3.0.2",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "@nativescript/android": "8.2.2",

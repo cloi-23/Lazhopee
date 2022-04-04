@@ -3,8 +3,8 @@ import { Http } from "@nativescript/core";
 
 export class LoginViewModel extends Observable{
     private _errMsg:string = ''
-    private _username:string="user0"
-    private _password:string="user0"
+    private _username:string="frederico01"
+    private _password:string="12345"
     constructor(){
         super();
         this.username;
@@ -46,7 +46,7 @@ export class LoginViewModel extends Observable{
         const password =this.password
    try {
    const res= await Http.request({
-        url:"http://172.20.188.182:3000/customer/login",
+        url:`${process.env.BACKEND_URL}/customer/login`,
         method:'POST',
         headers:{
             'Content-Type':'application/json'

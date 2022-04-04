@@ -2,7 +2,7 @@ import { Observable,Dialogs,Frame ,ApplicationSettings} from "@nativescript/core
 import { Http } from "@nativescript/core";
 
 export class LoginViewModel extends Observable{
-    private _username:string="6387043"
+    private _username:string="3647734"
     private _password:string="lazhopee-driver"
     constructor(){
         super();
@@ -34,8 +34,10 @@ export class LoginViewModel extends Observable{
         const username =this.username
         const password =this.password
    try {
+       console.log(process.env.BACKEND_URL);
+       
    const res= await Http.request({
-        url:"http://172.24.211.16:3000/driver/login",
+        url:`${process.env.BACKEND_URL}/driver/login`,
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -47,7 +49,7 @@ export class LoginViewModel extends Observable{
     ApplicationSettings.setString("driverId",JSON.stringify(res.content.toJSON().id))
      const driverId= ApplicationSettings.getString('driverId')
     const resDelivery= await Http.request({
-        url:`http://172.24.211.16:3000/delivery/driver/${driverId.split('"').join('')}`,
+        url:`${process.env.BACKEND_URL}/delivery/driver/${driverId.split('"').join('')}`,
         method:'GET',
         headers:{
           'Content-Type':'application/json',

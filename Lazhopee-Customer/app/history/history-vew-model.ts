@@ -8,7 +8,7 @@ export class HistoryViewModel extends Observable {
   async history() {
     try {
         const res = await Http.request({
-          url:`http://172.20.188.182:3000/order/customer/${this.customerId}`,
+          url:`${process.env.BACKEND_URL}/order/customer/${this.customerId}`,
           method: 'GET',
           headers:{
             'Content-Type':'application/json',
@@ -26,7 +26,7 @@ export class HistoryViewModel extends Observable {
             const imageHost = y.image.split('').slice(7,16).join('')
             if(imageHost == 'localhost'){
                 const imgLocation = y.image.split('').slice(16).join('')
-                const image = `http://172.20.188.182${imgLocation}`;
+                const image = `${process.env.BACKEND_URL}${imgLocation}`;
             return {
               productId: y.productId,
               sellingPrice: y.sellingPrice,

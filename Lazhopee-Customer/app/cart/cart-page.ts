@@ -47,7 +47,7 @@ export async function buy() {
   try {
     if (hasKey('articles')) {
         const res = await Http.request({
-          url:'http://172.20.188.182:3000/order/',
+          url:`${process.env.BACKEND_URL}/order/`,
           method: 'POST',
           headers:{
             'Content-Type':'application/json',

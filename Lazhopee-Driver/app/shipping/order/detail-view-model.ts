@@ -62,7 +62,7 @@ export class DetailViewModel extends Observable{
         const imageHost =   this._image.split('').slice(7,16).join('')
         if(imageHost == 'localhost'){
             const imgLocation=this._image.split('').slice(16).join('')
-            const image = `http://172.24.211.16${imgLocation}`;
+            const image = `${process.env.BACKEND_URL}${imgLocation}`;
         return image
     }
     return this._image  
@@ -71,23 +71,17 @@ export class DetailViewModel extends Observable{
      const articles = this._articles.map(prod =>{
          const quantity = prod.quantity
          const price = prod.sellingPrice
+         
          this._total.push(quantity * price)
-        const imageHost =   prod.image.split('').slice(7,16).join('')
-        if(imageHost == 'localhost'){
-            const imgLocation=prod.image.split('').slice(16).join('')
-            const image = `http://172.24.211.16${imgLocation}`;
-        return {
-            productId: prod.productId,
-            sellingPrice:prod.sellingPrice,
-            quantity:prod.quantity,
-            name:prod.name,
-            image,
-            total:quantity * price
-        }
-        
-    }
-    return prod
-   
+         return {
+             productId: prod.productId,
+             sellingPrice:prod.sellingPrice,
+             quantity:prod.quantity,
+             name:prod.name,
+             image:prod.image,
+             total:quantity * price
+         }
+         
      })
         return articles   
     }
