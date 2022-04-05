@@ -1,3 +1,4 @@
+import { Product } from './../product/entity/product.entity';
 import { Articles } from './../purchase/dto/articles.dto';
 import { Expense } from './../expense/entity/expense.enitity';
 import { Order } from './../order/entities/order.entity';
@@ -11,6 +12,8 @@ export class IncomeStatementService {
     constructor(
         @InjectModel(Purchase.name)
         private readonly purchaseModel: Model<Purchase>,
+        @InjectModel(Product.name)
+        private readonly productModel: Model<Product>,
         @InjectModel(Order.name)
         private readonly orderModel: Model<Order>,
         @InjectModel(Expense.name)
@@ -39,30 +42,8 @@ export class IncomeStatementService {
                   $lt:endDate
               },
               })
-          
-          
-        //       const customerOrder = []
-        // for (const order of orderList) {
-        // const articles = order.articles
-       
-        // for (const productList of articles) {
-        //   const prodId = productList.productId
-        //   const purchase = await this.purchaseModel.findOne({dateOfPurchase: {
-        //     $gte:startDate,
-        //     $lt:endDate
-        // },productId: prodId})
-        //   console.log(prodId,purchase);
-          
-        // }
-        // const customer = await this.purchaseModel.findOne({_id: customerId})
-        // const data = {
-        //   order,
-        //   customer
-        // }
-        //  customerOrder.push(data)    
-      // }
 
-                  //order
+            //order
            const order =orderList.map(x=>{
             return {
 
@@ -75,30 +56,40 @@ export class IncomeStatementService {
            if(order.length !==0){
             totalOrder= order.map(x=>x.total).reduce((x,y)=>x+y)
            }
-              //purchase 
-           const purchase =purchaseList.map(x=>{
-            return {
-            articles:x.articles,
-              total:x.articles.map(articles=> articles.quantity * articles.unitCost).reduce((x,y)=>x+y),
-              date:x.dateOfPurchase
+         
+           const costOfGoodsList =[]
+           for (const order of orderList) {
+             let total =[]
+            for (const articles of order.articles) {
+              const productId = articles.productId
+              const product = await this.productModel.findOne({ _id: productId })
+              total.push({
+                quantity:articles.quantity,
+                unitCost:product.unitCost,
+                productName:product.name,
+                totalCost:articles.quantity*product.unitCost
+              })
             }
-           })
-           let totalPurchase = 0
-           if(purchase.length !==0){
-            totalPurchase = purchase.map(x=>x.total).reduce((x,y)=>x+y)
-           }
+            costOfGoodsList.push({
+              total:total.map(x=>x.totalCost).reduce((x,y)=>x+y),
+              date:order.date
+            })
+            
+          }
+          let costOfGoods =  0
+          if(costOfGoodsList.length !==0){
+            costOfGoods = costOfGoodsList.map(x=>x.total).reduce((x,y)=>x+y)
+          }
 
-        
             let totalExpense = 0
             if(expenseList.length !==0){
               totalExpense = expenseList.map(x=>x.cost).reduce((x,y)=>x+y)
             }
               return   {
-                purchase:purchase,
+                costOfGoods,
                 order:order,
                 expense:expenseList,
                totalExpense,
-                totalPurchase,
                 totalOrder
               }
         }

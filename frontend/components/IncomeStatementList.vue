@@ -15,7 +15,7 @@
           
             <currency-formatter :amount="incomeStatement.totalOrder" withSymbol/>
             <span style="margin-left:-150px">-</span>
-         <currency-formatter :amount="incomeStatement.totalPurchase" withSymbol/></td>
+         <currency-formatter :amount="incomeStatement.costOfGoods" withSymbol/></td>
           </tr>
              <tr>
          <th>  Cost of Goods</th>
@@ -65,7 +65,7 @@ const props = defineProps({
     incomeStatement:Array
 })
 
-const revenue = computed(()=>props.incomeStatement.totalOrder  - props.incomeStatement.totalPurchase)
+const revenue = computed(()=>props.incomeStatement.totalOrder  - props.incomeStatement.costOfGoods)
 const netIncome = computed(()=>revenue.value - props.incomeStatement.totalExpense)
 </script>
 

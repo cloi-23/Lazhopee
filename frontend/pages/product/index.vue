@@ -25,7 +25,7 @@
                  <td>{{product.name}}</td>
                  <td>{{product.category}}</td>
                   <td>{{product.store}}</td>
-                   <td> <currency-formatter :amount="product.sellingPrice"/></td>
+                  <td> <currency-formatter :amount="product.sellingPrice"/></td>
                     <td><i class="fa-solid fa-eye"></i><nuxt-link :to="{name: 'product-id',params:{id : product._id}}" data-cy="view">View</nuxt-link></td>
             </tr>
           </tbody>

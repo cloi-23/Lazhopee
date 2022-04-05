@@ -80,48 +80,49 @@ describe('Driver (e2e)', () => {
         .patch(`/driver/${params.id}`)
         .send({ name:'updated-test' })
         .expect(HttpStatus.OK)
-      })
-
-    describe( 'failed', () => {
-      it('Create Post [POST /] checking duplicate status 409 conflict', () => {
-        try {
-          return request(app.getHttpServer())
-            .post('/driver')
-            .send(driver as CreateDriverDto)
-            
-          } catch (error) {
-            expect(error.status).toEqual(409)
-            expect(error.message).toEqual(`Driver username already exist!`)
-           }
-      })
-
-      it('findOne [GET /] object if not exist status will be 404 not found', () => {
-        try {
-          return request(app.getHttpServer())
-            .get('/driver/1')
-            .send(driver as CreateDriverDto)
-            
-          } catch (error) {
-            expect(error.status).toEqual(404)
-            expect(error.message).toEqual(`Driver not exist!`)
-           }
-      })
-
-      it('login [POST /] object it should 401 unauthorized', () => {
-        return request(app.getHttpServer())
-        .post('/driver/login')
-        .send(updateDriver)
-        .expect(HttpStatus.UNAUTHORIZED)
-    })
-    describe('delete', () => {
-      it(' [DELETE /] driver it should 200 ok', () => {
-        return request(app.getHttpServer())
-        .delete(`/driver/${params.id}`)
-        .expect(HttpStatus.OK)
-      })
-    })
-  })    
+      }) 
 })
+
+describe( 'failed', () => {
+  it('Create Post [POST /] checking duplicate status 409 conflict', () => {
+    try {
+      return request(app.getHttpServer())
+        .post('/driver')
+        .send(driver as CreateDriverDto)
+        
+      } catch (error) {
+        expect(error.status).toEqual(409)
+        expect(error.message).toEqual(`Driver username already exist!`)
+       }
+  })
+
+  it('findOne [GET /] object if not exist status will be 404 not found', () => {
+    try {
+      return request(app.getHttpServer())
+        .get('/driver/1')
+        .send(driver as CreateDriverDto)
+        
+      } catch (error) {
+        expect(error.status).toEqual(404)
+        expect(error.message).toEqual(`Driver not exist!`)
+       }
+  })
+
+  it('login [POST /] object it should 401 unauthorized', () => {
+    return request(app.getHttpServer())
+    .post('/driver/login')
+    .send(updateDriver)
+    .expect(HttpStatus.UNAUTHORIZED)
+})
+})   
+
+describe( 'Drop All Record', () => {
+  it(' [DELETE /] driver it should 200 ok', () => {
+    return request(app.getHttpServer())
+    .delete(`/driver/${params.id}`)
+    .expect(HttpStatus.OK)
+  })
+})   
 
   afterAll(async () => {
     await app.close()

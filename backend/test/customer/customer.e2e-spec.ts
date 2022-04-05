@@ -28,7 +28,7 @@ describe('Customer (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [CustomerModule,
-        MongooseModule.forRoot('mongodb://localhost:27017/TestLazhopee'),
+        MongooseModule.forRoot('mongodb://localhost:27019/TestLazhopee'),
         ],
     }).compile();
     app = moduleFixture.createNestApplication();
@@ -87,11 +87,7 @@ describe('Customer (e2e)', () => {
         .send({name:'updated-test'})
         .expect(HttpStatus.OK)
       })
-      it(' [DELETE /] customer it should 200 ok', () => {
-        return request(app.getHttpServer())
-        .delete(`/customer/${customerId}`)
-        .expect(HttpStatus.OK)
-      })
+
      
 })
 
@@ -115,7 +111,17 @@ describe( 'failed', () => {
     .expect(HttpStatus.UNAUTHORIZED)
 })
 
-})    
+})   
+
+describe( 'Drop All Record', () => {
+
+  it(' [DELETE /] customer it should 200 ok', () => {
+    return request(app.getHttpServer())
+    .delete(`/customer/${customerId}`)
+    .expect(HttpStatus.OK)
+  })
+})   
+ 
 
   afterAll(async () => {
     await app.close()

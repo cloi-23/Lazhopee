@@ -22,7 +22,7 @@
     <div v-if="dayToggle && monthToggle==false  && yearToggle==false">
       <line-chart-template :dataSet="sales" title="Daily Sales" />
     </div>
-  
+
       <div v-else-if="monthToggle && yearToggle==false">
       <line-chart-template :dataSet="monthSale" title="Monthly Sales" />
     </div>
@@ -51,8 +51,8 @@ import axios from 'axios'
 
 const startDate = ref('2022-01-01')
 const endDate = ref('2022-12-31')
-const pieStartDate = ref('2022-03-01')
-const pieEndDate = ref('2022-03-31')
+const pieStartDate = ref('2022-04-01')
+const pieEndDate = ref('2022-04-30')
 const sales = ref(null)
 const dayToggle=ref(true)
 const monthToggle=ref(false)
@@ -85,7 +85,7 @@ daySale.value =data.sale
   daySaleTotal.value = data.sale.map(x => x.total).reduce((x,y) => x+y,0)
 }
 const month =async ()=>{
-const { data } =  await axios.get(`${config.BACKEND_URL}/sale/monthly/${startDate.value}/${endDate.value}`,useJwtToken())
+const { data } =  await axios.get(`${config.BACKEND_URL}/sale/monthly/?startDate=${startDate.value}/&endDate=${endDate.value}`,useJwtToken())
    monthSale.value=data
    dayToggle.value= false
   yearToggle.value=  false
