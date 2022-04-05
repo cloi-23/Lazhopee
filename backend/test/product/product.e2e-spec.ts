@@ -100,17 +100,7 @@ import { faker } from '@faker-js/faker'
             .send(updateProduct as UpdateProductDto)
             .expect(HttpStatus.OK)
           })
-          it(' [DELETE /] product it should 200 ok', () => {
-            return request(app.getHttpServer())
-            .delete(`/product/${params.id}`)
-            .set('Authorization', 'Bearer ' + token)
-            .expect(HttpStatus.OK)
-          })
 
-          it(' [DELETE /] manager it should 200 ok', () => {
-            return request(app.getHttpServer())
-            .delete(`/manager/${user.id}`)
-        })
           
         })
       describe( 'failed', () => {

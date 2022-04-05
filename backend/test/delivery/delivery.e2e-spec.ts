@@ -87,38 +87,27 @@ import { faker } from '@faker-js/faker'
             .set('Authorization', 'Bearer ' + token)
             .send({status:'Shipping'})
             .expect(HttpStatus.OK)
-          })
-          
-      it(' [DELETE /] delivery it should 200 ok', () => {
-        return request(app.getHttpServer())
-        .delete(`/delivery/${params.id}`)
-        .set('Authorization', 'Bearer ' + token)
-        .expect(HttpStatus.OK)
-      })
-        it(' [DELETE /] manager it should 200 ok', () => {
-          return request(app.getHttpServer())
-          .delete(`/manager/${user.id}`)
-      })
-    
-        describe( 'failed unauthorized', () => {   
-          it('findOne [GET /] status will be 401 unauthorized', () => {
-               request(app.getHttpServer())
-                .get('/delivery/1')
-                .expect(HttpStatus.UNAUTHORIZED)
-          })
-
-          it('findOne [GET /] object if not exist status will be 404 not found', () => {
-            try {
-              return request(app.getHttpServer())
-                .get('/delivery/1')
-                .set('Authorization', 'Bearer ' + token)
-              } catch (error) {
-                expect(error.status).toEqual(404)
-                expect(error.message).toEqual(`Delivery not exist!`)
-              }
           })  
-        })  
+    
     })
+    describe( 'failed ', () => {   
+      it('findOne [GET /] status will be 401 unauthorized', () => {
+           request(app.getHttpServer())
+            .get('/delivery/1')
+            .expect(HttpStatus.UNAUTHORIZED)
+      })
+
+      it('findOne [GET /] object if not exist status will be 404 not found', () => {
+        try {
+          return request(app.getHttpServer())
+            .get('/delivery/1')
+            .set('Authorization', 'Bearer ' + token)
+          } catch (error) {
+            expect(error.status).toEqual(404)
+            expect(error.message).toEqual(`Delivery not exist!`)
+          }
+      })  
+    })  
 
     describe( 'Drop All Record', () => {
 

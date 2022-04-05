@@ -99,17 +99,7 @@ import { UpdateStoreDto } from 'src/store/dto/update-store.dto';
             .send(updateStore as UpdateStoreDto)
             .expect(HttpStatus.OK)
           })
-          it(' [DELETE /] store it should 200 ok', () => {
-            return request(app.getHttpServer())
-            .delete(`/store/${params.id}`)
-            .set('Authorization', 'Bearer ' + token)
-            .expect(HttpStatus.OK)
-          })
-
-          it(' [DELETE /] manager it should 200 ok', () => {
-            return request(app.getHttpServer())
-            .delete(`/manager/${user.id}`)
-        })
+   
         })
 
 
@@ -164,15 +154,15 @@ import { UpdateStoreDto } from 'src/store/dto/update-store.dto';
 
         it(' [DELETE /] store it should 200 ok', () => {
           return request(app.getHttpServer())
-          .delete(`/order/${params.id}`)
+          .delete(`/store/${params.id}`)
           .set('Authorization', 'Bearer ' + token)
           .expect(HttpStatus.OK)
         })
+
         it(' [DELETE /] manager it should 200 ok', () => {
           return request(app.getHttpServer())
-          .delete(`/manager/${params.id}`)
-          .expect(HttpStatus.OK)
-        })
+          .delete(`/manager/${user.id}`)
+      })
       })   
     
       afterAll(async () => {

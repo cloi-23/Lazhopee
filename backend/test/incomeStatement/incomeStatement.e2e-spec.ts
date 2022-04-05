@@ -136,8 +136,14 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
       })
         it(' [DELETE /] purchase it should 200 ok', () => {
           return request(app.getHttpServer())
-          .delete(`/manager/${purchaseId}`)
+          .delete(`/purchase/${purchaseId}`)
+          .set('Authorization', 'Bearer ' + token)
       })
+
+      it(' [DELETE /] manager it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/manager/${user.id}`)
+    })
     }) 
 
       afterAll(async () => {

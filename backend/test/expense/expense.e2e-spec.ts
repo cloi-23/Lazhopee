@@ -103,17 +103,6 @@ import { CreateExpenseDto } from '../../src/expense/dto/create-expense.dto';
             .send(updateexpense as UpdateExpenseDto)
             .expect(HttpStatus.OK)
           })
-          it(' [DELETE /] expense it should 200 ok', () => {
-            return request(app.getHttpServer())
-            .delete(`/expense/${params.id}`)
-            .set('Authorization', 'Bearer ' + token)
-            .expect(HttpStatus.OK)
-          })
-
-          it(' [DELETE /] manager it should 200 ok', () => {
-            return request(app.getHttpServer())
-            .delete(`/manager/${user.id}`)
-        })
           
         })
       describe( 'failed', () => {

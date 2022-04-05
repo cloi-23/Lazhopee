@@ -235,7 +235,7 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
   
       it(' [DELETE /] manager it should 200 ok', () => {
         return request(app.getHttpServer())
-        .delete(`/manager/${params.id}`)
+        .delete(`/manager/${user.id}`)
         .expect(HttpStatus.OK)
       })
     }) 
