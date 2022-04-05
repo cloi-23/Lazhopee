@@ -54,8 +54,24 @@ export class PurchaseService {
          
      }
   
-    create(createPurchaseDto:CreatePurchaseDto){
+   async create(createPurchaseDto:CreatePurchaseDto){
      try {
+         const filterByProductIdAndUnitCost= createPurchaseDto.articles.map(x=>
+            {
+              return{
+                productId:x.productId,
+                unitCost:x.unitCost
+              }
+            })
+          
+
+            for (const articles of filterByProductIdAndUnitCost) {
+              const productId = articles.productId
+              const product = await this.productModel.findOneAndUpdate({ _id: productId }, { $set: {unitCost: articles.unitCost} }, { new: true })
+              .exec(); 
+              console.log(product);
+            }
+            
          return new this.purchaseModel(createPurchaseDto).save()
      } catch (error) {
          console.log(error);

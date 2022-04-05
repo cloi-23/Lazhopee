@@ -20,6 +20,9 @@ export class Product extends Document{
 
     @Prop()
     sellingPrice:number
+
+    @Prop({default:0})
+    unitCost:number
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product)

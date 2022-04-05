@@ -22,6 +22,11 @@ export class CreateProductDto  {
     @IsNumber()
     @IsPositive()
     sellingPrice:number
+
+    @IsOptional()
+    @IsNumber()
+    @IsPositive()
+    unitCost:number
 }
 
 
