@@ -54,6 +54,7 @@ export class ManagerController {
       httpOnly: true,
       secure: true
     }
+    
     response.cookie('jwt', token,  CookieOptions)
      
     //  await this.managerService.validateManager(login);

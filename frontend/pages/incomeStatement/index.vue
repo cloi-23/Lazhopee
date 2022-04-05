@@ -29,11 +29,13 @@ import axios from 'axios'
 const startDate = ref('2022-03-01')
 const endDate = ref('2022-03-31')
 const router = useRouter()
+const config = useRuntimeConfig()
+
 const incomeStatement = ref(null)
 
 const send = async()=>{
   try {
-  const { data } =  await axios.get(`http://localhost:3000/incomeStatement/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
+  const { data } =  await axios.get(`${config.BACKEND_URL}/incomeStatement/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
   incomeStatement.value = data
 } catch (error) {
    router.push({ name: 'index'})

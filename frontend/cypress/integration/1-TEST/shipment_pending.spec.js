@@ -7,14 +7,15 @@ describe('Pending', () => {
       cy.login()
       cy.get('[data-cy="sidebar-shipment"]').click();
       cy.get('[data-cy="sidebar-pending"]').click();
-      cy.get('[data-cy="view"]').first().click({ force: true })
-      cy.get('[data-cy="back"]').click()
-      cy.get('select').eq(0).select('mimi')
+      cy.get('tbody>tr').should('contain', reverseDate)
+      .and('contain', 'send')
+      .and('contain', 'Pending')
+      // cy.get('[data-cy="view"]').first().click({ force: true })
+      // cy.get('[data-cy="back"]').click()
+      cy.get('select').eq(0).select('momo')
       cy.get('tbody>tr').eq(0).then(() => cy.get('button').click({multiple: true}))
       // cy.get('select[data-cy="driver"]').first().select('mimi')
       // cy.get('button[data-cy="send"]').first().click()
-      cy.get('tbody>tr').should('contain', reverseDate)
-      .and('contain', order[0].name)
-      .and('contain', order[0].address)
+
     })
 })

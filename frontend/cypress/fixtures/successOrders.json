@@ -2,78 +2,33 @@
   "orders": [
     {
       "_id": "62469bba9c821fda235d0762",
-      "date": "2022-04-04T10:24:11.923Z",
+      "date": "2022-04-05T06:39:43.276Z",
       "customerId": "62465ca4eac6efdf8c48f957",
       "status": "Success",
       "articles": [
         {
-          "productName": "Gloves",
-          "sellingPrice": "114.95",
-          "quantity": "4"
-        },
-        {
-          "productName": "Gloves",
-          "sellingPrice": "332.47",
-          "quantity": "2"
-        },
-        {
-          "productName": "Bike",
-          "sellingPrice": "162.06",
-          "quantity": "5"
-        }
-      ],
-      "name": "Nelle",
-      "address": "South Zelda"
-    },
-    {
-      "_id": "62469bba9c821fda235d0762",
-      "date": "2022-04-04T10:24:11.923Z",
-      "customerId": "62465ca4eac6efdf8c48f957",
-      "status": "Success",
-      "articles": [
-        {
-          "productName": "Tuna",
-          "sellingPrice": "366.75",
-          "quantity": "2"
+          "productName": "Chips",
+          "sellingPrice": "497.41",
+          "quantity": "3"
         },
         {
           "productName": "Bacon",
-          "sellingPrice": "216.31",
+          "sellingPrice": "215.04",
           "quantity": "4"
         },
         {
-          "productName": "Tuna",
-          "sellingPrice": "493.46",
+          "productName": "Bike",
+          "sellingPrice": "117.31",
           "quantity": "4"
-        }
-      ],
-      "name": "Jaleel",
-      "address": "East Yoshiko"
-    },
-    {
-      "_id": "62469bba9c821fda235d0762",
-      "date": "2022-04-04T10:24:11.923Z",
-      "customerId": "62465ca4eac6efdf8c48f957",
-      "status": "Success",
-      "articles": [
+        },
         {
           "productName": "Shoes",
-          "sellingPrice": "201.94",
-          "quantity": "3"
-        },
-        {
-          "productName": "Ball",
-          "sellingPrice": "482.44",
-          "quantity": "3"
-        },
-        {
-          "productName": "Tuna",
-          "sellingPrice": "142.47",
-          "quantity": "3"
+          "sellingPrice": "303.58",
+          "quantity": "2"
         }
       ],
-      "name": "Federico",
-      "address": "Dareview"
+      "name": "Caroline",
+      "address": "North Sarinashire"
     }
   ]
 }

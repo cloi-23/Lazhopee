@@ -37,7 +37,7 @@ export async function register() {
 if(validEmail(email) && username.length >= 5 && password.length >= 5 && address && contact) {
 try{
   const res = await Http.request({
-      url:'http://172.20.188.182:3000/customer/',
+      url:`${process.env.BACKEND_URL}/customer/`,
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       content: JSON.stringify({

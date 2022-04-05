@@ -35,6 +35,7 @@ import axios from 'axios'
 const limitPage = ref(10)
 const route  = useRoute()
 const router  = useRouter()
+const config = useRuntimeConfig()
 const page = ref(Number(route.query.page))
 const prev =async ()=>{
 page.value--
@@ -50,11 +51,12 @@ const orders = ref(null)
 const load = async(limit=limitPage.value,offset=page.value) =>{
   try {
       // for development
-      // const res =  await axios.get(`http://localhost:3000/order`,useJwtToken())
+      const res =  await axios.get(`${config.BACKEND_URL}/order`,useJwtToken())
+      orders.value = res.data
 
       // for testing
-      const res =  await axios.get(`../../cypress/fixtures/orders.json`)
-      orders.value = res.data.order
+      // const res =  await axios.get(`../../cypress/fixtures/orders.json`)
+      // orders.value = res.data.order
   } catch (error) {
      router.push({name: 'index'})
       return error
@@ -65,7 +67,7 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
   const drivers = ref(null)
   const getDrivers = async() => {
     try {
-      const res = await axios.get(`http://localhost:3000/driver/`,useJwtToken())
+      const res = await axios.get(`${config.BACKEND_URL}/driver/`,useJwtToken())
       drivers.value = res.data
     } catch (error) {
        router.push({name: 'index'})
@@ -78,11 +80,11 @@ const load = async(limit=limitPage.value,offset=page.value) =>{
   const sendData = async(index) => {
   const orderId = orders.value[index]['_id']
   const driver = drivers.value.filter(x => x.name === selectedDriver.value); 
-    await axios.post('http://localhost:3000/delivery',{
+    await axios.post(`${config.BACKEND_URL}/delivery`,{
       orderId: orderId,
       driverId: driver[0]['_id']
     },useJwtToken())
-    await axios.patch(`http://localhost:3000/order/${orderId}`,{
+    await axios.patch(`${config.BACKEND_URL}/order/${orderId}`,{
     status: 'Shipping'
   },useJwtToken()) 
   await load()

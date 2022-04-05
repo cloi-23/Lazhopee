@@ -20,7 +20,7 @@ export class ShippingViewModel extends Observable {
      for (const shipping of shippingList) {
        const orderId = shipping.orderId
        const orderRes= await Http.request({
-        url:`http://172.24.211.16:3000/order/details/${orderId.split('"').join('')}`,
+        url:`${process.env.BACKEND_URL}/order/details/${orderId.split('"').join('')}`,
         method:'GET',
         headers:{
           'Content-Type':'application/json',
@@ -52,7 +52,7 @@ const filteredOrderByShipping = shippingOrder.filter(x=>{
  
     const driverId= ApplicationSettings.getString('driverId')
    const res= await Http.request({
-       url:`http://172.24.211.16:3000/delivery/driver/${driverId.split('"').join('')}`,
+       url:`${process.env.BACKEND_URL}/delivery/driver/${driverId.split('"').join('')}`,
        method:'GET',
        headers:{
          'Content-Type':'application/json',

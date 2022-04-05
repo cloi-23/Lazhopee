@@ -9,6 +9,7 @@
                   <th>Address</th>
                    <th>Contact</th>
                    <th>Username</th>
+                    <th>Email</th>
                   </tr>
           </thead>
           <tbody v-if="customerList">
@@ -18,7 +19,7 @@
                  <td>{{customer.address}}</td>
                   <td>{{customer.contact}}</td>
                    <td>{{customer.username}}</td>
-                   
+                     <td>{{customer.email}}</td>
             </tr>
           </tbody>
       </table>
@@ -28,9 +29,11 @@
 <script setup>
 import axios from 'axios'
 const router = useRouter()
+const config = useRuntimeConfig()
  const customerList = ref(null)
+ 
   try {
-    const { data } = await axios.get(`http://localhost:3000/customer`,useJwtToken())
+    const { data } = await axios.get(`${config.BACKEND_URL}/customer`,useJwtToken())
     customerList.value= data
  
   } catch (error) {

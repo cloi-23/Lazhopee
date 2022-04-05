@@ -11,6 +11,7 @@
     <th v-if="$route.path === '/shipment/shipping'">Driver</th>
     <th>Action</th>
   </tr>
+ 
   <tbody  v-if="orders">
   <tr  v-for="(order,index) in orders" :key="index"  v-show="order.status == 'Shipping'">
   <div v-show="false">{{index}}</div>
@@ -38,6 +39,7 @@ import axios from 'axios'
 const limitPage = ref(10)
 const route  = useRoute()
 const router  = useRouter()
+const config = useRuntimeConfig()
 
 const page = ref(Number(route.query.page))
 const prev =async ()=>{
@@ -52,9 +54,8 @@ await load(limitPage.value,page.value)
 const orders = ref(null)
 const  load = async(limit=limitPage.value,offset=page.value) =>{
   try {
-      const { data } = await  axios.get(`http://localhost:3000/delivery/order/shipping`,useJwtToken())
+      const { data } = await  axios.get(`${config.BACKEND_URL}/delivery/order/shipping`,useJwtToken())
       orders.value = data 
-      console.log(data);
   } catch (error) {
      router.push({name: 'index'})
       console.log(error);
@@ -65,18 +66,18 @@ const  load = async(limit=limitPage.value,offset=page.value) =>{
   const drivers = ref(null)
   const getDrivers = async() => {
     try {
-      const  { data }  = await axios.get(`http://localhost:3000/driver/`,useJwtToken())
+      const  { data }  = await axios.get(`${config.BACKEND_URL}/driver/`,useJwtToken())
       drivers.value = data 
     } catch (error) {
        router.push({name: 'index'})
       console.log(error);
     }
   }
-  getDrivers()
+  await getDrivers()
   const selectedDriver = ref('')
   const updateData = async(id) => {
     try {
-     const res = axios.patch(`http://localhost:3000/delivery/${id}`,{
+     const res = axios.patch(`${config.BACKEND_URL}/delivery/${id}`,{
       driverId: selectedDriver.value
     }, useJwtToken())
     setTimeout(() => {

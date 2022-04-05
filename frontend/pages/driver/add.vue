@@ -46,6 +46,8 @@ const device = ref(null)
 const fileData = ref(null)
 const photo = ref(null)
 const router = useRouter()
+const config = useRuntimeConfig()
+
  const photoUpload = ()=>{
   photo.value = fileData.value.files[0];
       console.log(fileData.value.files[0]);
@@ -54,7 +56,7 @@ const add = async () => {
    const formData = new FormData();
          formData.append('file', photo.value);
     
-         const uploadResponse = await axios.post(`http://localhost:3000/upload`,formData)
+         const uploadResponse = await axios.post(`${config.BACKEND_URL}/upload`,formData)
          photo.value =uploadResponse.data
          
          const driver ={
@@ -62,12 +64,12 @@ const add = async () => {
          address:address.value,
          contact:contact.value,
          device:device.value,
-         photo: `http://localhost:3000/upload/${photo.value}`,
+         photo: `${config.BACKEND_URL}/upload/${photo.value}`,
          username:contact.value,
          password:"lazhopee-driver"
          
      }
-       const res = await axios.post(`http://localhost:3000/driver/add`,driver)
+       const res = await axios.post(`${config.BACKEND_URL}/driver/add`,driver)
        console.log(res.status); 
         name.value = null
         address.value = null

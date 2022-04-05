@@ -3,6 +3,12 @@
         
       <h2>Lazhopee</h2>
       <ul class="nav">
+          <li v-show="false">
+              <nuxt-link :to="{name:'test-order'}" data-cy="test">
+                  <i class='bx bxs-dashboard bx-sm'></i>
+                  <span class="label" >test-order</span> 
+             </nuxt-link>
+          </li>
           <li>
               <nuxt-link :to="{name:'dashboard'}" data-cy="dashboard">
                   <i class='bx bxs-dashboard bx-sm'></i>

@@ -17,28 +17,17 @@ export class HomeViewModel extends Observable {
 
      try {
       const res= await Http.request({
-        url:"http://172.20.188.182:3000/product",
+        url:`${process.env.BACKEND_URL}/product`,
         method:'GET',
         headers:{
           'Content-Type':'application/json',
           'Authorization' : `Bearer ${this.token}`    
       },
     })
-   const productList =  res.content.toJSON().map(prod =>{
+    console.log(res.content);
+    
 
-      const imageHost =  prod.image.split('').slice(7,16).join('')
-      if(imageHost == 'localhost'){
-        const imgLocation=prod.image.split('').slice(16).join('')
-        const image = `http://172.20.188.182${imgLocation}`;
-        return{
-          ...prod,
-          image
-        } 
-      }
-      return prod
-    })
-
-    ApplicationSettings.setString("productList",JSON.stringify(productList))
+    ApplicationSettings.setString("productList",JSON.stringify(res.content))
     return  res.content
 
      } catch (error) {
