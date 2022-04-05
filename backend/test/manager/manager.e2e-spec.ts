@@ -103,16 +103,16 @@ describe('Manager (e2e)', () => {
         })
         .expect(HttpStatus.UNAUTHORIZED)
       })
-      describe('delete', () => {
-        it(' [DELETE /] manager it should 200 ok', () => {
-          return request(app.getHttpServer())
-          .delete(`/manager/${params.id}`)
-          .expect(HttpStatus.OK)
-        })
-      })
+
     })    
 })
-
+describe( 'Drop All Record', () => {
+  it(' [DELETE /] manager it should 200 ok', () => {
+    return request(app.getHttpServer())
+    .delete(`/manager/${params.id}`)
+    .expect(HttpStatus.OK)
+  })
+}) 
   afterAll(async () => {
     await app.close()
   })

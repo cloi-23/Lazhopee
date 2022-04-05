@@ -88,6 +88,17 @@ import { faker } from '@faker-js/faker'
             .send({status:'Shipping'})
             .expect(HttpStatus.OK)
           })
+          
+      it(' [DELETE /] delivery it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/delivery/${params.id}`)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(HttpStatus.OK)
+      })
+        it(' [DELETE /] manager it should 200 ok', () => {
+          return request(app.getHttpServer())
+          .delete(`/manager/${user.id}`)
+      })
     
         describe( 'failed unauthorized', () => {   
           it('findOne [GET /] status will be 401 unauthorized', () => {
@@ -105,21 +116,24 @@ import { faker } from '@faker-js/faker'
                 expect(error.status).toEqual(404)
                 expect(error.message).toEqual(`Delivery not exist!`)
               }
-          })
-          describe('delete', () => {
-            it(' [DELETE /] delivery it should 200 ok', () => {
-              return request(app.getHttpServer())
-              .delete(`/delivery/${params.id}`)
-              .set('Authorization', 'Bearer ' + token)
-              .expect(HttpStatus.OK)
-            })
-              it(' [DELETE /] manager it should 200 ok', () => {
-                return request(app.getHttpServer())
-                .delete(`/manager/${user.id}`)
-            })
-          })
-       })    
+          })  
+        })  
     })
+
+    describe( 'Drop All Record', () => {
+
+      it(' [DELETE /] delivery it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/delivery/${params.id}`)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(HttpStatus.OK)
+      })
+        it(' [DELETE /] manager it should 200 ok', () => {
+          return request(app.getHttpServer())
+          .delete(`/manager/${user.id}`)
+      })
+    })   
+     
       afterAll(async () => {
         await app.close()
       })

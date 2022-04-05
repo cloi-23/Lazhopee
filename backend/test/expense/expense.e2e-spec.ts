@@ -172,6 +172,20 @@ import { CreateExpenseDto } from '../../src/expense/dto/create-expense.dto';
         })
      
       }) 
+
+      describe( 'Drop All Record', () => {
+        it(' [DELETE /] expense it should 200 ok', () => {
+          return request(app.getHttpServer())
+          .delete(`/expense/${params.id}`)
+          .set('Authorization', 'Bearer ' + token)
+          .expect(HttpStatus.OK)
+        })
+
+        it(' [DELETE /] manager it should 200 ok', () => {
+          return request(app.getHttpServer())
+          .delete(`/manager/${user.id}`)
+      })
+      }) 
       afterAll(async () => {
         await app.close()
       })

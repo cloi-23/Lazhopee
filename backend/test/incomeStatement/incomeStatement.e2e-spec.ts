@@ -39,7 +39,8 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
       const startDate = '01/31/2021'
       const endDate = '01/31/2023'
 
-      let params = { id: null }
+      let expenseId = null
+      let purchaseId = null
       let app: INestApplication;
       let user = { id: null}
       let token = null
@@ -90,6 +91,9 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
             .set('Authorization', 'Bearer ' + token)
             .send(expense as CreateExpenseDto)
             .expect(HttpStatus.CREATED)
+            .then(({body})=>{
+              expenseId = body._id
+            })
         })
         it('Create sample purchase', async() => {
             await request(app.getHttpServer())
@@ -97,6 +101,9 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
            .set('Authorization', 'Bearer ' + token)
            .send(purchase)
            .expect(HttpStatus.CREATED)
+           .then(({body})=>{
+            purchaseId = body._id
+          })
         })
 
 
@@ -118,6 +125,20 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
           })
       
     })
+    describe( 'Drop All Record', () => {
+
+   
+      it(' [DELETE /] expense it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/expense/${expenseId}`)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(HttpStatus.OK)
+      })
+        it(' [DELETE /] purchase it should 200 ok', () => {
+          return request(app.getHttpServer())
+          .delete(`/manager/${purchaseId}`)
+      })
+    }) 
 
       afterAll(async () => {
         await app.close()

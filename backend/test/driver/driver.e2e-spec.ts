@@ -81,6 +81,11 @@ describe('Driver (e2e)', () => {
         .send({ name:'updated-test' })
         .expect(HttpStatus.OK)
       })
+      it(' [DELETE /] driver it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/driver/${params.id}`)
+        .expect(HttpStatus.OK)
+      })
 
     describe( 'failed', () => {
       it('Create Post [POST /] checking duplicate status 409 conflict', () => {
@@ -113,15 +118,16 @@ describe('Driver (e2e)', () => {
         .send(updateDriver)
         .expect(HttpStatus.UNAUTHORIZED)
     })
-    describe('delete', () => {
-      it(' [DELETE /] driver it should 200 ok', () => {
-        return request(app.getHttpServer())
-        .delete(`/driver/${params.id}`)
-        .expect(HttpStatus.OK)
-      })
-    })
   })    
 })
+
+describe( 'Drop All Record', () => {
+  it(' [DELETE /] driver it should 200 ok', () => {
+    return request(app.getHttpServer())
+    .delete(`/driver/${params.id}`)
+    .expect(HttpStatus.OK)
+  })
+})   
 
   afterAll(async () => {
     await app.close()

@@ -115,7 +115,17 @@ describe( 'failed', () => {
     .expect(HttpStatus.UNAUTHORIZED)
 })
 
-})    
+})   
+
+describe( 'Drop All Record', () => {
+
+  it(' [DELETE /] customer it should 200 ok', () => {
+    return request(app.getHttpServer())
+    .delete(`/customer/${customerId}`)
+    .expect(HttpStatus.OK)
+  })
+})   
+ 
 
   afterAll(async () => {
     await app.close()

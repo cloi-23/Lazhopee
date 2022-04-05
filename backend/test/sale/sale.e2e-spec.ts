@@ -212,7 +212,33 @@ import { CreateProductDto } from 'src/product/dto/create-product.dto';
           .expect(HttpStatus.NOT_FOUND)  
         })
     })
+    describe( 'Drop All Record', () => {
 
+      it(' [DELETE /] order it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/order/${params.id}`)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(HttpStatus.OK)
+      })
+      it(' [DELETE /] customer it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/customer/${customerId}`)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(HttpStatus.OK)
+      })
+      it(' [DELETE /] product it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/product/${productId.id}`)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(HttpStatus.OK)
+      })
+  
+      it(' [DELETE /] manager it should 200 ok', () => {
+        return request(app.getHttpServer())
+        .delete(`/manager/${params.id}`)
+        .expect(HttpStatus.OK)
+      })
+    }) 
       afterAll(async () => {
         await app.close()
       })

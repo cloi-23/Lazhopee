@@ -163,11 +163,23 @@ import { faker } from '@faker-js/faker'
             .delete(`/purchase/1`)
             .expect(HttpStatus.UNAUTHORIZED)
           })
-              
-
-        
+            
       })    
     
+      describe( 'Drop All Record', () => {
+        it(' [DELETE /] purchase it should 200 ok', () => {
+          return request(app.getHttpServer())
+          .delete(`/purchase/${params.id}`)
+          .set('Authorization', 'Bearer ' + token)
+          .expect(HttpStatus.OK)
+        })
+
+        it(' [DELETE /] manager it should 200 ok', () => {
+          return request(app.getHttpServer())
+          .delete(`/manager/${user.id}`)
+      })
+  
+      }) 
       afterAll(async () => {
         await app.close()
       })
