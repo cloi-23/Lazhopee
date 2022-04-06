@@ -1,4 +1,5 @@
 import { Observable ,ApplicationSettings, Http, Frame} from '@nativescript/core'
+import { JwtTokenGuard } from '~/utils/JwtTokenGuard'
 interface ShippingList{
   _id: string,
 driverId: string,
@@ -19,15 +20,17 @@ export class ShippingViewModel extends Observable {
      const shippingOrder = []
      for (const shipping of shippingList) {
        const orderId = shipping.orderId
-       const orderRes= await Http.request({
+       const jwtTokenGuard=new JwtTokenGuard()
+       const orderRes=  await Http.request({
         url:`${process.env.BACKEND_URL}/order/details/${orderId.split('"').join('')}`,
         method:'GET',
         headers:{
           'Content-Type':'application/json',
           'Authorization' : `Bearer ${this.token}`    
-      },
-    })
-    const order = orderRes.content.toJSON()
+        }
+      })
+      // await jwtTokenGuard.get(`${process.env.BACKEND_URL}/order/details/${orderId.split('"').join('')}`)
+        const order = orderRes.content.toJSON()
        const data = {
          _id: shipping._id,
          driverId: shipping.driverId,
@@ -51,17 +54,20 @@ const filteredOrderByShipping = shippingOrder.filter(x=>{
   async refresh(){
  
     const driverId= ApplicationSettings.getString('driverId')
-   const res= await Http.request({
-       url:`${process.env.BACKEND_URL}/delivery/driver/${driverId.split('"').join('')}`,
-       method:'GET',
-       headers:{
-         'Content-Type':'application/json',
-         'Authorization' : `Bearer ${this.token}`    
-     },
-   })
-   ApplicationSettings.setString("shippingList",JSON.stringify(res.content))
+    const jwtTokenGuard=new JwtTokenGuard()
+     const res=  await Http.request({
+      url:`${process.env.BACKEND_URL}/delivery/driver/${driverId.split('"').join('')}`,
+      method:'GET',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization' : `Bearer ${this.token}`    
+      }
+    })
+     //await jwtTokenGuard.get(`${process.env.BACKEND_URL}/delivery/driver/${driverId.split('"').join('')}`)
+     ApplicationSettings.setString("shippingList",JSON.stringify(res.content))
     await this.getShippingDetails()
     Frame.topmost().navigate('./shipping/shipping-page')
+   console.log(res.content);
    
     
     return "Shipping reload"

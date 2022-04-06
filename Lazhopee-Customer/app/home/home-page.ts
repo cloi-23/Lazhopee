@@ -14,7 +14,6 @@ export async function onNavigatingTo(args: NavigatedData) {
  homeViewModel = new HomeViewModel
   page.bindingContext = homeViewModel
   await homeViewModel.getProduct()  
-  console.log(homeViewModel);
   
   statusViewModel = new StatusViewModel()
 }
