@@ -12,21 +12,22 @@
               <input type ="date"  v-model="startDate" data-cy="startDate"/>
                <label for="startDate"> End Date </label>
               <input type ="date"  v-model="endDate" data-cy="endDate"/>
-              <button @click="day" data-cy="perDay">Per Day</button>
-              <button @click="month" data-cy="perMonth">Per Month</button>
+              <button @click="day" data-cy="perDay" >Per Day</button>
+              <button @click="month" data-cy="perMonth" >Per Month</button>
               <button @click="year" data-cy="perYear">Per Year</button>
         </div>
       </form>
     </div>
-    <div class="chart">
-    <div v-if="dayToggle && monthToggle==false  && yearToggle==false">
-      <line-chart-template :dataSet="sales" title="Daily Sales" />
+ 
+    <div class="chart" >
+    <div v-if="dayToggle && !monthToggle && !yearToggle">
+      <line-chart-template :dataSet="daySale" title="Daily Sales" />
     </div>
 
-      <div v-else-if="monthToggle && yearToggle==false">
+      <div v-else-if="monthToggle && !yearToggle&& !dayToggle">
       <line-chart-template :dataSet="monthSale" title="Monthly Sales" />
     </div>
-        <div v-else-if="yearToggle && monthToggle==false">
+        <div v-else-if="yearToggle && !monthToggle && !dayToggle">
       <line-chart-template :dataSet="yearSale" title="Yearly Sales" />
     </div>
     </div>
@@ -42,8 +43,9 @@
         </div>
       </form>
       </div>
-
+      
       <pie-chart :dataSet="productSale" title="Product Per Sale"/>
+      <span data-cy="data" v-show="false">{{productSales}}</span>
 </div> 
 </template>
 <script  setup>
@@ -51,9 +53,8 @@ import axios from 'axios'
 
 const startDate = ref('2022-01-01')
 const endDate = ref('2022-12-31')
-const pieStartDate = ref('2022-04-01')
-const pieEndDate = ref('2022-04-30')
-const sales = ref(null)
+const pieStartDate = ref('2022-01-01')
+const pieEndDate = ref('2022-12-31')
 const dayToggle=ref(true)
 const monthToggle=ref(false)
 const yearToggle=ref(false)
@@ -64,32 +65,37 @@ const yearSaleTotal = ref(null)
 const daySale = ref(null)
 const daySaleTotal = ref(null)
 const productSale = ref(null)
+const productSales = ref(null)
 const router = useRouter()
 const config = useRuntimeConfig()
 
 const send = async()=>{
   try {
     const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
-    sales.value =data.sale
+    daySale.value =data.sale
+    daySaleTotal.value = data.sale.map(x => x.total).reduce((x,y) => x+y,0)
   } catch (error) {
     router.push({name:'index'})
   }
 
 }
 const day = async ()=>{
-const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/${startDate.value}/${endDate.value}`,useJwtToken())
-daySale.value =data.sale
-      dayToggle.value= true
-   monthToggle.value= false
+
+const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/?startDate=${startDate.value}/&endDate=${endDate.value}`,useJwtToken())
+  daySale.value =data.sale
+  dayToggle.value= true
+  monthToggle.value= false
   yearToggle.value=false
   daySaleTotal.value = data.sale.map(x => x.total).reduce((x,y) => x+y,0)
 }
 const month =async ()=>{
 const { data } =  await axios.get(`${config.BACKEND_URL}/sale/monthly/?startDate=${startDate.value}/&endDate=${endDate.value}`,useJwtToken())
-   monthSale.value=data
-   dayToggle.value= false
+  monthSale.value=data
+  dayToggle.value= false
   yearToggle.value=  false
   monthToggle.value=true
+  monthSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
+
 }
   
 const year =async ()=>{
@@ -98,7 +104,7 @@ const year =async ()=>{
      yearSale.value=data
      dayToggle.value= false
      monthToggle.value= false
-     yearToggle.value=true
+     yearToggle.value= true
     yearSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
   } catch (error) {
     router.push({name:'index'})
@@ -109,7 +115,10 @@ const year =async ()=>{
 const save = async()=>{
   try {
     const { data } =  await axios.get(`${config.BACKEND_URL}/sale/product/?startDate=${pieStartDate.value}/&endDate=${pieEndDate.value}`,useJwtToken())
-    productSale.value =data
+    productSale.value = data
+    productSales.value = data.map(x => 
+      x.prod + ' quantity ' +String(x.total/1000)
+    )
   } catch (error) {
      router.push({name:'index'})
   }

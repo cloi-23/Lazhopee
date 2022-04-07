@@ -47,8 +47,7 @@ export class DeliveryService {
   }
 
   async findDeliveryOrder() {
-    const deliveryList = await this.deliveryModel.find()/* .limit(limit).skip(page * limit) */
-    
+    const deliveryList = await this.deliveryModel.find()/* .limit(limit).skip(page * limit) */ 
     const deliveries = []
     for (const deliver of deliveryList) {
       const orderId = deliver.orderId
@@ -56,6 +55,7 @@ export class DeliveryService {
       const driver = await this.driverModel.findOne({_id: driverId})
       const order = await this.orderModel.findOne({_id: orderId})
       const customerId = order.customerId
+      
       const customer = await this.customerModel.findOne({_id: customerId})
       const driverName = driver.name
       const data = {

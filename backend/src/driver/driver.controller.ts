@@ -44,6 +44,12 @@ export class DriverController {
   remove(@Param('id') id: string) {
     return this.driverService.remove(id);  
   }
+
+  @Delete('/del/last')
+  removeLast() {
+  return this.driverService.removeLast()
+  }
+
   @UseGuards(LocalStrategy)
   @Post('/login')
   async validateManager(@Body() login) { 

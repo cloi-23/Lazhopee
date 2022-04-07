@@ -22,7 +22,7 @@ export class ManagerService {
       return this.managerModel.find()/* .limit(limit).skip(page * limit) */
     }
   
-    async findOne(id: string) {
+    async findOne(id: string) {      
       try {
         const manager = await this.managerModel.findOne({ _id: id }).exec();
         if (!manager) {
@@ -52,8 +52,7 @@ export class ManagerService {
       return customer.save()
     }
   
-    async validateManager(login): Promise<any> {
-      
+    async validateManager(login): Promise<any> {      
       try {
         const user = await this.managerModel.findOne({ username: login.username.toLocaleLowerCase() }).exec();
         

@@ -24,7 +24,7 @@ export class SaleController {
     }
     
     @Get("product")
-    async findProductSale(@Query('startDate') startDate: string,@Query('endDate') endDate: string,@Query() q:any){
+    async findProductSale(@Query('startDate') startDate: string,@Query('endDate') endDate: string,@Query() q:any){      
         return this.saleService.findProductSale(startDate,endDate)
     }
 

@@ -45,8 +45,14 @@ export class StoreService {
          .exec();
       }
     
-      async remove(id: string) {
-        const store = await this.findOne(id)
+      async remove(name: string) {
+        const store = await this.storeModel.findOne({ name: name}).exec();
         return store.remove();
+      }
+      async removeLast() {
+        const res = await this.storeModel.find().sort({_id:-1}).limit(1)
+        const storeId = res[0]._id
+        const store = await this.findOne(storeId)
+        return store.remove()
       }
 }

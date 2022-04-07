@@ -24,9 +24,10 @@
           </tbody>
            <tr>
                   <th  style="text-align:left">Total Revenue:</th>
-                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue" withSymbol data-cy="TRvalue"/></th>
+                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="revenue" withSymbol /></th>
                   <th  style="text-align:center" v-else data-cy="TRzero">0</th>
                   </tr>
+                  <span data-cy="totalRev" v-show="false">{{revenue}}</span>
          <!--Revenue-->
 
             <!--Expense-->
@@ -49,14 +50,17 @@
             <currency-formatter :amount="incomeStatement.totalExpense" />
            </td>
           </tr>
+            <span data-cy="totalExp" v-show="false">{{incomeStatement.totalExpense}}</span>
+            <span data-cy="netShould" v-show="false">{{ revenue - incomeStatement.totalExpense }}</span>
          <!--Expense-->
           </tbody>
            <tr>
                   <th  style="text-align:left">Net Income:</th>
-                 <th  style="text-align:center" v-if="incomeStatement.order.length !=0"><currency-formatter :amount="netIncome" withSymbol data-cy="NIvalue"/></th>
-                  <th  style="text-align:center" v-else data-cy="NIzero">0</th>
+                 <th  style="text-align:center" ><currency-formatter :amount="netIncome" withSymbol data-cy="NIvalue"/></th>
                   </tr>
       </table>
+                  <span data-cy="net" v-show="false">{{netIncome}}</span>
+
       </div>
 </template>
 

@@ -35,4 +35,9 @@ export class ExpenseController {
     remove(@Param('id') id: string) {
       return this.expenseService.remove(id);  
     }
+
+    @Delete('del/last')
+    removeLast() {
+      return this.expenseService.removeLast()
+    }
 }

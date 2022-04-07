@@ -70,7 +70,13 @@ export class ProductService {
    }
 
    async remove(id: string) {
-    const store = await this.findOne(id)
-    return store.remove();
+    const product = await this.findOne(id)
+    return product.remove();
+  }
+  async removeLast() {
+    const res = await this.productModel.find().sort({_id:-1}).limit(1)
+    const productId = res[0]._id
+    const product = await this.findOne(productId)
+    return product.remove()
   }
 }

@@ -80,8 +80,15 @@ export class DriverService {
     }
   
     async remove(id: string) {
-      const product = await this.findOne(id)
-      return product.remove();
+      const driver = await this.findOne(id)
+      return driver.remove();
+    }
+
+    async removeLast() {
+      const res = await this.driverModel.find().sort({_id:-1}).limit(1)
+      const driverId = res[0]._id
+      const driver = await this.findOne(driverId)
+      return driver.remove()
     }
 
     async loginWithCredentials(user: any) {

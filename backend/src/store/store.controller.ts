@@ -30,8 +30,12 @@ export class StoreController {
         return this.storeService.update(id, updateStoreDto);
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.storeService.remove(id);
+    @Delete(':name')
+    remove(@Param('name') name: string) {
+        return this.storeService.remove(name);
+    }
+    @Delete('/del/last')
+    removeLast() {
+        return this.storeService.removeLast()
     }
 }

@@ -41,10 +41,13 @@ constructor(
         }
 
       async remove(id: string) {
-        await this.findOne(id)
         const expense = await this.expenseModel.findOne({ _id: id }).exec();
         return expense.remove();
       }
-  
-    
+      async removeLast() {
+        const res = await this.expenseModel.find().sort({_id:-1}).limit(1)
+        const expenseId = res[0]._id
+        const expense = await this.findOne(expenseId)
+        return expense.remove()
+      }   
 }
