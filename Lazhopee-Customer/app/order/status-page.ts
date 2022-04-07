@@ -29,6 +29,6 @@ export function back() {
 }
 
 export function gotoHistory() {
-  historyViewModel.refresh()
+  // historyViewModel.refresh()
   Frame.topmost().navigate('./history/history-page')
 }

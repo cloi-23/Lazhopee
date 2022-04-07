@@ -56,31 +56,4 @@
     </StackLayout>
     </scrollView>
 </Page>
-      <!-- <scrollView orientation="vertical">
-        <StackLayout orientation="vertical" class="form">
-            <Image src="{{image}}"  width ="200 "/>
-            <Label text="{{name}}" class="header"/>
-        
-            <GridLayout columns="300, *" rows="*, *">
-                <label text="Description :" row="0" col="0" id="label" />
-                <Label id="description" text="{{description}}" textWrap="false" tap="show" row="1" col="0"/>
-              </GridLayout>
-
-              <GridLayout columns="*,*,*,*" rows="*, *,*,*">
-                <label text="Quantity :" row="0" col="0" id="label"/>
-                <Label id="quantity" text="{{quantity}}"  row="0" col="2" id="count"/>
-                <Button text="-"  tap="{{less || null}}"  id="countBTN" row="0" col="1"/>
-                <Button text="+"  tap="{{add || null}}"  id="plusBTN"  row="0" col="3" />
-              </GridLayout>
-              <GridLayout columns="300" rows="*, *">
-                <label text="Price :" row="0" col="0"   id="label"/>
-                <Label  text="{{'₱' +price}}" textWrap="false" tap="show" row="0" col="0"  id="count"/>
-              </GridLayout>
-              <GridLayout columns="300" rows="*, *">
-                <label text="Total Price :" row="0" col="0"   id="totalPrice"/>
-                <Label  text="{{'₱' +totalPrice || 0}}" textWrap="false" tap="show" row="0" col="0"  id="count"/>
-              </GridLayout>
-            <Button text="Add Cart" class="btn btn-primary" tap="{{addToCart || null}}"/>
-            <Button text="Buy Now" class="btn btn-primary" tap="{{buy || null}}"/>      
-        </StackLayout>
-    </scrollView> -->
+    

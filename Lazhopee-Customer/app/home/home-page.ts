@@ -32,7 +32,7 @@ export function goToCart() {
 
 export function goToOrder() {
   Frame.topmost().navigate('./order/status-page')
-  statusViewModel.refresh()
+  // statusViewModel.refresh()
 }
 export function productDetails(args){
 Frame.topmost().navigate({moduleName:'./product/detail-page',clearHistory:true,context:{

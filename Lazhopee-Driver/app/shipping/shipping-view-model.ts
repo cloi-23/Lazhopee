@@ -13,7 +13,7 @@ export class ShippingViewModel extends Observable {
   private _shippingList = JSON.parse(ApplicationSettings.getString("shippingList","[]"))
   private shippingList:any=JSON.parse(ApplicationSettings.getString("shippingDetails","[]"))
   private token: string = JSON.parse(ApplicationSettings.getString('token'))
-
+  private _driveName: string = JSON.parse(ApplicationSettings.getString('name'))
   async getShippingDetails(){
     try {
      let shippingList =  this._shippingList
@@ -73,4 +73,7 @@ const filteredOrderByShipping = shippingOrder.filter(x=>{
     return "Shipping reload"
   }
 
+  get driverName():string{
+    return this._driveName
+  }
 }

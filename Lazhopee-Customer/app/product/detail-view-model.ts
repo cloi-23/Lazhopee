@@ -106,6 +106,12 @@ async buy() {
         })
     })
       console.log('Successfully Purchase!')
+      Dialogs.alert({
+        title:"Lazhopee App",
+        message:`Successfully Purchase!`,
+        cancelable:true,
+        okButtonText:"ok"
+        })
       this.backButton()
     } catch (error) {
       console.log(error);

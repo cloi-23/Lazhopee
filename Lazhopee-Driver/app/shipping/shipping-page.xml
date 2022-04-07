@@ -3,6 +3,7 @@
     
     <ActionBar title="Lazhopee Driver ">
         <ActionBar.actionItems>
+            <ActionItem text='{{driverName ||""}}'/>
         </ActionBar.actionItems>
     </ActionBar>
 
