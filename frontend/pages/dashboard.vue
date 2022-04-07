@@ -19,7 +19,7 @@
       </form>
     </div>
  
-    <div class="chart" >
+    <div class="chart"  v-if="daySale">
     <div v-if="dayToggle && !monthToggle && !yearToggle">
       <line-chart-template :dataSet="daySale" title="Daily Sales" />
     </div>
@@ -43,18 +43,19 @@
         </div>
       </form>
       </div>
-      
-      <pie-chart :dataSet="productSale" title="Product Per Sale"/>
+      <div v-if="productSale">
+        <pie-chart :dataSet="productSale" title="Product Per Sale"/>
+      </div>
+    
       <span data-cy="data" v-show="false">{{productSales}}</span>
 </div> 
 </template>
 <script  setup>
 import axios from 'axios'
-
-const startDate = ref('2022-01-01')
-const endDate = ref('2022-12-31')
-const pieStartDate = ref('2022-01-01')
-const pieEndDate = ref('2022-12-31')
+const startDate = ref(useYear().last)
+const endDate = ref(useYear().now)
+const pieStartDate = ref(useMonth().last)
+const pieEndDate = ref(useMonth().now)
 const dayToggle=ref(true)
 const monthToggle=ref(false)
 const yearToggle=ref(false)
@@ -75,13 +76,13 @@ const send = async()=>{
     daySale.value =data.sale
     daySaleTotal.value = data.sale.map(x => x.total).reduce((x,y) => x+y,0)
   } catch (error) {
-    router.push({name:'index'})
+    // router.push({name:'index'})
   }
 
 }
 const day = async ()=>{
 
-const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/?startDate=${startDate.value}/&endDate=${endDate.value}`,useJwtToken())
+const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
   daySale.value =data.sale
   dayToggle.value= true
   monthToggle.value= false
@@ -89,7 +90,7 @@ const { data } =  await axios.get(`${config.BACKEND_URL}/sale/daily/?startDate=$
   daySaleTotal.value = data.sale.map(x => x.total).reduce((x,y) => x+y,0)
 }
 const month =async ()=>{
-const { data } =  await axios.get(`${config.BACKEND_URL}/sale/monthly/?startDate=${startDate.value}/&endDate=${endDate.value}`,useJwtToken())
+const { data } =  await axios.get(`${config.BACKEND_URL}/sale/monthly/?startDate=${startDate.value}&endDate=${endDate.value}`,useJwtToken())
   monthSale.value=data
   dayToggle.value= false
   yearToggle.value=  false
@@ -107,20 +108,20 @@ const year =async ()=>{
      yearToggle.value= true
     yearSaleTotal.value = data.map(x => x.total).reduce((x,y) => x+y,0)
   } catch (error) {
-    router.push({name:'index'})
+    // router.push({name:'index'})
   }
 
   
 }
 const save = async()=>{
   try {
-    const { data } =  await axios.get(`${config.BACKEND_URL}/sale/product/?startDate=${pieStartDate.value}/&endDate=${pieEndDate.value}`,useJwtToken())
+    const { data } =  await axios.get(`${config.BACKEND_URL}/sale/product/?startDate=${pieStartDate.value}&endDate=${pieEndDate.value}`,useJwtToken())
     productSale.value = data
     productSales.value = data.map(x => 
       x.prod + ' quantity ' +String(x.total/1000)
     )
   } catch (error) {
-     router.push({name:'index'})
+    //  router.push({name:'index'})
   }
 
 }
