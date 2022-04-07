@@ -47,8 +47,6 @@
 
 <script setup>
 import axios from 'axios'
-import { tokenJWT } from '../../store/token'
-import { storeToRefs } from 'pinia'
 const name = ref(null)
 const store = ref(null)
 const sellingPrice = ref(null)
