@@ -48,7 +48,7 @@ export class LoginViewModel extends Observable{
     ApplicationSettings.setString("driverId",JSON.stringify(res.content.toJSON().id))
      const driverId= ApplicationSettings.getString('driverId')
      const token= ApplicationSettings.getString('token')
-     const jwtTokenGuard=new JwtTokenGuard()
+    //  const jwtTokenGuard=new JwtTokenGuard()
     const resDelivery= await Http.request({
         url:`${process.env.BACKEND_URL}/delivery/driver/${driverId.split('"').join('')}`,
         method:'GET',
@@ -58,8 +58,16 @@ export class LoginViewModel extends Observable{
         }
       })
    // const resDelivery =await jwtTokenGuard.get(`${process.env.BACKEND_URL}/delivery/driver/${driverId.split('"').join('')}`)
-console.log(resDelivery);
 
+const resDriver= await Http.request({
+    url:`${process.env.BACKEND_URL}/driver/${driverId.split('"').join('')}`,
+    method:'GET',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization' : `Bearer ${token}`    
+    }
+  })
+    ApplicationSettings.setString("name",JSON.stringify(resDriver.content.toJSON().name))
     ApplicationSettings.setString("deliverList",JSON.stringify(resDelivery.content))
     ApplicationSettings.setString("shippingList",JSON.stringify(resDelivery.content))
     if(res.content.toJSON().status == "ok" || 200){

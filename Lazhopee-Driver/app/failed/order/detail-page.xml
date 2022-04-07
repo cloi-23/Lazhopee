@@ -7,7 +7,7 @@
     </ActionBar>
 
     <FlexboxLayout flexDirection="column" class="layout"  >
-        <GridLayout columns="100,*" rows="30,30,50" >
+        <GridLayout columns="100,*" rows="30,30,100" >
             <label text="Customer Name:" row="0" col="0"  class="text-center" />
             <label text="Contact:" row="1" col="0"   class="text-center" />
             <label text="Addrss:" row="2" col="0"   class="text-center" />
@@ -40,7 +40,7 @@
     </ListView>
 
 
-    <GridLayout columns="*,*,*,*,*" rows="*,*"  height="10%" >
+    <GridLayout columns="*,*,*,*,*" rows="*,*"  height="30%" >
         <label text="Total Amount" row="2" col="3"  class="text-center" />
         <label text="{{totalAmount || '0'}}" row="2" col="4"   class="text-center" />
     </GridLayout>

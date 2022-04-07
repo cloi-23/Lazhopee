@@ -5,17 +5,18 @@ xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh">
              <ActionItem text="Back" tap="back"/>    
         </ActionBar.actionItems>
     </ActionBar>
-
-     <FlexboxLayout flexDirection="column">
-        <GridLayout columns="*,*,*,*,*" rows="20" >
+    
+     <FlexboxLayout flexDirection="column"   visibility ="{{ _cart == ''  ? 'collapsed' : 'visible'}}">
+       
+        <GridLayout columns="*,*,*,*,*" rows="60" height="10%">
             <label text="Image" row="0" col="0"  class="text-center" />
             <label text="Name" row="0" col="1"   class="text-center" />
             <label text="Qauntity" row="0" col="2"   class="text-center" />
             <label text="Price" row="0" col="3"   class="text-center"  />
-            <label text="Total" row="0" col="4"   class="text-center"  />
+            <label text="Total" row="0" col="4"   class="text-center"    />
         </GridLayout>
 
-        <ListView  items="{{ _cart || 'no cart' }}"  >
+        <ListView  items="{{ _cart || 'no cart' }}" height="50%" >
             <ListView.itemTemplate >
                 <ScrollView scroll="onScroll">
                 <GridLayout columns="*,*,*,*,*" rows="25,50"  class="sub-layout" height="100%">

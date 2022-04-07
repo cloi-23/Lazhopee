@@ -11,9 +11,24 @@ interface ProductDetails    {
   category: string
 }
 export class HomeViewModel extends Observable {
-    private product:Object=  JSON.parse(ApplicationSettings.getString("productList","[]"))
+    private _product:Object=  JSON.parse(ApplicationSettings.getString("productList","[]"))
     private token:String=  JSON.parse(ApplicationSettings.getString("token","[]"))
-    
+    constructor(){
+      super();
+      this.product;
+  }
+
+  get  product():Object {
+    return this._product
+}
+set product(value: Object) {
+ if (this._product !== value) {
+    this._product = value;
+    this.notifyPropertyChange("product", value);
+    }
+}
+
+
      async getProduct():Promise<Object>{ 
 
      try {
@@ -27,7 +42,7 @@ export class HomeViewModel extends Observable {
     })
     const productList =  imageHostCorretor(res.content.toJSON())
     ApplicationSettings.setString("productList",JSON.stringify(productList))
-    return  res.content
+    return  productList
 
      } catch (error) {
        console.log(error);
@@ -37,7 +52,7 @@ export class HomeViewModel extends Observable {
    async  refresh(){
 
 await this.getProduct()
-Frame.topmost().navigate('./home/home-page')
+ Frame.topmost().navigate('./home/home-page')
 return "reload"
     }
     get cart():string{

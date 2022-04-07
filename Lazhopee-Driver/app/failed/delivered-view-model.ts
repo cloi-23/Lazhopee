@@ -12,6 +12,7 @@ export class DeliveredViewModel extends Observable {
   private _deliverList = JSON.parse(ApplicationSettings.getString("deliverList","[]"))
   private deliverList:any=JSON.parse(ApplicationSettings.getString("deliverDetails","[]"))
   private token: string = JSON.parse(ApplicationSettings.getString('token'))
+  private _driveName: string = JSON.parse(ApplicationSettings.getString('name'))
 
   async getDeliverDetails(){
     try {
@@ -65,6 +66,9 @@ export class DeliveredViewModel extends Observable {
     await this.getDeliverDetails()
     Frame.topmost().navigate('./failed/delivered-page')
     return "Delivered reload"
+  }
+  get driverName():string{
+    return this._driveName
   }
 
 }
