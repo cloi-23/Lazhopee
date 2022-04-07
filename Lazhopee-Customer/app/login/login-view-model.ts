@@ -3,8 +3,8 @@ import { Http } from "@nativescript/core";
 
 export class LoginViewModel extends Observable{
     private _errMsg:string = ''
-    private _username:string="frederico01"
-    private _password:string="12345"
+    private _username:string=process.env.USERNAME
+    private _password:string=process.env.PASSWORD
     constructor(){
         super();
         this.username;

@@ -1,5 +1,6 @@
 import { Observable,Dialogs,Frame ,ApplicationSettings} from "@nativescript/core";
 import { Http } from "@nativescript/core";
+import { imageHostCorrector } from "~/utils/imageHostCorrector";
 interface OrderDetails{
     _id: string,
     driverId:string,
@@ -43,9 +44,8 @@ export class DetailViewModel extends Observable{
         ApplicationSettings.setString("status",JSON.stringify(data.order.status)) 
         this._orderId = data.orderId
          this.datas = data
-         this._image = data.order.articles[0].image
          this._articles = data.order.articles
-         this._total = []
+         this._total = 0
          this._name = data.order.name
          this._address = data.order.address
          this._contact=data.order.contact
@@ -58,36 +58,13 @@ export class DetailViewModel extends Observable{
         
         return this._orderId
     }
-    get image():string {
-        const imageHost =   this._image.split('').slice(7,16).join('')
-        if(imageHost == 'localhost'){
-            const imgLocation=this._image.split('').slice(16).join('')
-            const image = `${process.env.BACKEND_URL}${imgLocation}`;
-        return image
-    }
-    return this._image  
-    }
     get articles():string {
-     const articles = this._articles.map(prod =>{
-         const quantity = prod.quantity
-         const price = prod.sellingPrice
-         
-         this._total.push(quantity * price)
-         return {
-             productId: prod.productId,
-             sellingPrice:prod.sellingPrice,
-             quantity:prod.quantity,
-             name:prod.name,
-             image:prod.image,
-             total:quantity * price
-         }
-         
-     })
-        return articles   
+        const articles =imageHostCorrector(this._articles).articles
+         return articles    
     }
     get totalAmount():Number{
-        const totalAmount = this._total.reduce((x,y)=>x+y)
-        return totalAmount
+        this._total=imageHostCorrector(this._articles).total
+        return this._total
     }
     get status():Array<string>{
         return ["Success",'Failed']

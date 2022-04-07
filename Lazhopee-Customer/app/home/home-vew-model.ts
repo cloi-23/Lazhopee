@@ -1,5 +1,6 @@
 import { Observable ,ApplicationSettings, Frame} from '@nativescript/core'
 import { Http } from "@nativescript/core";
+import { imageHostCorretor } from '~/utils/imageHostCorrector';
 interface ProductDetails    {
   _id: string,
   sellingPrice: number,
@@ -24,10 +25,8 @@ export class HomeViewModel extends Observable {
           'Authorization' : `Bearer ${this.token}`    
       },
     })
-    console.log(res.content);
-    
-
-    ApplicationSettings.setString("productList",JSON.stringify(res.content))
+    const productList =  imageHostCorretor(res.content.toJSON())
+    ApplicationSettings.setString("productList",JSON.stringify(productList))
     return  res.content
 
      } catch (error) {

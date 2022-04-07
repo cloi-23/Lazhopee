@@ -17,7 +17,7 @@
             <label text="{{address || 'NO ADDRESS'}}" row="2" col="1"    />
         
         </GridLayout>
-        <GridLayout columns="*,*,*,*,*" rows="20" >
+        <GridLayout columns="*,*,*,*,*" rows="30" >
             <label text="Image" row="0" col="0"  class="text-center" />
             <label text="Name" row="0" col="1"   class="text-center" />
             <label text="Qauntity" row="0" col="2"   class="text-center" />

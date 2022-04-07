@@ -1,4 +1,5 @@
 import { ApplicationSettings, Frame, Http, Observable } from "@nativescript/core"
+import { imageHostCorretor } from "~/utils/imageHostCorrector"
 
 export class HistoryViewModel extends Observable {
   private readonly customerId = JSON.parse(ApplicationSettings.getString('customerId'))
@@ -22,22 +23,7 @@ export class HistoryViewModel extends Observable {
           return false
         }
          })
-          const productList = deliveredOrder.map(y => { 
-            const imageHost = y.image.split('').slice(7,16).join('')
-            if(imageHost == 'localhost'){
-                const imgLocation = y.image.split('').slice(16).join('')
-                const image = `${process.env.BACKEND_URL}${imgLocation}`;
-            return {
-              productId: y.productId,
-              sellingPrice: y.sellingPrice,
-              quantity: y.quantity,
-              name: y.name,
-              image: image,
-              status: y.status
-              }
-            }
-           })
-           
+          const productList = imageHostCorretor(deliveredOrder)
           ApplicationSettings.setString('history', JSON.stringify(productList))
     } catch (error) {
       console.log(error);   
@@ -45,7 +31,6 @@ export class HistoryViewModel extends Observable {
   }
   async refresh(){
     await this.history()
-    // ApplicationSettings.setString("status",JSON.stringify(productList))
     Frame.topmost().navigate('./history/history-page')
     return "reload"
     }

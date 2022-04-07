@@ -1,4 +1,5 @@
 import { ApplicationSettings, Frame, Http, Observable } from "@nativescript/core"
+import { imageHostCorretor } from "~/utils/imageHostCorrector"
 
 export class StatusViewModel extends Observable {
   private readonly customerId = JSON.parse(ApplicationSettings.getString('customerId'))
@@ -15,6 +16,7 @@ export class StatusViewModel extends Observable {
             'Authorization' : `Bearer ${this.token}`    
         },
         })
+
           const deliveredOrder = res.content.toJSON().filter(x => { 
             if(x.status == 'Shipping' || x.status == 'Pending'){  
             return x
@@ -22,23 +24,8 @@ export class StatusViewModel extends Observable {
             return false
           }
            })
-           const productList = deliveredOrder.map(y => {
-            const imageHost = y.image.split('').slice(7,16).join('')
-            if(imageHost == 'localhost') {
-                const imgLocation = y.image.split('').slice(16).join('')
-                const image = `${process.env.BACKEND_URL}${imgLocation}`;       
-               const data = {
-                  productId: y.productId,
-                  sellingPrice: y.sellingPrice,
-                  quantity: y.quantity,
-                  name: y.name,
-                  image,
-                  status: y.status
-                  }   
-               return data                       
-            }
-          })
-          
+           const productList = imageHostCorretor(deliveredOrder)
+           
           ApplicationSettings.setString('status', JSON.stringify(productList))
           
     } catch (error) {

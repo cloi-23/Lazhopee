@@ -51,17 +51,22 @@ export class OrderService {
       }
       let orderList = []
 
+
       for (let x in arr){
         if (arr[x].articles.length != 1) {
           for (let y in arr[x].articles) {
-            const product = await this.productModel.find({ _id: arr[x].articles[y].productId })
-            let merge = Object.assign(arr[x].articles[y],{ name:product[0].name,image:product[0].image,status:arr[x].status}) 
-            orderList.push(merge)
+            console.log(y);
+             const product = await this.productModel.find({ _id: arr[x].articles[y].productId })
+             let merge = Object.assign(arr[x].articles[y],{ name:product[0].name,image:product[0].image,status:arr[x].status}) 
+             orderList.push(merge)
           }
         } else {
-           const product = await this.productModel.find({ _id: arr[x].articles[0].productId })
-            let merge = Object.assign(arr[x].articles[0],{name:product[0].name,image:product[0].image,status:arr[x].status});
-            orderList.push(merge);               
+          //  const product = await this.productModel.find({ _id: arr[x].articles[0].productId })
+          //  console.log(product);
+          //     let merge = Object.assign(arr[x].articles[0],{name:product[0].name,image:product[0].image,status:arr[x].status});
+          //     console.log(merge);
+              
+          //   orderList.push(merge);               
         }    
       }
        return orderList  
