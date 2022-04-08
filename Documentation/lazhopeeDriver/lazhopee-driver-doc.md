@@ -25,6 +25,18 @@ Major domains and companies leverage NativeScript to develop high-level applicat
 ```
 cd Lazhopee-Driver
 ```
+## Create Development env 
+```
+BACKEND_URL =  http://172.18.42.65:3000 =>  type your ubuntu ip addr and add :3000
+USERNAME = mejari => type your default usernme (optional)
+PASSWORD = 12345  => type your default password (optional)
+```
+## Create Production env 
+```
+BACKEND_URL =  https://lazhopee.herokuapp.com => type your rest api here
+USERNAME = ''
+PASSWORD = ''
+```
 
 
 ## Installation
