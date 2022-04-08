@@ -34,12 +34,12 @@ cd backend
 ```
 ## Create Development env (.env)
 ```
-BACKEND_URL =  'mongodb://localhost:27018/Lazhopee' =>  type your mongodb connection
+DATABASE_URL =  'mongodb://localhost:27018/Lazhopee' =>  type your mongodb connection
 
 ```
-## Create Production env (.env)  * Change BACKEND_URL link of your rest api 
+## Create Production env (.env)  * Change DATABASE_URL link of your cloud mongodb connection
 ```
-BACKEND_URL =  'mongodb+srv://lazhopee:GodTNWdBDQjbEWik@lazhopee.um1by.mongodb.net/Lazhopee?retryWrites=true&w=majority' => type your cloud mongodb connection
+DATABASE_URL =  'mongodb+srv://lazhopee:GodTNWdBDQjbEWik@lazhopee.um1by.mongodb.net/Lazhopee?retryWrites=true&w=majority' => type your cloud mongodb connection
 ```
 ## Installation
 ```
