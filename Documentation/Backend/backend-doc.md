@@ -122,7 +122,7 @@ npm run test:e2e
 [backend/src/manager/auth/strategy/jwt.strategy.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/auth/strategy/jwt.strategy.ts) |  JWT Strategy configuration for manager
 [backend/src/manager/auth/strategy/local.strategy.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/auth/strategy/local.strategy.ts) |  Local Strategy configuration for manager
 [backend/src/manager/dto/create-manager.dto.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/dto/create-manager.dto.ts) |  DTO for creating manager
-[backend/src/manager/dto/login-manager.dto.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/dto/login-manager.dto.ts)   DTO for login manager
+[backend/src/manager/dto/login-manager.dto.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/dto/login-manager.dto.ts)  | DTO for login manager
 [backend/src/manager/dto/update-manager.dto.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/dto/update-manager.dto.ts) |  DTO for updating manager
 [backend/src/manager/entities/manager.entity.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/entities/manager.entity.ts) |  Use to create manager model
 [backend/src/manager/utils/brcrypt.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/backend/src/manager/utils/brcrypt.ts)  | Brcrypt configuration for manager password
