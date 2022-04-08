@@ -25,6 +25,18 @@ Major domains and companies leverage NativeScript to develop high-level applicat
 ```
 cd Lazhopee-Customer
 ```
+## Create Development env (.env)
+```
+BACKEND_URL =  http://172.18.42.65:3000 =>  type your ubuntu ip addr and add :3000
+USERNAME = mejari => type your default usernme (optional)
+PASSWORD = 12345  => type your default password (optional)
+```
+## Create Production env (.env.prod)
+```
+BACKEND_URL =  https://lazhopee.herokuapp.com => type your rest api here
+USERNAME = ''
+PASSWORD = ''
+```
 
 
 ## Installation
@@ -88,7 +100,7 @@ detox test -c ios|android
 [Lazhopee-Customer\app\history\history-page.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/history/history-page.ts) | It trigger the request data function when navigate 
 [Lazhopee-Customer\app\history\history-vew-model.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/history/history-vew-model.ts) | Getting the history data of Customer order and send to xml
 [Lazhopee-Customer\app\history\history-page.xml](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/history/history-page.xml) | It shows order history of the client
-[Lazhopee-Customer\app\images](https://github.com/MEJARICLOI/Lazhopee/tree/main/Lazhopee-Customer/app/images) | store all  images
+[Lazhopee-Customer\app\images](https://github.com/MEJARICLOI/Lazhopee/tree/main/Lazhopee-Customer/app/images) | Storage of all  images
 [Lazhopee-Customer\app\utils\imageHostCorrector.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/utils/imageHostCorrector.ts) | It convert localhost:3000/test.png -> 123.324.231.1/test.png
 [Lazhopee-Customer\app\login\login.css](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/login/login.css) | Css file for styling login page
 [Lazhopee-Customer\app\home\home-page.css](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/home/home-page.css) | Css file for styling home page
