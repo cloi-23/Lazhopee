@@ -11,15 +11,19 @@
 
 ## Why we use Nestjs?
 ### Few of the great features by NestJS.
-Nest.js was created to help developers create Monoliths and Microservices.
-It’s simple to use, quick to learn, and easy to apply
-It leverages TypeScript — strongly typed language which is a superset of JavaScript
-Powerful Command Line Interface (CLI) to boost productivity and ease of development
-Support for dozens of nest-specific modules that help you easily integrate with common technologies and concepts like Type ORM, Mongoose, GraphQL, Logging, Validation, Caching, WebSockets, and much more
-Easy unit-testing applications
-Great documentation.
-Built for large-scale enterprise applications.
+* Nest.js was created to help developers create Monoliths and Microservices.
+* It’s simple to use, quick to learn, and easy to apply
+* It leverages TypeScript — strongly typed language which is a superset of JavaScript
+* Powerful Command Line Interface (CLI) to boost productivity and ease of development
+* Support for dozens of nest-specific modules that help you easily integrate with common technologies and concepts like Type ORM, Mongoose, GraphQL, Logging, Validation, Caching, WebSockets, and much more
+* Easy unit-testing applications
+* Great documentation.
+* Built for large-scale enterprise applications.
 …and it never ends.
+### Talking about the Core Components of Nest JS?
+* Controllers are responsible for handling incoming requests and responding to the application’s client-side.
+* Modules are used to structure code and separate functionality into logical, reusable chunks.
+* Providers or services which abstract complexity and logic away from the user. It’s possible to inject the service into controllers or other services.
 
 # README
 ## Go to Backend Folder
