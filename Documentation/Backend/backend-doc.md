@@ -9,6 +9,18 @@
 ## Lazhopee Entity Relationship Diagram (ERD)
 <img src="https://github.com/MEJARICLOI/Lazhopee/blob/main/Documentation/Backend/erd.png" width="100%">
 
+## Why we use Nestjs?
+### Few of the great features by NestJS.
+Nest.js was created to help developers create Monoliths and Microservices.
+It’s simple to use, quick to learn, and easy to apply
+It leverages TypeScript — strongly typed language which is a superset of JavaScript
+Powerful Command Line Interface (CLI) to boost productivity and ease of development
+Support for dozens of nest-specific modules that help you easily integrate with common technologies and concepts like Type ORM, Mongoose, GraphQL, Logging, Validation, Caching, WebSockets, and much more
+Easy unit-testing applications
+Great documentation.
+Built for large-scale enterprise applications.
+…and it never ends.
+
 # README
 ## Go to Backend Folder
 ```
