@@ -20,12 +20,12 @@ npm install
 
 #### Development
 ```
-$ ns run android
+ns run android
 ```
 
 #### Production mode
 ```
-$ ns run android --env.env=prod
+ns run android --env.env=prod
 ```
 
 ## Compiles and minifies for  generate aab file
@@ -37,8 +37,8 @@ ns build android  --bundle --env=prod --env.uglify --env.aot --env.snapshot  --r
 
 ####  Integration Tests
 ```
-$ detox build -c ios|android
-$ detox test -c ios|android
+detox build -c ios|android
+detox test -c ios|android
 ```
 
 

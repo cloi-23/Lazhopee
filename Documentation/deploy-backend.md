@@ -16,22 +16,22 @@ npm install
 
 #### Development
 ```
-$ npm run start
+npm run start
 ```
 #### Watch mode
 ```
-$ npm run start:dev
+npm run start:dev
 ```
 #### Production mode
 ```
-$ npm run start:prod
+npm run start:prod
 ```
 
 ## Test
 
 ####  e2e Tests
 ```
-$ npm run test:e2e
+npm run test:e2e
 ```
 
 

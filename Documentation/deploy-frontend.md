@@ -21,7 +21,7 @@ npm install
 
 #### Development
 ```
-$ npm run dev
+npm run dev
 ```
 
 ## Compiles and minifies for production
@@ -33,7 +33,7 @@ npm run build
 
 ####  Integration Tests
 ```
-$ npm run cypress
+npm run cypress
 ```
 
 

@@ -19,25 +19,25 @@ npm install
 
 #### Development
 ```
-$ ns run android
+ns run android
 ```
 
 #### Production mode
 ```
-$ ns run android --env.env=prod
+ns run android --env.env=prod
 ```
 
 ## Compiles and minifies for  generate aab file
 ```
-ns build android  --bundle --env=prod --env.uglify --env.aot --env.snapshot  --release --key-store-path URLShortener.jks  --key-store-password 123456 --key-store-alias URLShortenerApp --key-store-alias-password 123456  --aab --copy-to Lazhopee.aab
+ build android  --bundle --env=prod --env.uglify --env.aot --env.snapshot  --release --key-store-path URLShortener.jks  --key-store-password 123456 --key-store-alias URLShortenerApp --key-store-alias-password 123456  --aab --copy-to Lazhopee.aab
 ```
 
 ## Test
 
 ####  Integration Tests
 ```
-$ detox build -c ios|android
-$ detox test -c ios|android
+detox build -c ios|android
+detox test -c ios|android
 ```
 
 
