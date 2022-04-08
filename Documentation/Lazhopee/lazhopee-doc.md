@@ -67,7 +67,6 @@ detox test -c ios|android
 # File and Description
  |  File |  Description 
 ---|  ---| 
-
 [Lazhopee-Customer\app\register\emailValidator.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/register/emailValidator.ts) | Validate the input email
 [Lazhopee-Customer\app\register\register-page.ts](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/register/register-page.ts) |  Validate user input and send confirmation to email
 [Lazhopee-Customer\app\register\register-page.xml](https://github.com/MEJARICLOI/Lazhopee/blob/main/Lazhopee-Customer/app/register/register-page.xml) | Display form for user input 
