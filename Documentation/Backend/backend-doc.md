@@ -24,6 +24,8 @@
 * Controllers are responsible for handling incoming requests and responding to the application’s client-side.
 * Modules are used to structure code and separate functionality into logical, reusable chunks.
 * Providers or services which abstract complexity and logic away from the user. It’s possible to inject the service into controllers or other services.
+*  Guard  use to protect and safe guard apis from unauthorized or unauthenticated users. Like pipes and filters, guards in nestjs are decorated with @Injectable() decorator. Every guard you use must implement the CanActivate interface
+* DTO is an object that defines how the data will be sent over the network. We could determine the DTO schema by using TypeScript interfaces, or by simple classes. Interestingly, we recommend using classes here.
 
 # README
 ## Go to Backend Folder
