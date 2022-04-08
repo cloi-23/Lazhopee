@@ -3,10 +3,11 @@
 1. [Overview](#Overview)
 2. [README](#README)
 3. [Dependencies](#Dependencies)
+4. [File and Description](#File-and-Description)
 
 # Overview
 ## Lazhopee Entity Relationship Diagram (ERD)
-<img src="https://github.com/MEJARICLOI/Lazhopee/blob/main/Documentation/Backend/erd.png" width="600">
+<img src="https://github.com/MEJARICLOI/Lazhopee/blob/main/Documentation/Backend/erd.png" width="100%">
 
 # README
 ## Go to Backend Folder
@@ -69,3 +70,8 @@ npm run test:e2e
 * reflect-metadata : ^0.1.13
 * rimraf : ^3.0.2
 * rxjs : ^7.2.0
+
+# File and Description
+| File| Description 
+---| ---|
+[src/public/uploads](https://github.com/MEJARICLOI/Lazhopee/tree/main/backend/public/uploads )  | upload storage 
