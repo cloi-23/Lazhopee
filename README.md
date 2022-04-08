@@ -2,7 +2,10 @@
 
 ## DEVELOPMENT ENVIRONMENT ONBOARDING :
 1. Run Linux Server 
-2. type "git clone https://github.com/MEJARICLOI/Lazhopee.git" then enter
+2. Get Source Code
+```
+git clone https://github.com/MEJARICLOI/Lazhopee.git
+```
 3. Set up Project
 - [How to Deploy Backend](https://github.com/MEJARICLOI/Lazhopee/blob/main/Documentation/deploy-backend.md)
 - [How to Deploy Frontend](https://github.com/MEJARICLOI/Lazhopee/blob/main/Documentation/deploy-frontend.md)
