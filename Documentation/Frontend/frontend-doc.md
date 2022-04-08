@@ -21,7 +21,15 @@
 cd frontend
 ```
 
+## Create Development env (.env)
+```
+BACKEND_URL =  http://172.18.42.65:3000 =>  type your ubuntu ip addr and add :3000
 
+```
+## Create Production env (.env)  * Change BACKEND_URL link of your rest api 
+```
+BACKEND_URL =  https://lazhopee.herokuapp.com => type your rest api here
+```
 
 ## Installation
 ```

@@ -21,7 +21,7 @@ import { SaleModule } from './sale/sale.module'
 @Module({
   imports: [
   ConfigModule.forRoot(),
-  MongooseModule.forRoot(process.env.DEVELOP),
+  MongooseModule.forRoot(process.env.BACKEND_URL),
   CustomerModule,
   DriverModule,
   ManagerModule,
