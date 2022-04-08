@@ -1,7 +1,7 @@
 # Backend Documentation
 ## [Get started](#README)
-1.[Overview](#Overview)
-2.[README](#README)
+1. [Overview](#Overview)
+2. [README](#README)
 
 # Overview
 ## Lazhopee Entity Relationship Diagram (ERD)
