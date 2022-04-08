@@ -11,7 +11,7 @@
 * It’s great for SEO: it solves all the SEO issues that single-page apps are reputed for (client-rendered content, mobile web performance, URL and routing, etc.)
 * It provides an opinionated structure and setup.
 * automatic code-splitting.
-* It can Create universal apps without the hassle:
+* It can create universal apps without hassle
 
 
 # README
